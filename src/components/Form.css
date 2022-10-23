@@ -1,0 +1,17 @@
+.form-group input {
+  display: flex;
+  margin-bottom: 24px;
+  padding-left: 6px;
+  height: 36px;
+  width: 100%;
+  border: 1px grey solid;
+}
+.form {
+  margin: 72px 48px;
+}
+.form-group button {
+  background: transparent;
+  border: 1px grey solid;
+  height: 36px;
+  width: 96px;
+}
