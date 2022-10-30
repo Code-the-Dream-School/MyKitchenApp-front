@@ -1,12 +1,17 @@
 import React from "react";
-import SignIn from "./components/SignIn";
 import "./App.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Landing from "./Pages/Landing/Landing";
+
+const theme = createTheme();
 
 function App() {
   return (
-    <div className="App">
-      <SignIn />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Landing />
+      </div>
+    </ThemeProvider>
   );
 }
 
