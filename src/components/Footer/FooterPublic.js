@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Box, Link, Grid } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 const FooterPublic = () => {
   return <footer>
