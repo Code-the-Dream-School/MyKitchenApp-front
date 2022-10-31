@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
-export default function SignInSide() {
+export default function Landing() {
   const handleSubmit = () => {
     console.log("Get Started");
   };
@@ -72,3 +72,6 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+export default Landing;
+
