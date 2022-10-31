@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { NavLink } from "react-router-dom";
 
 const pages = ["Dashboard", "Search", "Favorite"];
 const settings = ["Profile", "History", "Logout"];
@@ -91,15 +92,16 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
-                    style={{
-                      textDecoration: "none",
-                      color: "rgb(0, 0, 0)",
-                    }}
-                    to={`/${page}`}
-                  >
-                    {page}
+                  <Typography textAlign="center">
+                    <NavLink
+                      style={{
+                        textDecoration: "none",
+                        color: "rgb(0, 0, 0)",
+                      }}
+                      to={`/${page}`}
+                    >
+                      {page}
+                    </NavLink>
                   </Typography>
                 </MenuItem>
               ))}
@@ -142,7 +144,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Typography
+                <NavLink
                   style={{
                     textDecoration: "none",
                     color: "rgb(255, 255, 255)",
@@ -150,7 +152,7 @@ function ResponsiveAppBar() {
                   to={`/${page}`}
                 >
                   {page}
-                </Typography>
+                </NavLink>
               </Button>
             ))}
           </Box>
@@ -178,15 +180,15 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography
+                  <NavLink
                     style={{
                       textDecoration: "none",
-                      color: "rgb(0,0,0)",
+                      color: "rgb(0, 0, 0)",
                     }}
                     to={`/${setting}`}
                   >
                     {setting}
-                  </Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
