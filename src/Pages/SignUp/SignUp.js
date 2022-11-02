@@ -1,12 +1,12 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Link } from "react-router-dom";
 
-export default function SignIn() {
+export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -19,7 +19,6 @@ export default function SignIn() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -60,6 +59,16 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="confirm-password"
+            label="Confirm Password"
+            type="confirm-password"
+            id="confirm-password"
+            autoComplete="confirm-password"
+          />
           <Button
             type="submit"
             variant="outlined"
@@ -72,24 +81,28 @@ export default function SignIn() {
               height: "50px",
               backgroundColor: "black",
               color: "white",
+              "&:hover": {
+                backgroundColor: "#5a5a5a",
+              },
             }}
           >
             Create Account
           </Button>
-
-          <Button
-            variant="outlined"
-            sx={{
-              mt: 3,
-              mb: 2,
-              ml: 1,
-              display: "inline",
-              width: "32%",
-              height: "50px",
-            }}
-          >
-            Sign In
-          </Button>
+          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
+            <Button
+              variant="outlined"
+              sx={{
+                mt: 3,
+                mb: 2,
+                ml: 1,
+                display: "inline",
+                width: "32%",
+                height: "50px",
+              }}
+            >
+              Sign In
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Container>
