@@ -34,11 +34,16 @@ export default function SignUp() {
   };
 
   const getUserToken = () => {
+    const url = "/api/v1/auth/register";
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
     axios
-      .post("http://localhost:3002/api/v1/auth/register", {
-        name: name,
-        email: email,
-        password: password,
+      .post(url, data, {
+        headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
         console.log(response);
