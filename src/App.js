@@ -8,7 +8,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SignIn from "./Pages/SignIn/SignIn";
 import LayoutPrivate from "./components/Layout/LayoutPrivate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import Search from "./Pages/Search/Search";
+import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
 import History from "./Pages/History/History";
@@ -35,7 +35,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="history" element={<History />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="search" element={<Search />} />
+              <Route path="searchresult" element={<SearchResult />} />
               <Route path="favorite" element={<Favorite />} />
             </Route>
           </Routes>
