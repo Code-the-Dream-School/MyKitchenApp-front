@@ -9,6 +9,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import Typography from "@mui/material/Typography";
+import { GiMilkCarton, GiPeanut, GiShrimp, GiJellyBeans } from 'react-icons/gi';
+import { TbCheese, TbEgg } from "react-icons/tb";
+import { CiWheat } from "react-icons/ci";
+import { IoFishOutline } from "react-icons/io5";
 
 const SearchForm = () => {
   
@@ -21,7 +27,92 @@ const SearchForm = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
+  const Dairy = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Dairy</Typography>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <GiMilkCarton fontSize="big" />
+        <TbCheese />
+      </Box>
+    </Box>
+  );
+  const Egg = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Egg</Typography>
+      <TbEgg />
+    </Box>
+  );
+  const Gluten = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Gluten</Typography>
+      <CiWheat />
+    </Box>
+  );
+  const Peanut = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Peanut</Typography>
+      <GiPeanut />
+    </Box>
+  );
+  const Seafood = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Seafood</Typography>
+      <IoFishOutline />
+    </Box>
+  );
+  const Shellfish = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Shellfish</Typography>
+      <GiShrimp />
+    </Box>
+  );
+  const Soy = (
+    <Box
+      sx={{
+        display: "flex",
+        gap: 1,
+      }}
+    >
+      <Typography>Soy</Typography>
+      <GiJellyBeans />
+    </Box>
+  );
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -46,13 +137,13 @@ const SearchForm = () => {
             Intolerances:
           </DialogContentText>
           <FormGroup>
-                <FormControlLabel control={<Checkbox />} label='Dairy' />
-                <FormControlLabel control={<Checkbox />} label='Egg' />
-                <FormControlLabel control={<Checkbox />} label='Gluten' />
-                <FormControlLabel control={<Checkbox />} label='Peanut' />
-                <FormControlLabel control={<Checkbox />} label='Seafood' />
-                <FormControlLabel control={<Checkbox />} label='Shellfish' />
-                <FormControlLabel control={<Checkbox />} label='Soy' />
+          <FormControlLabel control={<Checkbox />} label={Dairy} />
+                <FormControlLabel control={<Checkbox />} label={Egg} />
+                <FormControlLabel control={<Checkbox />} label={Gluten} />
+                <FormControlLabel control={<Checkbox />} label={Peanut} />
+                <FormControlLabel control={<Checkbox />} label={Seafood} />
+                <FormControlLabel control={<Checkbox />} label={Shellfish} />
+                <FormControlLabel control={<Checkbox />} label={Soy} />
             </FormGroup>
               
         </DialogContent>
