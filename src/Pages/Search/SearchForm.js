@@ -6,9 +6,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const SearchForm = () => {
-
+  
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,7 +21,6 @@ const SearchForm = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  
   
   return (
     <div>
@@ -40,12 +42,23 @@ const SearchForm = () => {
             fullWidth
             variant="filled"
           />
-          
+          <DialogContentText>
+            Intolerances:
+          </DialogContentText>
+          <FormGroup>
+                <FormControlLabel control={<Checkbox />} label='Dairy' />
+                <FormControlLabel control={<Checkbox />} label='Egg' />
+                <FormControlLabel control={<Checkbox />} label='Gluten' />
+                <FormControlLabel control={<Checkbox />} label='Peanut' />
+                <FormControlLabel control={<Checkbox />} label='Seafood' />
+                <FormControlLabel control={<Checkbox />} label='Shellfish' />
+                <FormControlLabel control={<Checkbox />} label='Soy' />
+            </FormGroup>
               
         </DialogContent>
         <DialogActions>
-          <Button >Cancel</Button>
-          <Button >Search</Button>
+          <Button>Cancel</Button>
+          <Button>Search</Button>
         </DialogActions>
       </Dialog>
     </div>
