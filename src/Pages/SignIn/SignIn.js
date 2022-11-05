@@ -1,12 +1,22 @@
-import * as React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function SignIn() {
+  // variable to check if component is rendered for the first time
+  const didComponentMount = useRef(false);
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -14,7 +24,46 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    setEmail(data.get("email"));
+    setPassword(data.get("password"));
   };
+
+  const getUserToken = () => {
+    const url = "/api/v1/auth/login";
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post(url, data, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((response) => {
+        console.log(response);
+        setToken(response.data.token);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    // if component renders for the first time,
+    // we do not make the axios call
+    if (didComponentMount.current) {
+      getUserToken();
+    }
+    didComponentMount.current = true;
+  }, [email, password]);
+
+  useEffect(() => {
+    localStorage.setItem("token", token);
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token]);
 
   return (
     <Container component="main" maxWidth="xs">
