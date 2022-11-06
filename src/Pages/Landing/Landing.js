@@ -7,10 +7,6 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
 export default function Landing() {
-  const handleSubmit = () => {
-    console.log("Get Started");
-  };
-
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid item xs={12} sm={8} md={5} component={Paper} square elevation={0}>
@@ -39,7 +35,6 @@ export default function Landing() {
           <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
             <Button
               variant="text"
-              onClick={handleSubmit}
               sx={{
                 mt: 3,
                 mb: 2,
