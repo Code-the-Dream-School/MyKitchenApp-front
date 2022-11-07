@@ -1,33 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Dashboard.css";
-// import axios from "axios";
-// import ReusableCard from "../../components/ReusableCard/ReusableCard";
+import axios from "axios";
+import ReusableCard from "../../components/ReusableCard/ReusableCard";
 
 import Button from "@mui/material/Button";
 export const Dashboard = () => {
-  // const [data, setData] = useState([]);
-  // const url = "/api/v1/recipes";
+  const [data, setData] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const url = "/api/v1/recipes";
   //const params = { params: { params: "Dashboard" } };
-  // const fetchRecipes = async () => {
-  //   const recipes = await axios.get(url);
-  //   console.log(recipes);
-  //   return recipes;
-  // };
+  const fetchRecipes = async () => {
+    const recipes = await axios.get(url);
+    console.log(recipes);
+    return recipes;
+  };
 
-  // React.useEffect(() => {
-  //   fetchRecipes()
-  //     .then((response) => {
-  //       console.log(response.data.results);
+  React.useEffect(() => {
+    fetchRecipes()
+      .then((response) => {
+        console.log(response.data.results);
 
-  //       setData(response.data.results);
-  //     })
-  //     .catch((error) => console.log(error));
-  // }, []);
+        setData(response.data.results);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  console.log({ favoriteRecipes });
   return (
     <>
       <h1>Welcome user!</h1>
 
-      <h1>Discover Meal plan for the day</h1>
+      <h1>Discover recipes for the day</h1>
       <Button
         variant="outlined"
         sx={{
@@ -45,20 +47,21 @@ export const Dashboard = () => {
 
       <div>
         Recipes
-        {/* {data || data.length ? (
+        {data || data.length ? (
           <div className="trending">
-            {data.map((data) => {
+            {data.map((recipe) => {
               return (
                 <ReusableCard
-                  key={data.id}
-                  title={data.title}
-                  data={data}
-                  image={data.image}
+                  key={recipe.id}
+                  title={recipe.title}
+                  data={recipe}
+                  image={recipe.image}
+                  handleAddFavorite={setFavoriteRecipes}
                 />
               );
             })}
           </div>
-        ) : null} */}
+        ) : null}
       </div>
     </>
   );
