@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,11 +9,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function RecipeReviewCard(props) {
-  const handleAddToFavorites = (data) => {
-    // same as setFavoriteBooks from App.js
+  const [favorite, setFavorite] = useState(false);
+  const toggleFavorite = () => setFavorite((favorite) => !favorite);
+  const handleAddToFavorites = (id) => {
     props.handleAddFavorite((prevFavoriteRecipes) => [
       ...prevFavoriteRecipes,
-      data,
+      id,
     ]);
     // functional setState
   };
@@ -41,10 +42,12 @@ export default function RecipeReviewCard(props) {
       <CardActions disableSpacing>
         <IconButton
           aria-label="add to favorites"
-          onClick={() => handleAddToFavorites(props.data)}
+          onClick={() => {
+            handleAddToFavorites(props.data.id);
+            toggleFavorite(props.data.id);
+          }}
         >
-          <FavoriteIcon />
-          <FavoriteBorderIcon />
+          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       </CardActions>
     </Card>
