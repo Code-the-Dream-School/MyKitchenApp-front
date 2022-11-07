@@ -33,7 +33,7 @@ export default function SignUp() {
     setPassword(data.get("password"));
   };
 
-  const getUserToken = () => {
+  const getUserToken = async () => {
     const url = "/api/v1/auth/register";
     const data = {
       name: name,
@@ -41,7 +41,7 @@ export default function SignUp() {
       password: password,
     };
 
-    axios
+    await axios
       .post(url, data, {
         headers: { "Content-Type": "application/json" },
       })
@@ -69,8 +69,6 @@ export default function SignUp() {
       navigate("/dashboard");
     }
   }, [token]);
-
-  console.log("token", token);
 
   return (
     <Container component="main" maxWidth="xs">

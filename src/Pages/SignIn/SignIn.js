@@ -29,14 +29,14 @@ export default function SignIn() {
     setPassword(data.get("password"));
   };
 
-  const getUserToken = () => {
+  const getUserToken = async () => {
     const url = "/api/v1/auth/login";
     const data = {
       email: email,
       password: password,
     };
 
-    axios
+    await axios
       .post(url, data, {
         headers: { "Content-Type": "application/json" },
       })
