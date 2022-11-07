@@ -41,7 +41,7 @@ export default function SignUp() {
       password: password,
     };
 
-    await axios
+    axios
       .post(url, data, {
         headers: { "Content-Type": "application/json" },
       })
