@@ -11,15 +11,13 @@ export const Dashboard = () => {
   //const params = { params: { params: "Dashboard" } };
   const fetchRecipes = async () => {
     const recipes = await axios.get(url);
-    console.log(recipes);
+
     return recipes;
   };
 
   React.useEffect(() => {
     fetchRecipes()
       .then((response) => {
-        console.log(response.data.results);
-
         setData(response.data.results);
       })
       .catch((error) => console.log(error));
@@ -56,7 +54,7 @@ export const Dashboard = () => {
                   title={recipe.title}
                   data={recipe}
                   image={recipe.image}
-                  handleAddFavorite={setFavoriteRecipes}
+                  updateFavorite={setFavoriteRecipes}
                 />
               );
             })}

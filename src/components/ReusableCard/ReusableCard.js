@@ -9,8 +9,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function RecipeReviewCard(props) {
-  const [favorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState([]);
   const toggleFavorite = () => setFavorite((favorite) => !favorite);
+
+  const updateFavorite = (id) => {
+    let updatedFavorite = [...favorite];
+    if (!updatedFavorite.includes(id)) {
+      updatedFavorite = [...favorite, id];
+    } else {
+      updatedFavorite = updatedFavorite.filter(
+        (favoriteItem) => id !== favoriteItem
+      );
+    }
+    setFavorite(updatedFavorite);
+  };
+
   const handleAddToFavorites = (id) => {
     props.handleAddFavorite((prevFavoriteRecipes) => [
       ...prevFavoriteRecipes,
@@ -43,11 +56,16 @@ export default function RecipeReviewCard(props) {
         <IconButton
           aria-label="add to favorites"
           onClick={() => {
-            handleAddToFavorites(props.data.id);
+            updateFavorite(props.data.id);
+
             toggleFavorite(props.data.id);
           }}
         >
-          {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {favorite.includes(props.data.id) ? (
+            <FavoriteIcon onClick={() => handleAddToFavorites()} />
+          ) : (
+            <FavoriteBorderIcon onClick={() => handleAddToFavorites()} />
+          )}
         </IconButton>
       </CardActions>
     </Card>
