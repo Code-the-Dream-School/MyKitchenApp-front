@@ -17,6 +17,8 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +29,17 @@ export default function SignUp() {
       password: data.get("password"),
       confirmPassword: data.get("confirm-password"),
     });
+
+    if (!data.get("name") || !data.get("email") || !data.get("password")) {
+      setError(true);
+      setErrorMessage("Please Enter a Fullname, an Email and a Password");
+      return;
+    }
+    if (data.get("password") !== data.get("confirm-password")) {
+      setError(true);
+      setErrorMessage("Password do not match");
+      return;
+    }
 
     setName(data.get("name"));
     setEmail(data.get("email"));
@@ -51,6 +64,8 @@ export default function SignUp() {
       })
       .catch((error) => {
         console.log(error);
+        setError(true);
+        setErrorMessage(error.response.data.msg);
       });
   };
 
@@ -124,6 +139,7 @@ export default function SignUp() {
             id="confirm-password"
             autoComplete="confirm-password"
           />
+          {error && <p className="error-msg">{errorMessage}</p>}
           <Button
             type="submit"
             variant="outlined"
