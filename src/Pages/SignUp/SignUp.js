@@ -33,7 +33,7 @@ export default function SignUp() {
     setPassword(data.get("password"));
   };
 
-  const getUserToken = async () => {
+  const getUserToken = () => {
     const url = "/api/v1/auth/register";
     const data = {
       name: name,
