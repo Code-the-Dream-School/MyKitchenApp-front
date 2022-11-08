@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
+import SearchForm from "../Search/SearchForm";
 
 import Button from "@mui/material/Button";
-export const Dashboard = () => {
+export default function Dashboard() {
   const [data, setData] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const url = "/api/v1/recipes";
@@ -27,21 +28,9 @@ export const Dashboard = () => {
     <>
       <h1>Welcome user!</h1>
 
+      <SearchForm />
+
       <h1>Discover recipes for the day</h1>
-      <Button
-        variant="outlined"
-        sx={{
-          mt: 3,
-          mb: 2,
-          ml: 1,
-          display: "inline",
-          height: "50px",
-          backgroundColor: "black",
-          color: "white",
-        }}
-      >
-        Find new recipe
-      </Button>
 
       <div>
         Recipes
@@ -63,6 +52,4 @@ export const Dashboard = () => {
       </div>
     </>
   );
-};
-
-export default Dashboard;
+}
