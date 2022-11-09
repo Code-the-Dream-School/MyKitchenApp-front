@@ -4,12 +4,9 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
-  const handleSubmit = () => {
-    console.log("Get Started");
-  };
-
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid item xs={12} sm={8} md={5} component={Paper} square elevation={0}>
@@ -35,22 +32,25 @@ export default function Landing() {
             Do you know what meal your going to prepare today? Just tell us what
             you have, and we will tell you what to prepare. Enjoy!
           </Typography>
-          <Button
-            variant="text"
-            onClick={handleSubmit}
-            sx={{
-              mt: 3,
-              mb: 2,
-              ml: 1,
-              display: "inline",
-              width: "63%",
-              height: "50px",
-              backgroundColor: "black",
-              color: "white",
-            }}
-          >
-            Get Started
-          </Button>
+          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
+            <Button
+              variant="text"
+              sx={{
+                mt: 3,
+                mb: 2,
+                ml: 1,
+                display: "inline",
+                height: "50px",
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#5a5a5a",
+                },
+              }}
+            >
+              Get Started
+            </Button>
+          </Link>
         </Box>
       </Grid>
       <Grid

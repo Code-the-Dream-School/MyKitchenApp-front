@@ -85,8 +85,6 @@ export default function SignUp() {
     }
   }, [token]);
 
-  console.log("token", token);
-
   return (
     <Container component="main" maxWidth="xs">
       <Box

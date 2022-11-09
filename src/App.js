@@ -12,7 +12,6 @@ import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
 import History from "./Pages/History/History";
-import LogOut from "./Pages/LogOut/LogOut";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -29,7 +28,6 @@ function App() {
               <Route index element={<Landing />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
-              <Route path="logout" element={<LogOut />} />
             </Route>
             <Route path="/" element={<LayoutPrivate />}>
               <Route path="profile" element={<Profile />} />
