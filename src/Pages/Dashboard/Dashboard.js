@@ -5,26 +5,36 @@ import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import SearchForm from "../Search/SearchForm";
 
 export default function Dashboard() {
-  const [data, setData] = useState([]);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const url = "/api/v1/recipes";
-  //const params = { params: { params: "Dashboard" } };
-  const fetchRecipes = async () => {
-    const recipes = await axios.get(url);
-    console.log(recipes);
-    return recipes;
-  };
+  const [breakfast, setBreakfast] = useState([]);
+  const [salad, setSalad] = useState([]);
+  const [drink, setDrink] = useState([]);
+
+  const urlBreakfast = "/api/v1/recipes?type=breakfast&number=3";
+  const urlSalad = "/api/v1/recipes?type=salad&number=3";
+  const urlDrink = "/api/v1/recipes?type=drink&number=3";
+
+  const requestBreakfast = axios.get(urlBreakfast);
+  const requestSalad = axios.get(urlSalad);
+  const requestDrink = axios.get(urlDrink);
 
   React.useEffect(() => {
-    fetchRecipes()
-      .then((response) => {
-        console.log(response.data.results);
+    axios
+      .all([requestBreakfast, requestSalad, requestDrink])
+      .then(
+        axios.spread((...responses) => {
+          const responseBreakfast = responses[0];
+          const responseSalad = responses[1];
+          const responseDrink = responses[2];
 
-        setData(response.data.results);
-      })
+          setBreakfast(responseBreakfast.data.results);
+          setSalad(responseSalad.data.results);
+          setDrink(responseDrink.data.results);
+        })
+      )
+
       .catch((error) => console.log(error));
   }, []);
-  console.log({ favoriteRecipes });
+
   return (
     <>
       <h1>Welcome user!</h1>
@@ -32,17 +42,50 @@ export default function Dashboard() {
       <h1>Discover recipes for the day</h1>
 
       <div>
-        Recipes
-        {data || data.length ? (
+        <h2>Breakfast</h2>
+        {breakfast || breakfast.length ? (
           <div className="trending">
-            {data.map((recipe) => {
+            {breakfast.map((recipe) => {
               return (
                 <ReusableCard
                   key={recipe.id}
                   title={recipe.title}
-                  recipe={recipe}
+                  data={recipe}
                   image={recipe.image}
-                  updateFavoriteRecipes={setFavoriteRecipes}
+                />
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+      <div>
+        <h2>Salad</h2>
+        {salad || salad.length ? (
+          <div className="trending">
+            {salad.map((recipe) => {
+              return (
+                <ReusableCard
+                  key={recipe.id}
+                  title={recipe.title}
+                  data={recipe}
+                  image={recipe.image}
+                />
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+      <div>
+        <h2>Drink</h2>
+        {drink || drink.length ? (
+          <div className="trending">
+            {drink.map((recipe) => {
+              return (
+                <ReusableCard
+                  key={recipe.id}
+                  title={recipe.title}
+                  data={recipe}
+                  image={recipe.image}
                 />
               );
             })}
