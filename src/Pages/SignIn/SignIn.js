@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Google from "./Google";
 
 export default function SignIn() {
   // variable to check if component is rendered for the first time
@@ -132,6 +133,7 @@ export default function SignIn() {
               Create Account
             </Button>
           </Link>
+          <Google />
         </Box>
       </Box>
     </Container>
