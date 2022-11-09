@@ -4,7 +4,6 @@ import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import SearchForm from "../Search/SearchForm";
 
-import Button from "@mui/material/Button";
 export default function Dashboard() {
   const [data, setData] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -12,13 +11,15 @@ export default function Dashboard() {
   //const params = { params: { params: "Dashboard" } };
   const fetchRecipes = async () => {
     const recipes = await axios.get(url);
-
+    console.log(recipes);
     return recipes;
   };
 
   React.useEffect(() => {
     fetchRecipes()
       .then((response) => {
+        console.log(response.data.results);
+
         setData(response.data.results);
       })
       .catch((error) => console.log(error));
@@ -27,9 +28,7 @@ export default function Dashboard() {
   return (
     <>
       <h1>Welcome user!</h1>
-
       <SearchForm />
-
       <h1>Discover recipes for the day</h1>
 
       <div>
@@ -41,9 +40,9 @@ export default function Dashboard() {
                 <ReusableCard
                   key={recipe.id}
                   title={recipe.title}
-                  data={recipe}
+                  recipe={recipe}
                   image={recipe.image}
-                  updateFavorite={setFavoriteRecipes}
+                  updateFavoriteRecipes={setFavoriteRecipes}
                 />
               );
             })}
