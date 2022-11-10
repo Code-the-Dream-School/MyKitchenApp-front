@@ -16,6 +16,7 @@ const SearchResult = () => {
         </Typography>
 
         {/*These are temporary filter buttons. Later will improved*/}
+        
         <Grid m={2} align="center">
           <Button variant="outlined" color="info" sx={{ margin: 1 }}>
             Vegetarian
