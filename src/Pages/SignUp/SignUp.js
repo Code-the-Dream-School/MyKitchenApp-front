@@ -4,10 +4,10 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function SignUp() {
+export default function SignUp({ setToggle }) {
   // variable to check if component is rendered for the first time
   const didComponentMount = useRef(false);
 
@@ -146,7 +146,7 @@ export default function SignUp() {
               mb: 2,
               mr: 1,
               display: "inline",
-              width: "63%",
+              width: "100%",
               height: "50px",
               backgroundColor: "black",
               color: "white",
@@ -157,21 +157,12 @@ export default function SignUp() {
           >
             Create Account
           </Button>
-          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
-            <Button
-              variant="outlined"
-              sx={{
-                mt: 3,
-                mb: 2,
-                ml: 1,
-                display: "inline",
-                width: "32%",
-                height: "50px",
-              }}
-            >
-              Sign In
-            </Button>
-          </Link>
+          <Typography component="p">
+            Already have an account?{" "}
+            <span className="underline" onClick={() => setToggle(true)}>
+              Sign in
+            </span>
+          </Typography>
         </Box>
       </Box>
     </Container>
