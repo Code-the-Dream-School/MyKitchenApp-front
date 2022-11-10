@@ -26,8 +26,6 @@ function App() {
           <Routes>
             <Route path="/" element={<LayoutPublic />}>
               <Route index element={<Landing />} />
-              <Route path="signin" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
             </Route>
             <Route path="/" element={<LayoutPrivate />}>
               <Route path="profile" element={<Profile />} />
