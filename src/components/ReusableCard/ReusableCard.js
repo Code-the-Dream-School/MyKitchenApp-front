@@ -8,12 +8,15 @@ export default function RecipeReviewCard(props) {
     <Card
       sx={{
         maxWidth: 345,
+        maxHeight: 350,
         minWidth: 345,
+        minHeight: 350,
         margin: "10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
         alignItems: "flex-start",
+        borderRadius: "2rem",
       }}
     >
       <CardHeader title={props.title} />
