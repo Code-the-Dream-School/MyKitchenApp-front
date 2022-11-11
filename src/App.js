@@ -33,7 +33,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="history" element={<History />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="searchresult" element={<SearchResult />} />
+              <Route path="searchresult/:search" element={<SearchResult />} />
               <Route path="favorite" element={<Favorite />} />
             </Route>
           </Routes>
