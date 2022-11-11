@@ -15,10 +15,14 @@ import { GiMilkCarton, GiPeanut, GiShrimp, GiJellyBeans } from 'react-icons/gi';
 import { TbCheese, TbEgg } from "react-icons/tb";
 import { CiWheat } from "react-icons/ci";
 import { IoFishOutline } from "react-icons/io5";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
   
   const [open, setOpen] = React.useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  let navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +30,12 @@ const SearchForm = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    let path = "/searchresult/";
+    navigate(path + searchInput);
   };
 
   const Dairy = (
@@ -132,6 +142,8 @@ const SearchForm = () => {
             type="text"
             fullWidth
             variant="filled"
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
           />
           <DialogContentText>
             Intolerances:
@@ -148,8 +160,8 @@ const SearchForm = () => {
               
         </DialogContent>
         <DialogActions>
-          <Button>Cancel</Button>
-          <Button>Search</Button>
+        <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSearch}>Search</Button>
         </DialogActions>
       </Dialog>
     </div>
