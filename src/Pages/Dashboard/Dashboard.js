@@ -11,9 +11,9 @@ export default function Dashboard() {
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
 
-  const urlBreakfast = "/api/v1/recipes?type=breakfast&number=9";
-  const urlSalad = "/api/v1/recipes?type=salad&number=9";
-  const urlDrink = "/api/v1/recipes?type=drink&number=9";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const requestBreakfast = axios.get(urlBreakfast);
   const requestSalad = axios.get(urlSalad);
@@ -52,6 +52,7 @@ export default function Dashboard() {
               options={{
                 perPage: 4,
                 gap: "5",
+                drag: true,
               }}
             >
               {breakfast.map((recipe) => {
