@@ -5,3 +5,10 @@
   text-align: center;
   text-transform: capitalize;
 }
+.underline {
+  text-decoration: underline;
+  color: blue;
+}
+.underline:hover {
+  cursor: pointer;
+}
