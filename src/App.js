@@ -12,6 +12,7 @@ import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
 import History from "./Pages/History/History";
+import Recipe from "./Pages/Recipe/Recipe";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="searchresult" element={<SearchResult />} />
               <Route path="favorite" element={<Favorite />} />
+              <Route path="recipe/:id" element={<Recipe />} />
             </Route>
           </Routes>
         </div>
