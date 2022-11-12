@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -8,45 +8,36 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SignUp({ setToggle }) {
-  // variable to check if component is rendered for the first time
-  const didComponentMount = useRef(false);
-
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+
+  const [myKitchenAppToken, setMyKitchenAppToken] = useState(
+    localStorage.getItem("myKitchenAppToken") || ""
+  );
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [isNameInvalid, setIsNameInvalid] = useState(true);
+  const [invalidNameMessage, setInvalidNameMessage] = useState("");
+  const [isPasswordInvalid, setIsPasswordInvalid] = useState(true);
+  const [invalidPasswordMessage, setInvalidPasswordMessage] = useState("");
+  const [isEmailInvalid, setIsEmailInvalid] = useState(true);
+  const [invalidEmailMessage, setInvalidEmailMessage] = useState("");
+  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] =
+    useState(true);
+  const [invalidConfirmPasswordMessage, setInvalidConfirmPasswordMessage] =
+    useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      password: data.get("password"),
-      confirmPassword: data.get("confirm-password"),
-    });
-
-    if (!data.get("name") || !data.get("email") || !data.get("password")) {
-      setError(true);
-      setErrorMessage("Please Enter a Fullname, an Email and a Password");
-      return;
-    }
-    if (data.get("password") !== data.get("confirm-password")) {
-      setError(true);
-      setErrorMessage("Password do not match");
-      return;
-    }
-
-    setName(data.get("name"));
-    setEmail(data.get("email"));
-    setPassword(data.get("password"));
+    getUsermyKitchenAppToken();
   };
 
-  const getUserToken = () => {
+  const getUsermyKitchenAppToken = () => {
     const url = "/api/v1/auth/register";
     const data = {
       name: name,
@@ -60,7 +51,7 @@ export default function SignUp({ setToggle }) {
       })
       .then((response) => {
         console.log(response);
-        setToken(response.data.token);
+        setMyKitchenAppToken(response.data.token);
       })
       .catch((error) => {
         console.log(error);
@@ -70,20 +61,61 @@ export default function SignUp({ setToggle }) {
   };
 
   useEffect(() => {
-    // if component renders for the first time,
-    // we do not make the axios call
-    if (didComponentMount.current) {
-      getUserToken();
-    }
-    didComponentMount.current = true;
-  }, [name, email, password]);
-
-  useEffect(() => {
-    localStorage.setItem("token", token);
-    if (token) {
+    localStorage.setItem("myKitchenAppToken", myKitchenAppToken);
+    if (myKitchenAppToken) {
       navigate("/dashboard");
     }
-  }, [token]);
+  }, [myKitchenAppToken]);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+    if (event.target.value.length === 0) {
+      setIsNameInvalid(true);
+      setInvalidNameMessage("Please provide a valid name");
+    } else {
+      setIsNameInvalid(false);
+      setInvalidNameMessage("");
+    }
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!event.target.value.match(regex)) {
+      setIsEmailInvalid(true);
+      setInvalidEmailMessage("Please provide a valid email");
+    } else {
+      setIsEmailInvalid(false);
+      setInvalidEmailMessage("");
+    }
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    if (event.target.value.length < 8) {
+      setIsPasswordInvalid(true);
+      setInvalidPasswordMessage("Password must be at least 8 characters.");
+    } else {
+      setIsPasswordInvalid(false);
+      setInvalidPasswordMessage("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    if (event.target.value.length < 8) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage(
+        "Password must be at least 8 characters."
+      );
+    } else if (event.target.value !== password) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage("Passwords do not match");
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -107,6 +139,8 @@ export default function SignUp({ setToggle }) {
             name="name"
             autoComplete="name"
             autoFocus
+            helperText={invalidNameMessage}
+            onChange={handleNameChange}
           />
           <TextField
             margin="normal"
@@ -116,6 +150,8 @@ export default function SignUp({ setToggle }) {
             label="Email Address"
             name="email"
             autoComplete="email"
+            helperText={invalidEmailMessage}
+            onChange={handleEmailChange}
           />
           <TextField
             margin="normal"
@@ -126,6 +162,8 @@ export default function SignUp({ setToggle }) {
             type="password"
             id="password"
             autoComplete="current-password"
+            helperText={invalidPasswordMessage}
+            onChange={handlePasswordChange}
           />
           <TextField
             margin="normal"
@@ -136,9 +174,17 @@ export default function SignUp({ setToggle }) {
             type="password"
             id="confirm-password"
             autoComplete="confirm-password"
+            helperText={invalidConfirmPasswordMessage}
+            onChange={handleConfirmPasswordChange}
           />
           {error && <p className="error-msg">{errorMessage}</p>}
           <Button
+            disabled={
+              isNameInvalid ||
+              isEmailInvalid ||
+              isPasswordInvalid ||
+              isConfirmPasswordInvalid
+            }
             type="submit"
             variant="outlined"
             sx={{
@@ -152,6 +198,9 @@ export default function SignUp({ setToggle }) {
               color: "white",
               "&:hover": {
                 backgroundColor: "#5a5a5a",
+              },
+              "&.Mui-disabled": {
+                background: "white",
               },
             }}
           >

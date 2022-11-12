@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -8,35 +8,28 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SignIn({ setToggle }) {
-  // variable to check if component is rendered for the first time
-  const didComponentMount = useRef(false);
-
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [myKitchenAppToken, setMyKitchenAppToken] = useState(
+    localStorage.getItem("myKitchenAppToken") || ""
+  );
+
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [isPasswordInvalid, setIsPasswordInvalid] = useState(true);
+  const [invalidPasswordMessage, setInvalidPasswordMessage] = useState("");
+  const [isEmailInvalid, setIsEmailInvalid] = useState(true);
+  const [invalidEmailMessage, setInvalidEmailMessage] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    if (!data.get("email") || !data.get("password")) {
-      setError(true);
-      setErrorMessage("Please Enter an Email and a Password");
-      return;
-    }
-
-    setEmail(data.get("email"));
-    setPassword(data.get("password"));
+    getMyKitchenAppToken();
   };
 
-  const getUserToken = () => {
+  const getMyKitchenAppToken = () => {
     const url = "/api/v1/auth/login";
     const data = {
       email: email,
@@ -49,7 +42,7 @@ export default function SignIn({ setToggle }) {
       })
       .then((response) => {
         console.log(response);
-        setToken(response.data.token);
+        setMyKitchenAppToken(response.data.token);
       })
       .catch((error) => {
         console.log(error);
@@ -59,20 +52,35 @@ export default function SignIn({ setToggle }) {
   };
 
   useEffect(() => {
-    // if component renders for the first time,
-    // we do not make the axios call
-    if (didComponentMount.current) {
-      getUserToken();
-    }
-    didComponentMount.current = true;
-  }, [email, password]);
-
-  useEffect(() => {
-    localStorage.setItem("token", token);
-    if (token) {
+    localStorage.setItem("myKitchenAppToken", myKitchenAppToken);
+    if (myKitchenAppToken) {
       navigate("/dashboard");
     }
-  }, [token]);
+  }, [myKitchenAppToken]);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!event.target.value.match(regex)) {
+      setIsEmailInvalid(true);
+      setInvalidEmailMessage("Please provide a valid email");
+    } else {
+      setIsEmailInvalid(false);
+      setInvalidEmailMessage("");
+    }
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    if (event.target.value.length < 8) {
+      setIsPasswordInvalid(true);
+      setInvalidPasswordMessage("Password must be at least 8 characters.");
+    } else {
+      setIsPasswordInvalid(false);
+      setInvalidPasswordMessage("");
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -96,6 +104,8 @@ export default function SignIn({ setToggle }) {
             name="email"
             autoComplete="email"
             autoFocus
+            helperText={invalidEmailMessage}
+            onChange={handleEmailChange}
           />
           <TextField
             margin="normal"
@@ -106,11 +116,14 @@ export default function SignIn({ setToggle }) {
             type="password"
             id="password"
             autoComplete="current-password"
+            helperText={invalidPasswordMessage}
+            onChange={handlePasswordChange}
           />
           {error && <p className="error-msg">{errorMessage}</p>}
           <Button
             type="submit"
             variant="outlined"
+            disabled={isEmailInvalid || isPasswordInvalid}
             sx={{
               mt: 3,
               mb: 2,
@@ -122,6 +135,9 @@ export default function SignIn({ setToggle }) {
               color: "white",
               "&:hover": {
                 backgroundColor: "#5a5a5a",
+              },
+              "&.Mui-disabled": {
+                background: "white",
               },
             }}
           >
