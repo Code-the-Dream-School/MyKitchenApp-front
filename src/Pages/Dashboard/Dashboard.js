@@ -44,7 +44,7 @@ export default function Dashboard() {
       <SearchForm />
       <h1>Discover recipes for the day</h1>
 
-      <div>
+      {/* <div>
         <h2>Breakfast</h2>
 
         {breakfast || breakfast.length ? (
@@ -59,7 +59,11 @@ export default function Dashboard() {
               {breakfast.map((recipe) => {
                 return (
                   <SplideSlide>
-                    <Link to={"/recipe/" + recipe.id}>
+                    <Link
+                      to={"/recipe/" + recipe.id}
+                      key={recipe.id}
+                      underline="none"
+                    >
                       <ReusableCard
                         key={recipe.id}
                         title={recipe.title}
@@ -87,7 +91,11 @@ export default function Dashboard() {
               {salad.map((recipe) => {
                 return (
                   <SplideSlide>
-                    <Link to={"/recipe/" + recipe.id}>
+                    <Link
+                      to={"/recipe/" + recipe.id}
+                      key={recipe.id}
+                      underline="none"
+                    >
                       <ReusableCard
                         key={recipe.id}
                         title={recipe.title}
@@ -114,7 +122,11 @@ export default function Dashboard() {
             {drink.map((recipe) => {
               return (
                 <SplideSlide>
-                  <Link to={"/recipe/" + recipe.id}>
+                  <Link
+                    to={"/recipe/" + recipe.id}
+                    key={recipe.id}
+                    underline="none"
+                  >
                     <ReusableCard
                       key={recipe.id}
                       title={recipe.title}
@@ -127,7 +139,7 @@ export default function Dashboard() {
             })}
           </Splide>
         ) : null}
-      </div>
+      </div> */}
     </>
   );
 }

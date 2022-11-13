@@ -39,7 +39,6 @@ const Recipe = () => {
             <h1>{data.title}</h1>
             <ul>
               <li>
-                {" "}
                 <ImSpoonKnife />
                 {data.servings} servings
               </li>
@@ -47,7 +46,7 @@ const Recipe = () => {
                 <HiClock />
                 {data.readyInMinutes} mins
               </li>
-            </ul>{" "}
+            </ul>
           </div>
         </div>
         <div className="ingredientsTable"></div>
