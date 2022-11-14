@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 import SearchForm from "../Search/SearchForm";
 
 export default function Dashboard() {
@@ -9,9 +11,9 @@ export default function Dashboard() {
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
 
-  const urlBreakfast = "/api/v1/recipes?type=breakfast&number=3";
-  const urlSalad = "/api/v1/recipes?type=salad&number=3";
-  const urlDrink = "/api/v1/recipes?type=drink&number=3";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const requestBreakfast = axios.get(urlBreakfast);
   const requestSalad = axios.get(urlSalad);
@@ -43,18 +45,29 @@ export default function Dashboard() {
 
       <div>
         <h2>Breakfast</h2>
+
         {breakfast || breakfast.length ? (
           <div className="trending">
-            {breakfast.map((recipe) => {
-              return (
-                <ReusableCard
-                  key={recipe.id}
-                  title={recipe.title}
-                  data={recipe}
-                  image={recipe.image}
-                />
-              );
-            })}
+            <Splide
+              options={{
+                perPage: 4,
+                gap: "5",
+                drag: true,
+              }}
+            >
+              {breakfast.map((recipe) => {
+                return (
+                  <SplideSlide>
+                    <ReusableCard
+                      key={recipe.id}
+                      title={recipe.title}
+                      data={recipe}
+                      image={recipe.image}
+                    />
+                  </SplideSlide>
+                );
+              })}
+            </Splide>
           </div>
         ) : null}
       </div>
@@ -62,34 +75,50 @@ export default function Dashboard() {
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
-            {salad.map((recipe) => {
-              return (
-                <ReusableCard
-                  key={recipe.id}
-                  title={recipe.title}
-                  data={recipe}
-                  image={recipe.image}
-                />
-              );
-            })}
+            <Splide
+              options={{
+                perPage: 4,
+                gap: "5",
+              }}
+            >
+              {salad.map((recipe) => {
+                return (
+                  <SplideSlide>
+                    <ReusableCard
+                      key={recipe.id}
+                      title={recipe.title}
+                      data={recipe}
+                      image={recipe.image}
+                    />
+                  </SplideSlide>
+                );
+              })}
+            </Splide>
           </div>
         ) : null}
       </div>
       <div>
         <h2>Drink</h2>
         {drink || drink.length ? (
-          <div className="trending">
+          <Splide
+            options={{
+              perPage: 4,
+              gap: "5",
+            }}
+          >
             {drink.map((recipe) => {
               return (
-                <ReusableCard
-                  key={recipe.id}
-                  title={recipe.title}
-                  data={recipe}
-                  image={recipe.image}
-                />
+                <SplideSlide>
+                  <ReusableCard
+                    key={recipe.id}
+                    title={recipe.title}
+                    data={recipe}
+                    image={recipe.image}
+                  />
+                </SplideSlide>
               );
             })}
-          </div>
+          </Splide>
         ) : null}
       </div>
     </>
