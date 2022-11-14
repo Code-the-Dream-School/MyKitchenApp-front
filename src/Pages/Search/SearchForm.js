@@ -20,8 +20,13 @@ import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
   
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [checkbox, setCheckbox] = useState({
+    intolerances: [],
+    response: [],
+  });
+
   let navigate = useNavigate();
 
   const handleClickOpen = () => {
@@ -32,6 +37,25 @@ const SearchForm = () => {
     setOpen(false);
   };
 
+  const handleCheckbox = (event) => {
+    const { value, checked } = event.target;
+    const { intolerances } = checkbox;
+
+    console.log(`${value} is ${checked}`);
+
+    if (checked) {
+      setCheckbox({
+        intolerances: [...intolerances, value],
+        response: [...intolerances, value],
+      });
+    } else {
+      setCheckbox({
+        intolerances: intolerances.filter((event) => event !== value),
+        response: intolerances.filter((event) => event !== value),
+      });
+    }
+  };
+  
   const handleSearch = (event) => {
     event.preventDefault();
     let path = "/searchresult/";
@@ -145,23 +169,82 @@ const SearchForm = () => {
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
           />
-          <DialogContentText>
-            Intolerances:
-          </DialogContentText>
+          <DialogContentText>Intolerances:</DialogContentText>
           <FormGroup>
-          <FormControlLabel control={<Checkbox />} label={Dairy} />
-                <FormControlLabel control={<Checkbox />} label={Egg} />
-                <FormControlLabel control={<Checkbox />} label={Gluten} />
-                <FormControlLabel control={<Checkbox />} label={Peanut} />
-                <FormControlLabel control={<Checkbox />} label={Seafood} />
-                <FormControlLabel control={<Checkbox />} label={Shellfish} />
-                <FormControlLabel control={<Checkbox />} label={Soy} />
-            </FormGroup>
-              
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Dairy}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Egg}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Gluten}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Peanut}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Seafood}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Shellfish}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Soy}
+            />
+          </FormGroup>
         </DialogContent>
         <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSearch}>Search</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            onClick={handleSearch}
+            value={checkbox}
+            onChange={handleCheckbox}
+          >
+            Search
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

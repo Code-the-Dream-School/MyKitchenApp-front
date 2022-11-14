@@ -2,10 +2,9 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 
@@ -17,7 +16,7 @@ const SearchResult = () => {
 
   const recipeResult = async (name) => {
     console.log(name);
-    const data = await axios.get(`${url}?includeIngredients=${name}`);
+    const data = await axios.get(`${url}?includeIngredients=${name.split(/[ ]+/).join(',')}`);
     return data;
   };
 
@@ -46,19 +45,24 @@ const SearchResult = () => {
                 <> */}
         {/*These are temporary filter buttons. Later will be improved*/}
         
-        <Grid m={2} align="center">
-          <Button variant="outlined" color="info" sx={{ margin: 1 }}>
-            Vegetarian
-          </Button>
-          <Button variant="outlined" color="info" sx={{ margin: 1 }}>
-            Beef
-          </Button>
-          <Button variant="outlined" color="info" sx={{ margin: 1 }}>
-            Chicken
-          </Button>
-          <Button variant="outlined" color="info" sx={{ margin: 1 }}>
-            Fish
-          </Button>
+        <Grid 
+          sx={{ 
+            margin: "2",
+            display: "flex", 
+            justifyContent:"center",
+          }}>
+          <NavLink to={"/cousines/African"}>
+            African
+          </NavLink>
+          <NavLink to={"/cousines/American"}>
+            American
+          </NavLink>
+          <NavLink to={"/cousines/Chinese"}>
+            Chinese
+          </NavLink>
+          <NavLink to={"/cousines/European"}>
+            European
+          </NavLink>
         </Grid>
 
         <Box>
