@@ -8,6 +8,7 @@ import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
+  //const [name, setName] = useState(""); get token const url = "/api/v1/auth/register";
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
@@ -44,7 +45,7 @@ export default function Dashboard() {
       <SearchForm />
       <h1>Discover recipes for the day</h1>
 
-      {/* <div>
+      <div>
         <h2>Breakfast</h2>
 
         {breakfast || breakfast.length ? (
@@ -59,11 +60,7 @@ export default function Dashboard() {
               {breakfast.map((recipe) => {
                 return (
                   <SplideSlide>
-                    <Link
-                      to={"/recipe/" + recipe.id}
-                      key={recipe.id}
-                      underline="none"
-                    >
+                    <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                       <ReusableCard
                         key={recipe.id}
                         title={recipe.title}
@@ -91,11 +88,7 @@ export default function Dashboard() {
               {salad.map((recipe) => {
                 return (
                   <SplideSlide>
-                    <Link
-                      to={"/recipe/" + recipe.id}
-                      key={recipe.id}
-                      underline="none"
-                    >
+                    <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                       <ReusableCard
                         key={recipe.id}
                         title={recipe.title}
@@ -122,16 +115,13 @@ export default function Dashboard() {
             {drink.map((recipe) => {
               return (
                 <SplideSlide>
-                  <Link
-                    to={"/recipe/" + recipe.id}
-                    key={recipe.id}
-                    underline="none"
-                  >
+                  <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                     <ReusableCard
                       key={recipe.id}
                       title={recipe.title}
                       data={recipe}
                       image={recipe.image}
+                      underline="none"
                     />
                   </Link>
                 </SplideSlide>
@@ -139,7 +129,7 @@ export default function Dashboard() {
             })}
           </Splide>
         ) : null}
-      </div> */}
+      </div>
     </>
   );
 }

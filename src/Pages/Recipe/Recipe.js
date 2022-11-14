@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import "./Recipe.css";
+import NutritionModal from "../../components/NutritionModal/NutritionModal";
 
 const Recipe = () => {
   const [data, setData] = useState("");
@@ -52,30 +53,18 @@ const Recipe = () => {
                 {data.readyInMinutes} mins
               </li>
             </ul>{" "}
-            <Button
-              variant="outlined"
-              sx={{
-                mt: 3,
-                mb: 2,
-                ml: 1,
-                marginLeft: 0,
-                display: "inline",
-                width: "63%",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-              }}
-            >
+            <Button variant="contained" color="error">
               {isSaved ? (
                 <>
-                  <FaHeartBroken /> Remove
+                  <FaHeartBroken className="favoriteIcon" /> Remove
                 </>
               ) : (
                 <>
-                  <FaHeart /> Save
+                  <FaHeart /> Favorite this
                 </>
               )}
             </Button>
+            <NutritionModal />
           </div>
         </div>
         <div className="ingredientsTable"></div>

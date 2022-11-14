@@ -4,3 +4,7 @@
 h1 {
   margin: 4rem 0;
 }
+a {
+  font-size: 1.2rem;
+  text-decoration: none;
+}
