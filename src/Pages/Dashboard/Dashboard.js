@@ -59,7 +59,7 @@ export default function Dashboard() {
             >
               {breakfast.map((recipe) => {
                 return (
-                  <SplideSlide>
+                  <SplideSlide key={recipe.id}>
                     <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                       <ReusableCard
                         key={recipe.id}
@@ -75,7 +75,7 @@ export default function Dashboard() {
           </div>
         ) : null}
       </div>
-      <div>
+      {/* <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
@@ -87,7 +87,7 @@ export default function Dashboard() {
             >
               {salad.map((recipe) => {
                 return (
-                  <SplideSlide>
+                  <SplideSlide key={recipe.id}>
                     <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                       <ReusableCard
                         key={recipe.id}
@@ -114,7 +114,7 @@ export default function Dashboard() {
           >
             {drink.map((recipe) => {
               return (
-                <SplideSlide>
+                <SplideSlide key={recipe.id}>
                   <Link to={"/recipe/" + recipe.id} key={recipe.id}>
                     <ReusableCard
                       key={recipe.id}
@@ -129,7 +129,7 @@ export default function Dashboard() {
             })}
           </Splide>
         ) : null}
-      </div>
+      </div> */}
     </>
   );
 }
