@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 
 const pages = ["dashboard", "search", "favorite"];
-const settings = ["profile", "history", "logout"];
+const settings = ["profile", "history"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
