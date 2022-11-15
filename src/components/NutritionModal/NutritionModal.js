@@ -27,7 +27,6 @@ export default function NutritionModal() {
     <div>
       <Button
         onClick={handleOpen}
-        variant="contained"
         color="success"
         sx={{
           marginTop: "3rem",
@@ -52,7 +51,7 @@ export default function NutritionModal() {
               Text in a modal
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              Nutritional Information.
             </Typography>
           </Box>
         </Fade>

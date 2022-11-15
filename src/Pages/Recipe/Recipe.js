@@ -44,31 +44,31 @@ const Recipe = () => {
             <h1>{data.title}</h1>
             <ul>
               <li>
-                {" "}
-                <ImSpoonKnife />
+                <ImSpoonKnife className="icon" />
                 {data.servings} servings
               </li>
               <li>
-                <HiClock />
+                <HiClock className="icon" />
                 {data.readyInMinutes} mins
               </li>
-            </ul>{" "}
-            <Button variant="contained" color="error">
-              {isSaved ? (
-                <>
-                  <FaHeartBroken className="favoriteIcon" /> Remove
-                </>
-              ) : (
-                <>
-                  <FaHeart /> Favorite this
-                </>
-              )}
-            </Button>
-            <NutritionModal />
+            </ul>
+            <div>
+              <Button variant="contained" color="error">
+                {isSaved ? (
+                  <>
+                    <FaHeartBroken /> Remove
+                  </>
+                ) : (
+                  <>
+                    <FaHeart /> Favorite this
+                  </>
+                )}
+              </Button>
+              <NutritionModal />
+            </div>
           </div>
         </div>
         <div className="ingredientsTable"></div>
-
         <h2>Ingredients</h2>
         <ul>
           {ingredients.map((i) => {
@@ -83,7 +83,6 @@ const Recipe = () => {
         </ul>
         <h2>Summary</h2>
         <Typography>{data.summary}</Typography>
-
         <h2>Source URL</h2>
         <Link href={data.sourceUrl} underline="none">
           {data.sourceUrl}

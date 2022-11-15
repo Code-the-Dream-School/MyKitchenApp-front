@@ -46,7 +46,9 @@ img {
   margin: 0;
   border-radius: 2rem;
 }
-
+.icon {
+  margin-right: 1rem;
+}
 @media only screen and (max-width: 820px) {
   .topContainer {
     flex-direction: column;
