@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Grid from "@mui/material/Grid";
-import { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
+import Filter from "../../components/Filter/Filter";
 
 const SearchResult = () => {
   // const [isLoading, setIsLoading] = useState(true);
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const url = "/api/v1/recipes";
+
   let params = useParams();
 
   const recipeResult = async (name) => {
     console.log(name);
-    const data = await axios.get(`${url}?includeIngredients=${name.split(/[ ]+/).join(',')}`);
+    const data = await axios.get(`${url}?includeIngredients=${encodeURIComponent(name)}`);
     return data;
   };
 
   useEffect(() => {
+    if(params.search) {
     recipeResult(params.search)
       .then((response) => {
-        console.log(response.data.results);
         setSearchedRecipe(response.data.results);
       })
       .catch((err) => console.log(err));
+    }
   }, [params.search])
 
   return (
@@ -43,29 +44,16 @@ const SearchResult = () => {
                 <p>Loading...</p>
               ) : (
                 <> */}
-        {/*These are temporary filter buttons. Later will be improved*/}
-        
-        <Grid 
-          sx={{ 
-            margin: "2",
-            display: "flex", 
-            justifyContent:"center",
-          }}>
-          <NavLink to={"/cousines/African"}>
-            African
-          </NavLink>
-          <NavLink to={"/cousines/American"}>
-            American
-          </NavLink>
-          <NavLink to={"/cousines/Chinese"}>
-            Chinese
-          </NavLink>
-          <NavLink to={"/cousines/European"}>
-            European
-          </NavLink>
-        </Grid>
 
-        <Box>
+        <Filter />
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
           {searchedRecipe.map((item) => {
             return (
               <ReusableCard 
@@ -75,7 +63,7 @@ const SearchResult = () => {
               image={item.image}
               />
             );
-          })}
+          })}          
         </Box>
           {/* </>
         )} */}

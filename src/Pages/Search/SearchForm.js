@@ -17,6 +17,7 @@ import { CiWheat } from "react-icons/ci";
 import { IoFishOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const SearchForm = () => {
   
@@ -58,7 +59,7 @@ const SearchForm = () => {
   
   const handleSearch = (event) => {
     event.preventDefault();
-    let path = "/searchresult/";
+    let path = "/searchresult/:search";
     navigate(path + searchInput);
   };
 
@@ -149,9 +150,9 @@ const SearchForm = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <StyledButton onClick={handleClickOpen}>
         New Recipe Search
-      </Button>
+      </StyledButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Search</DialogTitle>
         <DialogContent>
@@ -240,8 +241,8 @@ const SearchForm = () => {
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={handleSearch}
-            value={checkbox}
-            onChange={handleCheckbox}
+            // value={checkbox}
+            // onChange={handleCheckbox}
           >
             Search
           </Button>
@@ -251,5 +252,34 @@ const SearchForm = () => {
   );
 
 };
+
+const StyledButton = styled.button`
+  // background-image: url('/public/food-search-button.png');
+  // background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: white;
+  font-size: 1rem;
+  box-shadow: 
+    4px 4px 3px #446930,
+    1px 1px 0 #223716;
+
+  &:active{
+    box-shadow: 
+      1px 1px 0 black,
+      1px 1px 0 black;
+  }
+`;
 
 export default SearchForm;
