@@ -4,6 +4,7 @@ import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
 
@@ -17,9 +18,17 @@ export default function Dashboard() {
   const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
   const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
-  const requestBreakfast = axios.get(urlBreakfast);
-  const requestSalad = axios.get(urlSalad);
-  const requestDrink = axios.get(urlDrink);
+  const token = localStorage.getItem("myKitchenAppToken");
+
+  const requestBreakfast = axios.get(urlBreakfast, {
+    headers: { Authorization: "Bearer " + token },
+  });
+  const requestSalad = axios.get(urlSalad, {
+    headers: { Authorization: "Bearer " + token },
+  });
+  const requestDrink = axios.get(urlDrink, {
+    headers: { Authorization: "Bearer " + token },
+  });
 
   React.useEffect(() => {
     axios

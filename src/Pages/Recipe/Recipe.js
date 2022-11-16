@@ -18,9 +18,11 @@ const Recipe = () => {
   const [isSaved, setIsSaved] = useState(false);
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
-
+  const token = localStorage.getItem("myKitchenAppToken");
   const fetchRecipe = async () => {
-    const recipes = await axios.get(url);
+    const recipes = await axios.get(url, {
+      headers: { Authorization: "Bearer " + token },
+    });
     return recipes;
   };
 
