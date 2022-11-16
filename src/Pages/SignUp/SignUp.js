@@ -52,6 +52,10 @@ export default function SignUp({ setToggle }) {
       .then((response) => {
         console.log(response);
         setMyKitchenAppToken(response.data.token);
+        localStorage.setItem(
+          "myKitchenAppUser",
+          JSON.stringify(response.data.user)
+        );
       })
       .catch((error) => {
         console.log(error);
