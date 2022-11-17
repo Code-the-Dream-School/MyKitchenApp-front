@@ -1,11 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-// eslint-disable-next-line
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LayoutPublic from "./components/Layout/LayoutPublic";
+import { Routes, Route } from "react-router-dom";
 import Landing from "./Pages/Landing/Landing";
-import SignUp from "./Pages/SignUp/SignUp";
-import SignIn from "./Pages/SignIn/SignIn";
 import LayoutPrivate from "./components/Layout/LayoutPrivate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
@@ -19,25 +15,24 @@ import Filter from "./components/Filter/Filter";
 const theme = createTheme();
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("myKitchenAppToken")
+  );
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div>
-          <Routes>
-            <Route path="/" element={<LayoutPublic />}>
-              <Route index element={<Landing />} />
-            </Route>
-            <Route path="/" element={<LayoutPrivate />}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="history" element={<History />} />
-              <Route path="dashboard" element={<Dashboard />} />              
-              <Route path="searchresult/:search/:type" element={<Filter />} />
-              <Route path="searchresult/:search" element={<SearchResult />} />
-              <Route path="favorite" element={<Favorite />} />
-            </Route>
-          </Routes>
-        </div>
+        <CssBaseline />        
+        <Routes>
+          <Route index element={<Landing />} />
+          <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="history" element={<History />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="searchresult/:search/:type" element={<Filter />} />
+            <Route path="searchresult/:search" element={<SearchResult />} />
+            <Route path="favorite" element={<Favorite />} />
+          </Route>
+        </Routes>
       </ThemeProvider>
     </>
   );
