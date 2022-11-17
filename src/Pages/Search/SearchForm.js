@@ -15,10 +15,20 @@ import { GiMilkCarton, GiPeanut, GiShrimp, GiJellyBeans } from 'react-icons/gi';
 import { TbCheese, TbEgg } from "react-icons/tb";
 import { CiWheat } from "react-icons/ci";
 import { IoFishOutline } from "react-icons/io5";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const SearchForm = () => {
   
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [checkbox, setCheckbox] = useState({
+    intolerances: [],
+    response: [],
+  });
+
+  let navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +36,31 @@ const SearchForm = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCheckbox = (event) => {
+    const { value, checked } = event.target;
+    const { intolerances } = checkbox;
+
+    console.log(`${value} is ${checked}`);
+
+    if (checked) {
+      setCheckbox({
+        intolerances: [...intolerances, value],
+        response: [...intolerances, value],
+      });
+    } else {
+      setCheckbox({
+        intolerances: intolerances.filter((event) => event !== value),
+        response: intolerances.filter((event) => event !== value),
+      });
+    }
+  };
+  
+  const handleSearch = (event) => {
+    event.preventDefault();
+    let path = "/searchresult/:search";
+    navigate(path + searchInput);
   };
 
   const Dairy = (
@@ -115,9 +150,9 @@ const SearchForm = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <StyledButton onClick={handleClickOpen}>
         New Recipe Search
-      </Button>
+      </StyledButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Search</DialogTitle>
         <DialogContent>
@@ -132,29 +167,119 @@ const SearchForm = () => {
             type="text"
             fullWidth
             variant="filled"
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
           />
-          <DialogContentText>
-            Intolerances:
-          </DialogContentText>
+          <DialogContentText>Intolerances:</DialogContentText>
           <FormGroup>
-          <FormControlLabel control={<Checkbox />} label={Dairy} />
-                <FormControlLabel control={<Checkbox />} label={Egg} />
-                <FormControlLabel control={<Checkbox />} label={Gluten} />
-                <FormControlLabel control={<Checkbox />} label={Peanut} />
-                <FormControlLabel control={<Checkbox />} label={Seafood} />
-                <FormControlLabel control={<Checkbox />} label={Shellfish} />
-                <FormControlLabel control={<Checkbox />} label={Soy} />
-            </FormGroup>
-              
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Dairy}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Egg}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Gluten}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Peanut}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Seafood}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Shellfish}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              }
+              label={Soy}
+            />
+          </FormGroup>
         </DialogContent>
         <DialogActions>
-          <Button>Cancel</Button>
-          <Button>Search</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            onClick={handleSearch}
+            // value={checkbox}
+            // onChange={handleCheckbox}
+          >
+            Search
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 
 };
+
+const StyledButton = styled.button`
+  // background-image: url('/public/food-search-button.png');
+  // background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: white;
+  font-size: 1rem;
+  box-shadow: 
+    4px 4px 3px #446930,
+    1px 1px 0 #223716;
+
+  &:active{
+    box-shadow: 
+      1px 1px 0 black,
+      1px 1px 0 black;
+  }
+`;
 
 export default SearchForm;
