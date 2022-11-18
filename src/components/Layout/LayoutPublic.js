@@ -1,10 +1,12 @@
 import React from "react";
-
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Container from "@mui/material/Container";
 
 import FooterPublic from "../Footer/FooterPublic";
-const LayoutPublic = ({ children }) => {
+const LayoutPublic = ({ children, isAuthenticated}) => {
+  if (isAuthenticated) {
+    return <Navigate to={"/dashboard"} replace />;
+  }
   return (
     <>
       <Container>

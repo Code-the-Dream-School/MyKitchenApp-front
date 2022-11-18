@@ -11,6 +11,7 @@ import History from "./Pages/History/History";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Filter from "./components/Filter/Filter";
+import LayoutPublic from "./components/Layout/LayoutPublic";
 
 const theme = createTheme();
 
@@ -21,9 +22,11 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />        
+        <CssBaseline />
         <Routes>
-          <Route index element={<Landing />} />
+            <Route path="/" element={<LayoutPublic isAuthenticated={isAuthenticated}/>}>
+              <Route index element={<Landing />} />
+            </Route>
           <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} />}>
             <Route path="profile" element={<Profile />} />
             <Route path="history" element={<History />} />
@@ -32,7 +35,7 @@ function App() {
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
           </Route>
-        </Routes>
+          </Routes>
       </ThemeProvider>
     </>
   );

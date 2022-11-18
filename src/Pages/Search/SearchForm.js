@@ -55,12 +55,12 @@ const SearchForm = () => {
         response: intolerances.filter((event) => event !== value),
       });
     }
-  };
-  
+  };console.log(searchInput)
   const handleSearch = (event) => {
     event.preventDefault();
-    let path = "/searchresult/:search";
-    navigate(path + searchInput);
+    const path = `/searchresult/${searchInput}`;
+    console.log(path, "Path")
+    navigate(path, { replace: true });
   };
 
   const Dairy = (
