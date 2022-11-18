@@ -67,7 +67,8 @@ const SearchResult = () => {
             alignItems: "center",
           }}
         >
-          {searchedRecipe?.map((item) => {
+          {searchedRecipe.length ? 
+          searchedRecipe?.map((item) => {
             return (
               <ReusableCard
                 key={item.id}
@@ -76,8 +77,9 @@ const SearchResult = () => {
                 image={item.image}
               />
             );
-          })}
-          {!searchedRecipe.length && (
+          })
+          :
+          (
             <div style={{display: "flex",  alignItems: "center",  flexDirection: 'column'}} >
             <Typography variant="h2">
               OOPS! No Results try again!
@@ -86,8 +88,6 @@ const SearchResult = () => {
             </div>
           )}
         </Box>
-        {/* </>
-        )} */}
       </Box>
     </Container>
   );
