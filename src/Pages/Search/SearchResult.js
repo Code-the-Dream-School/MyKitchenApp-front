@@ -13,10 +13,8 @@ const SearchResult = () => {
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const url = "/api/v1/recipes";
   const { search } = useParams();
-  console.log(search, "Search name");
 
   const token = localStorage.getItem("myKitchenAppToken");
-
 
   const recipeResult = async (name) => {
     console.log("Search Term ", name);

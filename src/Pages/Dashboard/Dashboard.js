@@ -18,26 +18,29 @@ export default function Dashboard({ currentUser }) {
   const token = localStorage.getItem("myKitchenAppToken");
 
   const requestBreakfast = async () => {
-    await axios.get(urlBreakfast, {
+    const data = await axios.get(urlBreakfast, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return data;
   };
   const requestSalad = async () => {
-    axios.get(urlSalad, {
+    const data = await axios.get(urlSalad, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return data;
   };
 
   const requestDrink = async () => {
-    axios.get(urlDrink, {
+    const data = await axios.get(urlDrink, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return data;
   };
 
   // useEffect(() => {
@@ -62,6 +65,7 @@ export default function Dashboard({ currentUser }) {
       const responseBreakfast = requestBreakfast();
       const responseSalad = requestSalad();
       const responseDrink = requestDrink();
+      console.log(responseBreakfast, "BreakFast")
       if ((responseBreakfast.data, responseSalad.data, responseDrink.data)) {
         setBreakfast(responseBreakfast?.data.results);
         setSalad(responseSalad?.data.results);

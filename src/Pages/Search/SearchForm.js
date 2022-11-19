@@ -16,7 +16,7 @@ import { TbCheese, TbEgg } from "react-icons/tb";
 import { CiWheat } from "react-icons/ci";
 import { IoFishOutline } from "react-icons/io5";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchForm = () => {
@@ -28,7 +28,8 @@ const SearchForm = () => {
     response: [],
   });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,11 +56,14 @@ const SearchForm = () => {
         response: intolerances.filter((event) => event !== value),
       });
     }
-  };console.log(searchInput)
+  };
+  
+  console.log(searchInput)
+
   const handleSearch = (event) => {
     event.preventDefault();
-    const path = `/searchresult/${searchInput}`;
-    console.log(path, "Path")
+    const path = location.pathname !== 'searchresult' ? `/searchresult/${searchInput}`: '/';
+    handleClose();
     navigate(path, { replace: true });
   };
 
