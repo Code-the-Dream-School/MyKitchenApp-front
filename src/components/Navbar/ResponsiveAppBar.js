@@ -12,13 +12,25 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Dashboard", "Search", "Favorite"];
-const settings = ["Profile", "History", "Logout"];
+const pages = ["dashboard", "search", "Favorite"];
+const settings = [
+  { page: "Profile", link: "/profile" },
+  { page: "History", link: "/history" },
+  { page: "Logout", link: '#'},
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("myKitchenAppToken");
+    localStorage.removeItem("myKitchenAppUser");
+    navigate("/", { replace: true });
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -179,16 +191,23 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <NavLink
-                    style={{
-                      textDecoration: "none",
-                      color: "rgb(0, 0, 0)",
-                    }}
-                    to={`/${setting}`}
-                  >
-                    {setting}
-                  </NavLink>
+                <MenuItem 
+                key={setting.page} 
+                onClick={() => {
+                  handleCloseUserMenu();
+                  setting.page === "Logout" && handleLogout();
+                }}>
+                  {setting.page !== "Logout" ? (
+                    <NavLink
+                      style={{
+                        textDecoration: "none",
+                        color: "rgb(0, 0, 0)",
+                      }}
+                      to={setting.link}
+                    >
+                      {setting.page}
+                    </NavLink>
+                  ): setting.page}
                 </MenuItem>
               ))}
             </Menu>

@@ -15,9 +15,23 @@ export default function Dashboard() {
   const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
   const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
-  const requestBreakfast = axios.get(urlBreakfast);
-  const requestSalad = axios.get(urlSalad);
-  const requestDrink = axios.get(urlDrink);
+  const token = localStorage.getItem("myKitchenAppToken");
+
+  const requestBreakfast = axios.get(urlBreakfast, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  const requestSalad = axios.get(urlSalad, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
+  const requestDrink = axios.get(urlDrink, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+  });
 
   React.useEffect(() => {
     axios
@@ -33,7 +47,6 @@ export default function Dashboard() {
           setDrink(responseDrink.data.results);
         })
       )
-
       .catch((error) => console.log(error));
   }, []);
 
@@ -57,7 +70,7 @@ export default function Dashboard() {
             >
               {breakfast.map((recipe) => {
                 return (
-                  <SplideSlide>
+                  <SplideSlide key={recipe.id}>
                     <ReusableCard
                       key={recipe.id}
                       title={recipe.title}
@@ -83,7 +96,7 @@ export default function Dashboard() {
             >
               {salad.map((recipe) => {
                 return (
-                  <SplideSlide>
+                  <SplideSlide key={recipe.id}>
                     <ReusableCard
                       key={recipe.id}
                       title={recipe.title}
@@ -108,7 +121,7 @@ export default function Dashboard() {
           >
             {drink.map((recipe) => {
               return (
-                <SplideSlide>
+                <SplideSlide key={recipe.id}>
                   <ReusableCard
                     key={recipe.id}
                     title={recipe.title}

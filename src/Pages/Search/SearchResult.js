@@ -25,7 +25,7 @@ const SearchResult = () => {
         `${url}?includeIngredients=${encodeURIComponent(name)}`,
         {
           headers: {
-            Authorization: "Bearer" + token,
+            Authorization: `Bearer${token}`,
           },
         }
       );

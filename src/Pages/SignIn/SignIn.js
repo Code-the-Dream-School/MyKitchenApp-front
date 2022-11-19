@@ -44,7 +44,7 @@ export default function SignIn({ setToggle }) {
           JSON.stringify(response.data.user)
         );
         localStorage.setItem("myKitchenAppToken", response.data.token);
-        navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       })
       .catch((error) => {
         console.log(error);
