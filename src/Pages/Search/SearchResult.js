@@ -16,7 +16,7 @@ const SearchResult = () => {
   console.log(search, "Search name");
 
   const token = localStorage.getItem("myKitchenAppToken");
-  console.log(token, "TOKEN");
+
 
   const recipeResult = async (name) => {
     console.log("Search Term ", name);

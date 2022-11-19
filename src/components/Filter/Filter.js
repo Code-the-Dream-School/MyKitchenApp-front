@@ -22,7 +22,7 @@ const Filter = () => {
 
   useEffect(() => {
 
-    if (params.type) {      
+    if (params.type) {
         console.log(params.type);
       cuisineType(params.type)
         .then((response) => {
@@ -39,7 +39,7 @@ const Filter = () => {
         sx={{
           margin: "2rem 0rem",
           display: "flex",
-          justifyContent: "center",          
+          justifyContent: "center",
         }}
       >
         <StyledLink to={`/searchresult/${params.search}/African`}>African</StyledLink>

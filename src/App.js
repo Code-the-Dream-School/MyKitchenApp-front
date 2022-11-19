@@ -16,9 +16,7 @@ import LayoutPublic from "./components/Layout/LayoutPublic";
 const theme = createTheme();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("myKitchenAppToken")
-  );
+  const isAuthenticated = localStorage.getItem("myKitchenAppToken");
   return (
     <>
       <ThemeProvider theme={theme}>
