@@ -40,7 +40,9 @@ const SearchResult = () => {
       recipeResult(search)
         .then((res) => {
           console.log("RES", res);
+          if(res.data.results) {
           setSearchedRecipe(res.data.results);
+          }
         })
         .catch((err) => console.log(err));
     }

@@ -5,10 +5,12 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
+import LayoutPublic from "../../components/Layout/LayoutPublic";
 
 export default function Landing() {
   const [toggle, setToggle] = useState(true);
   return (
+    <LayoutPublic>
     <Grid container component="main">
       <Grid item xs={12} sm={8} md={5} component={Paper} square elevation={0}>
         <Box
@@ -41,5 +43,6 @@ export default function Landing() {
         <SignUp setToggle={setToggle} />
       )}
     </Grid>
+    </LayoutPublic>
   );
 }

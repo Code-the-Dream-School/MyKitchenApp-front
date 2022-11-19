@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
@@ -6,7 +6,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import SearchForm from "../Search/SearchForm";
 
-export default function Dashboard() {
+export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
@@ -17,43 +17,67 @@ export default function Dashboard() {
 
   const token = localStorage.getItem("myKitchenAppToken");
 
-  const requestBreakfast = axios.get(urlBreakfast, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-  });
-  const requestSalad = axios.get(urlSalad, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-  });
-  const requestDrink = axios.get(urlDrink, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-  });
+  const requestBreakfast = async () => {
+    await axios.get(urlBreakfast, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+  const requestSalad = async () => {
+    axios.get(urlSalad, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
 
-  React.useEffect(() => {
-    axios
-      .all([requestBreakfast, requestSalad, requestDrink])
-      .then(
-        axios.spread((...responses) => {
-          const responseBreakfast = responses[0];
-          const responseSalad = responses[1];
-          const responseDrink = responses[2];
+  const requestDrink = async () => {
+    axios.get(urlDrink, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
 
-          setBreakfast(responseBreakfast.data.results);
-          setSalad(responseSalad.data.results);
-          setDrink(responseDrink.data.results);
-        })
-      )
-      .catch((error) => console.log(error));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .all([requestBreakfast, requestSalad, requestDrink])
+  //     .then(
+  //       axios.spread((...responses) => {
+  //         const responseBreakfast = responses[0];
+  //         const responseSalad = responses[1];
+  //         const responseDrink = responses[2];
+
+  //         setBreakfast(responseBreakfast.data.results);
+  //         setSalad(responseSalad.data.results);
+  //         setDrink(responseDrink.data.results);
+  //       })
+  //     )
+  //     .catch((error) => console.log(error));
+  // }, []);
+
+  useEffect(() => {
+    try {
+      const responseBreakfast = requestBreakfast();
+      const responseSalad = requestSalad();
+      const responseDrink = requestDrink();
+      if ((responseBreakfast.data, responseSalad.data, responseDrink.data)) {
+        setBreakfast(responseBreakfast?.data.results);
+        setSalad(responseSalad?.data.results);
+        setDrink(responseDrink?.data.results);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [token]);
 
   return (
     <>
-      <h1>Welcome user!</h1>
+      <h1>Welcome {currentUser.name}!</h1>
+
       <SearchForm />
+
       <h1>Discover recipes for the day</h1>
 
       <div>

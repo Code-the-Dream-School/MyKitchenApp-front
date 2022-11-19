@@ -14,14 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["dashboard", "search", "Favorite"];
+const pages = ["dashboard", "favorite"];
 const settings = [
-  { page: "Profile", link: "/profile" },
-  { page: "History", link: "/history" },
-  { page: "Logout", link: '#'},
+  { page: "My Profile", link: "/profile" },
+  { page: "Logout", link: "#" },
 ];
 
-function ResponsiveAppBar() {
+function NavBar({ currentUser }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   let navigate = useNavigate();
@@ -55,7 +54,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -103,8 +102,10 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                >
                     <NavLink
                       style={{
                         textDecoration: "none",
@@ -114,30 +115,10 @@ function ResponsiveAppBar() {
                     >
                       {page}
                     </NavLink>
-                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            MyKitchen
-          </Typography>
 
           <Box
             sx={{
@@ -151,27 +132,27 @@ function ResponsiveAppBar() {
             }}
           >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                <NavLink
-                  style={{
-                    textDecoration: "none",
-                    color: "rgb(255, 255, 255)",
-                  }}
-                  to={`/${page}`}
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
-                </NavLink>
-              </Button>
+                  <NavLink
+                    style={{
+                      textDecoration: "none",
+                      color: "rgb(255, 255, 255)",
+                    }}
+                    to={`/${page}`}
+                  >
+                    {page}
+                  </NavLink>
+                </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="./" />
+                <Avatar alt="User Name">{currentUser.name.charAt(0)}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -191,12 +172,13 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem 
-                key={setting.page} 
-                onClick={() => {
-                  handleCloseUserMenu();
-                  setting.page === "Logout" && handleLogout();
-                }}>
+                <MenuItem
+                  key={setting.page}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    setting.page === "Logout" && handleLogout();
+                  }}
+                >
                   {setting.page !== "Logout" ? (
                     <NavLink
                       style={{
@@ -207,7 +189,9 @@ function ResponsiveAppBar() {
                     >
                       {setting.page}
                     </NavLink>
-                  ): setting.page}
+                  ) : (
+                    setting.page
+                  )}
                 </MenuItem>
               ))}
             </Menu>
@@ -217,4 +201,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavBar;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Landing from "./Pages/Landing/Landing";
@@ -7,28 +7,24 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
-import History from "./Pages/History/History";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Filter from "./components/Filter/Filter";
-import LayoutPublic from "./components/Layout/LayoutPublic";
 
 const theme = createTheme();
 
 function App() {
   const isAuthenticated = localStorage.getItem("myKitchenAppToken");
+  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"))
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-            <Route path="/" element={<LayoutPublic isAuthenticated={isAuthenticated}/>}>
-              <Route index element={<Landing />} />
-            </Route>
-          <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} />}>
+          <Route index element={<Landing />} />
+          <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} currentUser={currentUser}/>}>
             <Route path="profile" element={<Profile />} />
-            <Route path="history" element={<History />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard currentUser={currentUser}/>} />
             <Route path="searchresult/:search/:type" element={<Filter />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
