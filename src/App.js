@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import LayoutPublic from "./components/Layout/LayoutPublic";
 import Landing from "./Pages/Landing/Landing";
 import LayoutPrivate from "./components/Layout/LayoutPrivate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -23,7 +24,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />        
         <Routes>
-          <Route index element={<Landing />} />
+          <Route path="/" element={<LayoutPublic />}>
+            <Route index element={<Landing />} />
+          </Route>
           <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} />}>
             <Route path="profile" element={<Profile />} />
             <Route path="history" element={<History />} />
