@@ -19,7 +19,7 @@ const Recipe = () => {
   // const [instructions, setInstructions] = useState([]);
   //const [isFavorite, setIsFavorite] = useState(false);
   const [favorite, setFavorite] = useState();
-  const [notFavorite, setNotFavorite] = useState();
+  //const [notFavorite, setNotFavorite] = useState();
   const [err, setErr] = useState("");
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
@@ -50,15 +50,15 @@ const Recipe = () => {
       title: data.title,
       image: data.image,
     };
+
     try {
-      const { recipe } = await axios.post("/api/v1/recipes/list", favRecipe, {
+      const { recipe } = await axios.post("/api/v1/recipes/list/", favRecipe, {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
       });
-
       setFavorite(favRecipe);
     } catch (err) {
       setErr(err.message);
@@ -66,18 +66,10 @@ const Recipe = () => {
   };
 
   const remove = async () => {
-    const notFavRecipe = {
-      recipeId: data.id,
-      // userId: "637430988d29dc672d7a1e70",
-
-      // user: "",
-      userId: "",
-      user_id: "637430988d29dc672d7a1e70",
-    };
     try {
       const { recipe } = await axios.delete(
-        `/api/v1/recipes/list/${params.id}`,
-        notFavRecipe,
+        `/api/v1/recipes/${params.id}`,
+
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -86,16 +78,10 @@ const Recipe = () => {
           },
         }
       );
-
-      setNotFavorite(notFavRecipe);
     } catch (err) {
       setErr(err.message);
     }
   };
-  console.log(favorite);
-  console.log(notFavorite);
-
-  const label = { inputProps: { "aria-label": "Checkbox" } };
 
   return (
     <>
