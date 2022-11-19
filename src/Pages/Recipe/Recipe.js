@@ -6,10 +6,9 @@ import { ImSpoonKnife } from "react-icons/im";
 import { HiClock } from "react-icons/hi";
 //import Typography from "@mui/material/Typography";
 //import Link from "@mui/material/Link";
-import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
+import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
 
@@ -17,14 +16,14 @@ const Recipe = () => {
   const [data, setData] = useState("");
   // const [ingredients, setIngredients] = useState([]);
   // const [instructions, setInstructions] = useState([]);
-  //const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [favorite, setFavorite] = useState();
-  //const [notFavorite, setNotFavorite] = useState();
+  const [isFav, setIsFav] = useState(true);
   const [err, setErr] = useState("");
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
   const token = localStorage.getItem("myKitchenAppToken");
-  //console.log(token, "Token here....");
+
   const fetchRecipe = async () => {
     const recipe = await axios.get(url, {
       headers: { Authorization: "Bearer " + token },
@@ -60,6 +59,7 @@ const Recipe = () => {
         },
       });
       setFavorite(favRecipe);
+      setIsFav(false);
     } catch (err) {
       setErr(err.message);
     }
@@ -78,10 +78,13 @@ const Recipe = () => {
           },
         }
       );
+      setIsFav(true);
     } catch (err) {
       setErr(err.message);
     }
   };
+
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   return (
     <>
@@ -101,29 +104,15 @@ const Recipe = () => {
               </li>
             </ul>
             <div>
-              <IconButton aria-label="delete" size="large">
-                <FavoriteBorderIcon fontSize="inherit" onClick={add} />
-                <FavoriteIcon
-                  fontSize="inherit"
-                  color="error"
-                  onClick={remove}
-                />
-              </IconButton>
-              {/* <IconButton aria-label="delete" size="large">
-                {isFavorite ? (
-                  <>
-                    <FavoriteIcon
-                      fontSize="inherit"
-                      color="error"
-                      onClick={remove}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <FavoriteBorderIcon fontSize="inherit" onClick={add} />
-                  </>
-                )}
-              </IconButton> */}
+              {isFav ? (
+                <Button color="error" type="submit" onClick={add}>
+                  <FavoriteBorderIcon />
+                </Button>
+              ) : (
+                <Button color="error" type="submit" onClick={remove}>
+                  <FavoriteIcon />
+                </Button>
+              )}
 
               <NutritionModal />
             </div>
