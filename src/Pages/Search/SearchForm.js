@@ -59,8 +59,8 @@ const SearchForm = () => {
   
   const handleSearch = (event) => {
     event.preventDefault();
-    let path = "/searchresult/:search";
-    navigate(path + searchInput);
+    let path = `/searchresult/${searchInput}`;
+    navigate(path);
   };
 
   const Dairy = (
