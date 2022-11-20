@@ -4,12 +4,12 @@ import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+//import Parse from "parse/dist/parse.min.js";
 
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  //const [name, setName] = useState(""); get token const url = "/api/v1/auth/register";
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
@@ -19,6 +19,9 @@ export default function Dashboard() {
   const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const token = localStorage.getItem("myKitchenAppToken");
+  const name = localStorage.getItem("myKitchenAppUser");
+
+  let userName = JSON.parse(name);
 
   const requestBreakfast = axios.get(urlBreakfast, {
     headers: { Authorization: "Bearer " + token },
@@ -47,10 +50,26 @@ export default function Dashboard() {
 
       .catch((error) => console.log(error));
   }, []);
+  const date = new Date();
+  const currentTime = date.getHours();
 
+  let greeting;
+
+  if (currentTime >= 0 && currentTime <= 12) {
+    greeting = "Good Morning";
+  } else if (currentTime > 12 && currentTime <= 18) {
+    greeting = "Good Afternoon";
+  } else if (currentTime > 12 && currentTime <= 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
   return (
     <>
-      <h1>Welcome user!</h1>
+      <h1>
+        {greeting} {userName.name}!
+      </h1>
+
       <SearchForm />
       <h1>Discover recipes for the day</h1>
 

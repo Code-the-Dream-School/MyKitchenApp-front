@@ -105,11 +105,16 @@ const Recipe = () => {
             </ul>
             <div>
               {isFav ? (
-                <Button color="error" type="submit" onClick={add}>
+                <Button color="error" type="submit" size="large" onClick={add}>
                   <FavoriteBorderIcon />
                 </Button>
               ) : (
-                <Button color="error" type="submit" onClick={remove}>
+                <Button
+                  color="error"
+                  type="submit"
+                  size="large"
+                  onClick={remove}
+                >
                   <FavoriteIcon />
                 </Button>
               )}
