@@ -1,13 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import ResponsiveAppBar from "../Navbar/ResponsiveAppBar";
+import { Navigate, Outlet } from "react-router-dom";
 import Container from "@mui/material/Container";
 import FooterPrivate from "../Footer/FooterPrivate";
+import NavBar from "../Navbar/NavBar";
 
-const LayoutPrivate = ({ children }) => {
+const LayoutPrivate = ({ children, isAuthenticated, currentUser }) => {
+  if (!isAuthenticated) {
+    return <Navigate to={"/"} replace />;
+  }
   return (
     <>
-      <ResponsiveAppBar />
+      <NavBar currentUser={currentUser} />
       <Container>
         <Outlet />
         <main>{children}</main>

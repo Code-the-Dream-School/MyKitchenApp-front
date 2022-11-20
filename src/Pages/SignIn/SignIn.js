@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -12,9 +12,6 @@ export default function SignIn({ setToggle }) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [myKitchenAppToken, setMyKitchenAppToken] = useState(
-    localStorage.getItem("myKitchenAppToken") || ""
-  );
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,7 +39,12 @@ export default function SignIn({ setToggle }) {
       })
       .then((response) => {
         console.log(response);
-        setMyKitchenAppToken(response.data.token);
+        localStorage.setItem(
+          "myKitchenAppUser",
+          JSON.stringify(response.data.user)
+        );
+        localStorage.setItem("myKitchenAppToken", response.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error);
@@ -50,13 +52,6 @@ export default function SignIn({ setToggle }) {
         setErrorMessage(error.response.data.msg);
       });
   };
-
-  useEffect(() => {
-    localStorage.setItem("myKitchenAppToken", myKitchenAppToken);
-    if (myKitchenAppToken) {
-      navigate("/dashboard");
-    }
-  }, [myKitchenAppToken]);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);

@@ -1,41 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-// eslint-disable-next-line
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LayoutPublic from "./components/Layout/LayoutPublic";
 import Landing from "./Pages/Landing/Landing";
-import SignUp from "./Pages/SignUp/SignUp";
-import SignIn from "./Pages/SignIn/SignIn";
 import LayoutPrivate from "./components/Layout/LayoutPrivate";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
-import History from "./Pages/History/History";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Filter from "./components/Filter/Filter";
 
 const theme = createTheme();
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("myKitchenAppToken")
+  );
+  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div>
-          <Routes>
-            <Route path="/" element={<LayoutPublic />}>
-              <Route index element={<Landing />} />
-            </Route>
-            <Route path="/" element={<LayoutPrivate />}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="history" element={<History />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="search" element={<SearchResult />} />
-              <Route path="favorite" element={<Favorite />} />
-            </Route>
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<LayoutPublic />}>
+            <Route index element={<Landing />} />
+          </Route>
+          <Route
+            element={
+              <LayoutPrivate
+                isAuthenticated={isAuthenticated}
+                currentUser={currentUser}
+              />
+            }
+          >
+            <Route path="profile" element={<Profile />} />
+            <Route
+              path="dashboard"
+              element={<Dashboard currentUser={currentUser} />}
+            />
+            <Route path="searchresult/:search/:type" element={<Filter />} />
+            <Route path="searchresult/:search" element={<SearchResult />} />
+            <Route path="favorite" element={<Favorite />} />
+          </Route>
+        </Routes>
       </ThemeProvider>
     </>
   );
