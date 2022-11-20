@@ -4,7 +4,6 @@ import axios from "axios";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import styled from "styled-components";
 
@@ -50,6 +49,9 @@ const Filter = () => {
           justifyContent: "center",
         }}
       >
+        <StyledLink to={`/searchresult/${filter.search}`}>
+          All
+        </StyledLink>
         <StyledLink to={`/searchresult/${filter.search}/African`}>
           African
         </StyledLink>
@@ -59,11 +61,20 @@ const Filter = () => {
         <StyledLink to={`/searchresult/${filter.search}/Chinese`}>
           Chinese
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/European`}>
-          European
+        <StyledLink to={`/searchresult/${filter.search}/French`}>
+          French
         </StyledLink>
         <StyledLink to={`/searchresult/${filter.search}/Indian`}>
           Indian
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/Italian`}>
+          Italian
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/Korean`}>
+          Korean
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/Thai`}>
+          Thai
         </StyledLink>
       </Grid>
       <Box
