@@ -31,7 +31,8 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="history" element={<History />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="searchresult/:search/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances" element={<SearchResult />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
           </Route>

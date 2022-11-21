@@ -6,15 +6,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Box from '@mui/material/Box';
-import Typography from "@mui/material/Typography";
-import { GiMilkCarton, GiPeanut, GiShrimp, GiJellyBeans } from 'react-icons/gi';
-import { TbCheese, TbEgg } from "react-icons/tb";
-import { CiWheat } from "react-icons/ci";
-import { IoFishOutline } from "react-icons/io5";
+// import FormGroup from '@mui/material/FormGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import Box from '@mui/material/Box';
+// import Typography from "@mui/material/Typography";
+// import { GiMilkCarton, GiPeanut, GiShrimp, GiJellyBeans } from 'react-icons/gi';
+// import { TbCheese, TbEgg } from "react-icons/tb";
+// import { CiWheat } from "react-icons/ci";
+// import { IoFishOutline } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -23,12 +23,96 @@ const SearchForm = () => {
   
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [checkbox, setCheckbox] = useState({
-    intolerances: [],
-    response: [],
-  });
-
+  const [checked, setChecked] = useState([]);
   let navigate = useNavigate();
+
+  // const Dairy = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Dairy</Typography>
+  //     <Box
+  //       sx={{
+  //         display: "flex",
+  //       }}
+  //     >
+  //       <GiMilkCarton fontSize="big" />
+  //       <TbCheese />
+  //     </Box>
+  //   </Box>
+  // );
+  // const Egg = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Egg</Typography>
+  //     <TbEgg />
+  //   </Box>
+  // );
+  // const Gluten = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Gluten</Typography>
+  //     <CiWheat />
+  //   </Box>
+  // );
+  // const Peanut = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Peanut</Typography>
+  //     <GiPeanut />
+  //   </Box>
+  // );
+  // const Seafood = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Seafood</Typography>
+  //     <IoFishOutline />
+  //   </Box>
+  // );
+  // const Shellfish = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Shellfish</Typography>
+  //     <GiShrimp />
+  //   </Box>
+  // );
+  // const Soy = (
+  //   <Box
+  //     sx={{
+  //       display: "flex",
+  //       gap: 1,
+  //     }}
+  //   >
+  //     <Typography>Soy</Typography>
+  //     <GiJellyBeans />
+  //   </Box>
+  // );
+
+  const intolerances = ["Dairy", "Egg", "Gluten", "Peanut", "Seafood", "Shellfish", "Soy"];
+  console.log(intolerances);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,115 +123,27 @@ const SearchForm = () => {
   };
 
   const handleCheckbox = (event) => {
-    const { value, checked } = event.target;
-    const { intolerances } = checkbox;
-
-    console.log(`${value} is ${checked}`);
-
-    if (checked) {
-      setCheckbox({
-        intolerances: [...intolerances, value],
-        response: [...intolerances, value],
-      });
+    let checkedIntolerance = [...checked];
+    if (event.target.checked) {
+      checkedIntolerance = [...checked, event.target.value];
     } else {
-      setCheckbox({
-        intolerances: intolerances.filter((event) => event !== value),
-        response: intolerances.filter((event) => event !== value),
-      });
+      checkedIntolerance.splice(checked.indexOf(event.target.value), 1);
     }
+    setChecked(checkedIntolerance);
   };
-  
+
+  const allIntolerances = checked.length 
+    ? checked.reduce((total, item) => {
+        return total + "," + item;
+    })
+    : "";
+    
   const handleSearch = (event) => {
     event.preventDefault();
-    let path = `/searchresult/${searchInput}`;
+    let path = `/searchresult/${searchInput}/${allIntolerances}`;
     navigate(path);
   };
-
-  const Dairy = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Dairy</Typography>
-      <Box
-        sx={{
-          display: "flex",
-        }}
-      >
-        <GiMilkCarton fontSize="big" />
-        <TbCheese />
-      </Box>
-    </Box>
-  );
-  const Egg = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Egg</Typography>
-      <TbEgg />
-    </Box>
-  );
-  const Gluten = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Gluten</Typography>
-      <CiWheat />
-    </Box>
-  );
-  const Peanut = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Peanut</Typography>
-      <GiPeanut />
-    </Box>
-  );
-  const Seafood = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Seafood</Typography>
-      <IoFishOutline />
-    </Box>
-  );
-  const Shellfish = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Shellfish</Typography>
-      <GiShrimp />
-    </Box>
-  );
-  const Soy = (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 1,
-      }}
-    >
-      <Typography>Soy</Typography>
-      <GiJellyBeans />
-    </Box>
-  );
-
+  
   return (
     <div>
       <StyledButton onClick={handleClickOpen}>
@@ -170,7 +166,21 @@ const SearchForm = () => {
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
           />
-          <DialogContentText>Intolerances:</DialogContentText>
+          <div className="checkList">
+            <div className="title">Intolerances:</div>
+              <div className="list-container">
+                {intolerances.map((item, index) => (
+                  <div key={index}>
+                    <input value={item} type="checkbox" onChange={handleCheckbox}/>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+          </div>
+          <div>
+            {`Checked Intolerances: ${allIntolerances}`}
+          </div>
+          {/* <DialogContentText>Intolerances:</DialogContentText>
           <FormGroup>
             <FormControlLabel
               control={
@@ -235,17 +245,11 @@ const SearchForm = () => {
               }
               label={Soy}
             />
-          </FormGroup>
+          </FormGroup> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button
-            onClick={handleSearch}
-            // value={checkbox}
-            // onChange={handleCheckbox}
-          >
-            Search
-          </Button>
+          <Button onClick={handleSearch}>Search</Button>
         </DialogActions>
       </Dialog>
     </div>
