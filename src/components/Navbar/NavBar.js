@@ -124,12 +124,18 @@ function NavBar({ currentUser }) {
               ))}
             </Menu>
           </Box>
-
+          <Avatar
+            sx={{
+              marginRight: "5px",
+            }}
+            alt="logo"
+            src="/MyKitchenLogoNoName.jpeg"
+          />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="/"
+            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
