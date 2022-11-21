@@ -51,6 +51,8 @@ function NavBar({ currentUser }) {
         <Toolbar disableGutters>
           <Avatar
             sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
               marginRight: "20px",
             }}
             alt="logo"
@@ -124,13 +126,7 @@ function NavBar({ currentUser }) {
               ))}
             </Menu>
           </Box>
-          <Avatar
-            sx={{
-              marginRight: "5px",
-            }}
-            alt="logo"
-            src="/MyKitchenLogoNoName.jpeg"
-          />
+
           <Typography
             variant="h5"
             noWrap
