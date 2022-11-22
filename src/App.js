@@ -19,10 +19,28 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("myKitchenAppToken")
   );
+
+  const removeLocalStorageData = (hours) => {
+    const currentTime = new Date().getTime();
+    const lastLoginTime = Number(localStorage.getItem("lastLoginTime"));
+
+    if (lastLoginTime === null) {
+      localStorage.setItem("lastLoginTime", currentTime);
+    } else {
+      if (currentTime - lastLoginTime > hours * 60 * 60 * 1000) {
+        localStorage.removeItem("myKitchenAppUser");
+        localStorage.removeItem("myKitchenAppToken");
+        localStorage.setItem("lastLoginTime", currentTime);
+      }
+    }
+  };
+
+  removeLocalStorageData(24);
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <CssBaseline />        
+        <CssBaseline />
         <Routes>
           <Route path="/" element={<LayoutPublic />}>
             <Route index element={<Landing />} />
