@@ -12,14 +12,24 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Dashboard", "Search", "Favorite"];
-const settings = ["Profile", "History", "Logout"];
+const pages = ["dashboard", "favorite"];
+const settings = [
+  { page: "My Profile", link: "/profile" },
+  { page: "Logout", link: "/" },
+];
 
-function ResponsiveAppBar() {
+function NavBar({ currentUser }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  let navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("myKitchenAppToken");
+    localStorage.removeItem("myKitchenAppUser");
+    navigate("/", { replace: true });
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -39,11 +49,20 @@ function ResponsiveAppBar() {
     <AppBar sx={{ bgcolor: "rgb(0, 0, 0)" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Avatar
+            sx={{
+              display: { xs: "none", md: "flex" },
+              mr: 1,
+              marginRight: "20px",
+            }}
+            alt="logo"
+            src="/MyKitchenLogoNoName.jpeg"
+          />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -112,7 +131,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="/"
+            href="/dashboard"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -159,7 +178,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="./" />
+                <Avatar alt="User Name">{currentUser.name.charAt(0)}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -179,16 +198,26 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <NavLink
-                    style={{
-                      textDecoration: "none",
-                      color: "rgb(0, 0, 0)",
-                    }}
-                    to={`/${setting}`}
-                  >
-                    {setting}
-                  </NavLink>
+                <MenuItem
+                  key={setting.page}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    setting.page === "Logout" && handleLogout();
+                  }}
+                >
+                  {setting.page !== "Logout" ? (
+                    <NavLink
+                      style={{
+                        textDecoration: "none",
+                        color: "rgb(0, 0, 0)",
+                      }}
+                      to={setting.link}
+                    >
+                      {setting.page}
+                    </NavLink>
+                  ) : (
+                    setting.page
+                  )}
                 </MenuItem>
               ))}
             </Menu>
@@ -198,4 +227,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavBar;
