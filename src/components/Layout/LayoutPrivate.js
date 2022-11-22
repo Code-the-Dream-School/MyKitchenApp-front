@@ -11,7 +11,11 @@ const LayoutPrivate = ({ children, isAuthenticated }) => {
   return (
     <>
       <ResponsiveAppBar />
-      <Container>
+      <Container
+        sx={{
+          marginBottom: "200px",
+        }}
+      >
         <Outlet />
         <main>{children}</main>
       </Container>

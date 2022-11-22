@@ -7,7 +7,11 @@ import FooterPublic from "../Footer/FooterPublic";
 const LayoutPublic = ({ children }) => {
   return (
     <>
-      <Container>
+      <Container
+        sx={{
+          marginBottom: "200px",
+        }}
+      >
         <Outlet />
         <main>{children}</main>
       </Container>

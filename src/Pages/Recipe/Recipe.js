@@ -11,15 +11,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
+//import TextField from "@mui/material";
 
 const Recipe = () => {
   const [data, setData] = useState("");
   // const [ingredients, setIngredients] = useState([]);
   // const [instructions, setInstructions] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+
   const [favorite, setFavorite] = useState();
   const [isFav, setIsFav] = useState(true);
   const [err, setErr] = useState("");
+  //const [isSaved, setIsSaved] = useState(false);
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
   const token = localStorage.getItem("myKitchenAppToken");
