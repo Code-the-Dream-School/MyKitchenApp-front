@@ -4,12 +4,10 @@ import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-//import Parse from "parse/dist/parse.min.js";
-
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
 
-export default function Dashboard() {
+export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
@@ -19,9 +17,6 @@ export default function Dashboard() {
   const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const token = localStorage.getItem("myKitchenAppToken");
-  const name = localStorage.getItem("myKitchenAppUser");
-
-  let userName = JSON.parse(name);
 
   const getBreakfast = () => {
     axios
@@ -74,20 +69,18 @@ export default function Dashboard() {
     greeting = "Good Morning";
   } else if (currentTime > 12 && currentTime <= 18) {
     greeting = "Good Afternoon";
-  } else if (currentTime > 12 && currentTime <= 18) {
-    greeting = "Good Afternoon";
   } else {
     greeting = "Good Evening";
   }
   return (
     <>
-      <h1>
-        {greeting} {userName.name}!
+      <h1 className="greet">
+        {greeting} {currentUser.name}!
       </h1>
-
-      <SearchForm />
-      <h1>Discover recipes for the day</h1>
-
+      <div className="searchContainer">
+        <h1>Recommended recipes</h1>
+        <SearchForm />
+      </div>
       <div>
         <h2>Breakfast</h2>
 

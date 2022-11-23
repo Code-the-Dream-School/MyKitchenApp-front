@@ -4,24 +4,25 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { HiClock } from "react-icons/hi";
-//import Typography from "@mui/material/Typography";
-//import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
-//import TextField from "@mui/material";
+import TextField from "@mui/material";
+import { MdOutlineCircle } from "react-icons/md";
+import ChartComponent from "../../components/PieChart/PieChart";
 
 const Recipe = () => {
   const [data, setData] = useState("");
-  // const [ingredients, setIngredients] = useState([]);
-  // const [instructions, setInstructions] = useState([]);
-
+  const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
   const [favorite, setFavorite] = useState();
   const [isFav, setIsFav] = useState(true);
   const [err, setErr] = useState("");
-  //const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
   const token = localStorage.getItem("myKitchenAppToken");
@@ -37,9 +38,8 @@ const Recipe = () => {
     fetchRecipe()
       .then((response) => {
         setData(response.data);
-        //setIngredients(response.data.ingredients);
-        //setInstructions(response.data.instructions);
-        //console.log(response.data);
+        setIngredients(response.data.ingredients);
+        setInstructions(response.data.instructions);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -86,8 +86,6 @@ const Recipe = () => {
     }
   };
 
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
   return (
     <>
       <div className="pageWrapper">
@@ -102,13 +100,13 @@ const Recipe = () => {
               </li>
               <li>
                 <HiClock className="icon" />
-                {data.readyInMinutes} mins
+                Ready in {data.readyInMinutes} mins
               </li>
             </ul>
             <div>
               {isFav ? (
                 <Button color="error" type="submit" size="large" onClick={add}>
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon /> Save to favorite
                 </Button>
               ) : (
                 <Button
@@ -125,25 +123,38 @@ const Recipe = () => {
             </div>
           </div>
         </div>
-        {/* <div className="ingredientsTable"></div>
+
+        <div className="ingredientsTable"></div>
         <h2>Ingredients</h2>
-        <ul>
-          {ingredients.map((i) => {
-            return <li key={i}>{i}</li>;
-          })}
-        </ul>
+        <div className="nutrition">
+          <ul>
+            {ingredients.map((i) => {
+              return (
+                <div className="ingredients" key={i}>
+                  <MdOutlineCircle color="green" />
+                  <li>{i} </li>
+                </div>
+              );
+            })}
+          </ul>
+        </div>
         <h2>Instructions</h2>
         <ul>
           {instructions.map((i) => {
-            return <li key={i}>{i}</li>;
+            return (
+              <div className="ingredients" key={i}>
+                <MdOutlineCircle color="green" />
+                <li>{i}</li>;
+              </div>
+            );
           })}
         </ul>
         <h2>Summary</h2>
         <Typography>{data.summary}</Typography>
         <h2>Source URL</h2>
-        <Link href={data.sourceUrl} underline="none">
+        <Link href={data.sourceUrl} target="_blank" underline="none">
           {data.sourceUrl}
-        </Link> */}
+        </Link>
       </div>
     </>
   );

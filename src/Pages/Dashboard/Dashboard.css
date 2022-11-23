@@ -4,7 +4,15 @@
 h1 {
   margin: 4rem 0;
 }
+.greet {
+  margin-top: 4rem;
+  text-align: center;
+}
 a {
   font-size: 1.2rem;
   text-decoration: none;
+}
+.searchContainer {
+  display: flex;
+  justify-content: space-between;
 }

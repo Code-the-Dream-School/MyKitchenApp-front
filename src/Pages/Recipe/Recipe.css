@@ -19,15 +19,20 @@ h1 {
 h2 {
   margin: 2rem 0;
 }
-
 ul {
-  list-style-type: none;
-  padding: 0;
+  list-style: none;
+  padding-left: 0px;
 }
 li {
-  margin-bottom: 1rem;
+  margin-left: 10px;
 }
-
+.ingredients {
+  display: flex;
+  align-items: center;
+}
+.nutrition {
+  display: flex;
+}
 p {
   text-indent: 50px;
   line-height: 1.8;
