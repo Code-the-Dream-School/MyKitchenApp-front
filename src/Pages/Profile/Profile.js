@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -12,6 +12,15 @@ const Profile = () => {
 
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [isNewPasswordInvalid, setIsNewPasswordInvalid] = useState(true);
+  const [invalidNewPasswordMessage, setInvalidNewPasswordMessage] =
+    useState("");
+  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] =
+    useState(true);
+  const [invalidConfirmPasswordMessage, setInvalidConfirmPasswordMessage] =
+    useState("");
 
   const user = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
@@ -22,17 +31,41 @@ const Profile = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    // if (event.target.value.length < 8) {
-    //   setIsPasswordInvalid(true);
-    //   setInvalidPasswordMessage("Password must be at least 8 characters.");
-    // } else {
-    //   setIsPasswordInvalid(false);
-    //   setInvalidPasswordMessage("");
-    // }
   };
+
   const handleNewPasswordChange = (event) => {
     setNewPassword(event.target.value);
+    if (event.target.value.length < 8) {
+      setIsNewPasswordInvalid(true);
+      setInvalidNewPasswordMessage("Password must be at least 8 characters.");
+    } else {
+      setIsNewPasswordInvalid(false);
+      setInvalidNewPasswordMessage("");
+    }
   };
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+    if (event.target.value.length < 8) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage(
+        "Password must be at least 8 characters."
+      );
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  };
+
+  useEffect(() => {
+    if (newPassword !== confirmPassword) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage("Passwords do not match");
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  }, [newPassword, confirmPassword]);
 
   const handleEditPasswordSubmit = (event) => {
     event.preventDefault();
@@ -153,6 +186,7 @@ const Profile = () => {
               label="New Password"
               name="new-password"
               type="password"
+              helperText={invalidNewPasswordMessage}
               onChange={handleNewPasswordChange}
             />
             <TextField
@@ -164,8 +198,11 @@ const Profile = () => {
               label="Confirm Password"
               name="confirm-password"
               type="password"
+              helperText={invalidConfirmPasswordMessage}
+              onChange={handleConfirmPasswordChange}
             />
             <Button
+              disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
               type="submit"
               variant="outlined"
               sx={{
@@ -177,6 +214,9 @@ const Profile = () => {
                 color: "white",
                 "&:hover": {
                   backgroundColor: "#5a5a5a",
+                },
+                "&.Mui-disabled": {
+                  background: "white",
                 },
               }}
             >
