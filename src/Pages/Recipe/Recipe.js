@@ -19,10 +19,9 @@ const Recipe = () => {
   const [data, setData] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
-  const [favorite, setFavorite] = useState();
-  const [isFav, setIsFav] = useState(true);
+  const [favorite, setFavorite] = useState(true);
+  const [isFav, setIsFav] = useState("");
   const [err, setErr] = useState("");
-  const [isSaved, setIsSaved] = useState(false);
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
   const token = localStorage.getItem("myKitchenAppToken");
@@ -40,6 +39,7 @@ const Recipe = () => {
         setData(response.data);
         setIngredients(response.data.ingredients);
         setInstructions(response.data.instructions);
+        setIsFav(response.data.isFavorite);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -61,7 +61,7 @@ const Recipe = () => {
         },
       });
       setFavorite(favRecipe);
-      setIsFav(false);
+      setIsFav(true);
     } catch (err) {
       setErr(err.message);
     }
@@ -80,12 +80,12 @@ const Recipe = () => {
           },
         }
       );
-      setIsFav(true);
+      setIsFav(false);
     } catch (err) {
       setErr(err.message);
     }
   };
-
+  console.log(isFav);
   return (
     <>
       <div className="pageWrapper">
@@ -105,10 +105,6 @@ const Recipe = () => {
             </ul>
             <div>
               {isFav ? (
-                <Button color="error" type="submit" size="large" onClick={add}>
-                  <FavoriteBorderIcon /> Save to favorite
-                </Button>
-              ) : (
                 <Button
                   color="error"
                   type="submit"
@@ -116,6 +112,10 @@ const Recipe = () => {
                   onClick={remove}
                 >
                   <FavoriteIcon />
+                </Button>
+              ) : (
+                <Button color="error" type="submit" size="large" onClick={add}>
+                  <FavoriteBorderIcon /> Save to favorite
                 </Button>
               )}
 
