@@ -33,10 +33,9 @@ const ChartComponent = () => {
   var pieData = dataTest.map(function (town) {
     return town.slice(0, 2);
   });
-  console.log(pieData);
 
   const data = [
-    ["Task", "Hours per Day"],
+    ["Nutrient name", "%"],
     pieData[0],
     pieData[1],
     pieData[3],
@@ -45,26 +44,17 @@ const ChartComponent = () => {
     pieData[7],
     pieData[8],
   ];
-
+  const options = {
+    is3D: true,
+  };
   return (
     <>
       <div className="contentModal">
         <h3>Nutritional Information</h3>
-        {/* <ul>
-          {nutrients.slice(0, 9).map((item, index) => {
-            return (
-              <li key={item.index}>
-                {item.name}
-                {item.amount}
-                {item.unit}
-                {item.percentOfDailyNeeds}
-              </li>
-            );
-          })}
-        </ul> */}
         <Chart
           chartType="PieChart"
           data={data}
+          options={options}
           width={"100%"}
           height={"400px"}
         />
