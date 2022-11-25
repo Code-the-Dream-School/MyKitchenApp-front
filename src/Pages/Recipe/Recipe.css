@@ -39,7 +39,9 @@ p {
   text-align: justify;
   text-justify: inter-word;
 }
-
+a {
+  color: #1976d2;
+}
 .ingredientsTable,
 .instructions {
   margin-top: 10rem;

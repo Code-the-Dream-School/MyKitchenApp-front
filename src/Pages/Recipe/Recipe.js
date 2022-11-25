@@ -11,9 +11,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
-import TextField from "@mui/material";
 import { MdOutlineCircle } from "react-icons/md";
-import ChartComponent from "../../components/PieChart/PieChart";
+import DOMPurify from "dompurify";
 
 const Recipe = () => {
   const [data, setData] = useState("");
@@ -85,7 +84,11 @@ const Recipe = () => {
       setErr(err.message);
     }
   };
-  console.log(isFav);
+
+  const sanitizedData = () => ({
+    __html: DOMPurify.sanitize(data.summary),
+  });
+
   return (
     <>
       <div className="pageWrapper">
@@ -144,13 +147,13 @@ const Recipe = () => {
             return (
               <div className="ingredients" key={i}>
                 <MdOutlineCircle color="green" />
-                <li>{i}</li>;
+                <li>{i}</li>
               </div>
             );
           })}
         </ul>
         <h2>Summary</h2>
-        <Typography>{data.summary}</Typography>
+        <Typography dangerouslySetInnerHTML={sanitizedData()}></Typography>
         <h2>Source URL</h2>
         <Link href={data.sourceUrl} target="_blank" underline="none">
           {data.sourceUrl}
