@@ -8,7 +8,6 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
-import History from "./Pages/History/History";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Filter from "./components/Filter/Filter";
@@ -37,6 +36,7 @@ function App() {
 
   removeLocalStorageData(24);
 
+  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -45,10 +45,19 @@ function App() {
           <Route path="/" element={<LayoutPublic />}>
             <Route index element={<Landing />} />
           </Route>
-          <Route element={<LayoutPrivate isAuthenticated={isAuthenticated} />}>
+          <Route
+            element={
+              <LayoutPrivate
+                isAuthenticated={isAuthenticated}
+                currentUser={currentUser}
+              />
+            }
+          >
             <Route path="profile" element={<Profile />} />
-            <Route path="history" element={<History />} />
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route
+              path="dashboard"
+              element={<Dashboard currentUser={currentUser} />}
+            />
             <Route path="searchresult/:search/:type" element={<Filter />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
