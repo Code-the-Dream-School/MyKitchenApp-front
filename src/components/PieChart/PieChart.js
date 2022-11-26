@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PieChart.css";
+import { BorderAllRounded } from "@mui/icons-material";
 
 const ChartComponent = () => {
   const [nutrients, setNutrients] = useState([]);
@@ -57,6 +58,7 @@ const ChartComponent = () => {
           options={options}
           width={"100%"}
           height={"400px"}
+          style={{ borderRadius: "10px" }}
         />
       </div>
     </>

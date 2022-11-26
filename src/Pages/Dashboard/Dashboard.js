@@ -12,9 +12,9 @@ export default function Dashboard({ currentUser }) {
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
 
-  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
-  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
-  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=6";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=6";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=6";
 
   const token = localStorage.getItem("myKitchenAppToken");
 

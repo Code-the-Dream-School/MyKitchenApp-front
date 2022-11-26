@@ -42,10 +42,6 @@ p {
 a {
   color: #1976d2;
 }
-.ingredientsTable,
-.instructions {
-  margin-top: 10rem;
-}
 
 img {
   max-width: 100%;
@@ -55,6 +51,7 @@ img {
 }
 .icon {
   margin-right: 1rem;
+  font-size: 1.5rem;
 }
 @media only screen and (max-width: 820px) {
   .topContainer {
@@ -65,7 +62,6 @@ img {
   }
   .recipeInfo {
     display: flex;
-
     flex-direction: column;
   }
   .ingredientsTable,
