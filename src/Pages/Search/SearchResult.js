@@ -13,14 +13,15 @@ const SearchResult = () => {
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const url = "/api/v1/recipes";
   const { search } = useParams();
-  console.log(search, "Search name");
+  const params = useParams();
+  console.log("Search name", search);
   const token = localStorage.getItem("myKitchenAppToken");
 
   const recipeResult = async (name) => {
     console.log("Searching for:", name);
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(name)}`,
+        `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${params.intolerances}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
@@ -30,7 +31,7 @@ const SearchResult = () => {
   };
 
   useEffect(() => {
-    if (search) {
+    if (search ) {
       recipeResult(search)
         .then((response) => {
           console.log("Response: ", response)
@@ -44,7 +45,7 @@ const SearchResult = () => {
     <Container>
       <Box>
         <Typography align="center" variant="h2" mt={8}>
-          Results
+          Results for {search}
         </Typography>
         {/* {isLoading ? (
                 <img></img>

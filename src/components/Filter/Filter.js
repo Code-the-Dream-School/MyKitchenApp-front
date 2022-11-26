@@ -6,20 +6,21 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import styled from "styled-components";
+import Typography from "@mui/material/Typography";
 
 const Filter = () => {
   const [filterResult, setfilterResult] = useState([]);
   const url = "/api/v1/recipes";
   let filter = useParams();
-  console.log(filter, "filter by cuisine")
+  console.log(filter)
   const token = localStorage.getItem("myKitchenAppToken");
 
   const cuisineType = async () => {
-    console.log(filter.search, "we got here");
-    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&cuisine=${filter.type}`);
+    console.log(filter.intolerances, "we got here");
+    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`);
     try {
     const data = await axios.get(
-      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&cuisine=${filter.type}`,
+      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return data;
@@ -30,7 +31,7 @@ const Filter = () => {
 
   useEffect(() => {
     if (filter.type) {
-      console.log(filter.type);
+      console.log("Cuisine", filter.type);
       cuisineType(filter.type)
         .then((response) => {
           console.log("Response: ", response.data.results);
@@ -49,31 +50,34 @@ const Filter = () => {
           justifyContent: "center",
         }}
       >
-        <StyledLink to={`/searchresult/${filter.search}`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}`}>
           All
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/African`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/African`}>
           African
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/American`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/American`}>
           American
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/Chinese`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}>
           Chinese
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/French`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/European`}>
+          European
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/French`}>
           French
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/Indian`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}>
           Indian
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/Italian`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}>
           Italian
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/Korean`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}>
           Korean
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/Thai`}>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}>
           Thai
         </StyledLink>
       </Grid>
@@ -96,7 +100,18 @@ const Filter = () => {
               />
             );
           })
-        ) : null}
+        ) : (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h3">No results for {filter.type} cuisine!</Typography>
+              <Typography variant="h4">Please try another search!</Typography>
+            </div>
+          )}
       </Box>
     </Container>
   );
