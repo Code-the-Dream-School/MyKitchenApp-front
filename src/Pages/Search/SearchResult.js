@@ -12,15 +12,16 @@ const SearchResult = () => {
   // const [isLoading, setIsLoading] = useState(true);
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const url = "/api/v1/recipes";
+  const { search } = useParams();
   const params = useParams();
-  console.log(params, "Search name");
+  console.log("Search name", search);
   const token = localStorage.getItem("myKitchenAppToken");
 
-  const recipeResult = async () => {
-    console.log("Searching for:", params.search);
+  const recipeResult = async (name) => {
+    console.log("Searching for:", name);
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(params.search)}&intolerances=${params.intolerances}`,
+        `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${params.intolerances}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
@@ -30,21 +31,21 @@ const SearchResult = () => {
   };
 
   useEffect(() => {
-    if (params.search ) {
-      recipeResult(params.search)
+    if (search ) {
+      recipeResult(search)
         .then((response) => {
           console.log("Response: ", response)
           setSearchedRecipe(response.data.results);
         })
         .catch((error) => console.log(error));
     }
-  }, [params.search]);
+  }, [search]);
 
   return (
     <Container>
       <Box>
         <Typography align="center" variant="h2" mt={8}>
-          Results
+          Results for {search}
         </Typography>
         {/* {isLoading ? (
                 <img></img>
@@ -80,7 +81,7 @@ const SearchResult = () => {
                 flexDirection: "column",
               }}
             >
-              <Typography variant="h3">No results for {params.search}!</Typography>
+              <Typography variant="h3">No results for {search}!</Typography>
               <Typography variant="h4">Please try another search!</Typography>
               <SearchForm />
             </div>
