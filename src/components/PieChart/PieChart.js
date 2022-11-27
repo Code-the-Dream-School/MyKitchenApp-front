@@ -31,8 +31,8 @@ const ChartComponent = () => {
   //convert array of objects into array of arrays
   const dataTest = d.map(Object.values);
   //get only first 2 items of each array
-  var pieData = dataTest.map(function (town) {
-    return town.slice(0, 2);
+  const pieData = dataTest.map(function (part) {
+    return part.slice(0, 2);
   });
 
   const data = [

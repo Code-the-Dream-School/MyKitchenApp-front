@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { HiClock } from "react-icons/hi";
-import { AiFillDashboard } from "react-icons/ai";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,6 +21,7 @@ const Recipe = () => {
   const [favorite, setFavorite] = useState(true);
   const [isFav, setIsFav] = useState("");
   const [err, setErr] = useState("");
+
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
   const token = localStorage.getItem("myKitchenAppToken");
@@ -91,25 +90,6 @@ const Recipe = () => {
     __html: DOMPurify.sanitize(data.summary),
   });
 
-  //Find Spoonacular score from data.summary
-  let text = data.summary;
-
-  function findWordAndNeighbours(needle, haystack) {
-    if (!needle || !haystack) {
-      return false;
-    } else {
-      var re = new RegExp("(\\S+[\\b\\s]" + needle + "[\\b\\s]\\S+)", "i"),
-        foundWords = haystack.match(re)[0].split(/\s+/),
-        foundFragment = foundWords.join(" ");
-      return foundFragment;
-    }
-  }
-
-  var sentenceFragment = findWordAndNeighbours("score of", text);
-  const sanitizedScore = () => ({
-    __html: DOMPurify.sanitize(sentenceFragment),
-  });
-
   return (
     <>
       <div className="pageWrapper">
@@ -125,13 +105,6 @@ const Recipe = () => {
               <li>
                 <HiClock className="icon" />
                 ready in {data.readyInMinutes} mins.
-              </li>
-              <li>
-                <AiFillDashboard className="icon" />
-                <span dangerouslySetInnerHTML={sanitizedScore()}></span>
-                <Button>
-                  <AiOutlineQuestionCircle />
-                </Button>
               </li>
             </ul>
             <div>
@@ -163,7 +136,7 @@ const Recipe = () => {
               return (
                 <div className="ingredients" key={i}>
                   <MdOutlineCircle color="green" />
-                  <li>{i} </li>
+                  <li>{i}</li>
                 </div>
               );
             })}
