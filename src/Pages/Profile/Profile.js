@@ -171,7 +171,7 @@ const Profile = () => {
               fullWidth
               sx={{ width: "400px", display: "block" }}
               name="password"
-              label="Password"
+              label="Current Password"
               type="password"
               id="password"
               onChange={handlePasswordChange}
@@ -195,7 +195,7 @@ const Profile = () => {
               fullWidth
               sx={{ width: "400px", display: "block" }}
               id="confirm-password"
-              label="Confirm Password"
+              label="Confirm New Password"
               name="confirm-password"
               type="password"
               helperText={invalidConfirmPasswordMessage}
