@@ -14,9 +14,9 @@ export default function Landing({ theme }) {
       component="main"
       sx={{
         [theme.breakpoints.up("md")]: {
-          height: "100vh",
+          height: "110vh",
         },
-        height: "175%",
+        height: "1200px",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundImage:
@@ -27,7 +27,7 @@ export default function Landing({ theme }) {
         sx={{
           opacity: "0.80",
           [theme.breakpoints.up("md")]: {
-            paddingTop: "25vh",
+            paddingTop: "20vh",
           },
         }}
         item

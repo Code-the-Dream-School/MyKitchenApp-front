@@ -116,12 +116,13 @@ export default function SignUp({ setToggle, theme }) {
       component="main"
       xs={12}
       md={6}
+      item
       sx={{
         opacity: "0.80",
         backgroundColor: "white",
         paddingBottom: "80px",
         [theme.breakpoints.up("md")]: {
-          paddingTop: "25vh",
+          paddingTop: "20vh",
         },
       }}
     >
