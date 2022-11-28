@@ -115,7 +115,7 @@ const Recipe = () => {
                   size="large"
                   onClick={remove}
                 >
-                  <FavoriteIcon />
+                  <FavoriteIcon /> Saved
                 </Button>
               ) : (
                 <Button color="error" type="submit" size="large" onClick={add}>

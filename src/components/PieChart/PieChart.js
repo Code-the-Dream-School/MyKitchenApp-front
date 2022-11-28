@@ -4,7 +4,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PieChart.css";
-import { BorderAllRounded } from "@mui/icons-material";
 
 const ChartComponent = () => {
   const [nutrients, setNutrients] = useState([]);
@@ -25,7 +24,7 @@ const ChartComponent = () => {
         setNutrients(response.data.nutrition.nutrients);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [token]);
   //bring only part of array
   const d = nutrients.slice(0, 9);
   //convert array of objects into array of arrays
@@ -34,20 +33,9 @@ const ChartComponent = () => {
   const pieData = dataTest.map(function (part) {
     return part.slice(0, 2);
   });
+  //data for the pieChart
+  let data = [["Task", "Hours per Day"], ...pieData];
 
-  const data = [
-    ["Nutrient name", "%"],
-    pieData[0],
-    pieData[1],
-    pieData[3],
-    pieData[5],
-    pieData[6],
-    pieData[7],
-    pieData[8],
-  ];
-  const options = {
-    is3D: true,
-  };
   return (
     <>
       <div className="contentModal">
@@ -55,7 +43,6 @@ const ChartComponent = () => {
         <Chart
           chartType="PieChart"
           data={data}
-          options={options}
           width={"100%"}
           height={"400px"}
           style={{ borderRadius: "10px" }}
