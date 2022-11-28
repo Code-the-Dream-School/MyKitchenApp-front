@@ -58,7 +58,8 @@ function App() {
               path="dashboard"
               element={<Dashboard currentUser={currentUser} />}
             />
-            <Route path="searchresult/:search/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances" element={<SearchResult />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
           </Route>
