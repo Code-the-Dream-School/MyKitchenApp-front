@@ -11,7 +11,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
-import { MdOutlineCircle } from "react-icons/md";
 import DOMPurify from "dompurify";
 
 const Recipe = () => {
@@ -135,7 +134,6 @@ const Recipe = () => {
             {ingredients.map((i) => {
               return (
                 <div className="ingredients" key={i}>
-                  <MdOutlineCircle color="green" />
                   <li>{i}</li>
                 </div>
               );
@@ -147,7 +145,6 @@ const Recipe = () => {
           {instructions.map((i) => {
             return (
               <div className="ingredients" key={i}>
-                <MdOutlineCircle color="green" />
                 <li>{i}</li>
               </div>
             );

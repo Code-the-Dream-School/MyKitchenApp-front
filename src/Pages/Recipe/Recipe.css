@@ -29,7 +29,13 @@ li {
 .ingredients {
   display: flex;
   align-items: center;
+  margin-top: 1rem;
+  list-style-type: circle;
 }
+/* .iconInstruction {
+  color: green;
+  list-style-type: circle;
+} */
 .nutrition {
   display: flex;
 }
