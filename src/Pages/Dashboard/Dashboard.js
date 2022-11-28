@@ -6,11 +6,14 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
   const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
@@ -60,16 +63,46 @@ export default function Dashboard({ currentUser }) {
   } else {
     greeting = "Good Evening";
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
+
   return (
     <>
-      <h1>
-        {greeting} {userName.name}!
+      <h1 className="greet">
+        {greeting} {currentUser.name}!
       </h1>
+      <div className="searchContainer">
+        <h1>Recommended recipes</h1>
+        <Button
+          onClick={handleClickOpen}
+          sx={{
+            mt: 3,
+            mb: 2,
+            mr: 1,
+            fontSize: "1rem",
+            backgroundColor: "black",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#5a5a5a",
+            },
+            "&.Mui-disabled": {
+              background: "white",
+            },
+          }}
+        >
+          <SearchIcon />
+          Search new recipe
+        </Button>
+        <SearchForm open={open} onClose={handleClose} />
+      </div>
 
-      <SearchForm />
-      <h1>Discover recipes for the day</h1>
-
-      <div>
+      {/* <div>
         <h2>Breakfast</h2>
 
         {breakfast || breakfast.length ? (
@@ -99,7 +132,7 @@ export default function Dashboard({ currentUser }) {
           </div>
         ) : null}
       </div>
-      {/* <div>
+      <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
