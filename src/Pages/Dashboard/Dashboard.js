@@ -34,7 +34,7 @@ export default function Dashboard({ currentUser }) {
     headers: { Authorization: "Bearer " + token },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .all([requestBreakfast, requestSalad, requestDrink])
       .then(
@@ -102,7 +102,7 @@ export default function Dashboard({ currentUser }) {
         <SearchForm open={open} onClose={handleClose} />
       </div>
 
-      {/* <div>
+      <div>
         <h2>Breakfast</h2>
 
         {breakfast || breakfast.length ? (
@@ -132,7 +132,7 @@ export default function Dashboard({ currentUser }) {
           </div>
         ) : null}
       </div>
-      <div>
+      {/* <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">

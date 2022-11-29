@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,6 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import SearchForm from "../../Pages/Search/SearchForm";
+import SearchIcon from "@mui/icons-material/Search";
+import Hidden from "@mui/material/Hidden";
 
 const pages = ["dashboard", "favorite"];
 const settings = [
@@ -23,6 +26,7 @@ const settings = [
 function NavBar({ currentUser }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [open, setOpen] = useState(false);
   let navigate = useNavigate();
 
   const handleLogout = () => {
@@ -44,7 +48,13 @@ function NavBar({ currentUser }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = (value) => {
+    setOpen(false);
+  };
   return (
     <AppBar sx={{ bgcolor: "rgb(0, 0, 0)" }} position="static">
       <Container maxWidth="xl">
@@ -75,6 +85,7 @@ function NavBar({ currentUser }) {
           >
             MyKitchen
           </Typography>
+
           <Box
             sx={{
               flexGrow: 1,
@@ -91,6 +102,7 @@ function NavBar({ currentUser }) {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -124,6 +136,15 @@ function NavBar({ currentUser }) {
                   </Typography>
                 </MenuItem>
               ))}
+              <a
+                onClick={handleClickOpen}
+                sx={{
+                  color: "black",
+                }}
+              >
+                search
+              </a>
+              <SearchForm open={open} onClose={handleClose} />
             </Menu>
           </Box>
 
@@ -157,6 +178,18 @@ function NavBar({ currentUser }) {
               },
             }}
           >
+            <Button
+              onClick={handleClickOpen}
+              sx={{
+                fontSize: "1.2rem",
+                backgroundColor: "black",
+                color: "white",
+              }}
+            >
+              <SearchIcon />
+              Search
+            </Button>
+            <SearchForm open={open} onClose={handleClose} />
             {pages.map((page) => (
               <Button
                 key={page}
