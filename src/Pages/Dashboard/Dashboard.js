@@ -65,8 +65,8 @@ export default function Dashboard({ currentUser }) {
     setOpen(true);
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
+  const handleClose = () => {
+    setOpen();
   };
 
   return (

@@ -59,9 +59,10 @@ function NavBar({ currentUser }) {
     setOpen(true);
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
+  const handleClose = () => {
+    setOpen();
   };
+
   return (
     <AppBar sx={{ bgcolor: "rgb(0, 0, 0)" }} position="static">
       <Container maxWidth="xl">
@@ -206,6 +207,7 @@ function NavBar({ currentUser }) {
               Search
             </Button>
             <SearchForm open={open} onClose={handleClose} />
+
             {pages.map((page) => (
               <Button
                 key={page.page}

@@ -11,7 +11,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const SearchForm = (props) => {
   const { onClose, open } = props;
-
   const [searchInput, setSearchInput] = useState("");
   const [checked, setChecked] = useState([]);
   let navigate = useNavigate();
