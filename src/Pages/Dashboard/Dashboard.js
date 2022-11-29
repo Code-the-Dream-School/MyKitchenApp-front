@@ -48,7 +48,6 @@ export default function Dashboard() {
 
       .catch((error) => console.log(error));
   }, []);
-
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -72,6 +71,7 @@ export default function Dashboard() {
 
       <div>
         <h2>Breakfast</h2>
+
         {breakfast || breakfast.length ? (
           <div className="trending">
             <Splide
