@@ -136,15 +136,20 @@ function NavBar({ currentUser }) {
                   </Typography>
                 </MenuItem>
               ))}
-              <a
-                onClick={handleClickOpen}
-                sx={{
-                  color: "black",
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                style={{
+                  display: "flex",
+                  textDecoration: "none",
+                  color: "rgb(0, 0, 0)",
                 }}
               >
-                search
-              </a>
-              <SearchForm open={open} onClose={handleClose} />
+                <NavLink onClick={handleClickOpen}>
+                  <SearchIcon />
+                  search
+                </NavLink>
+                <SearchForm open={open} onClose={handleClose} />
+              </MenuItem>
             </Menu>
           </Box>
 

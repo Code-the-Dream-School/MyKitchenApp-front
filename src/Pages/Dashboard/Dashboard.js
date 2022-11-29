@@ -20,9 +20,6 @@ export default function Dashboard({ currentUser }) {
   const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const token = localStorage.getItem("myKitchenAppToken");
-  const name = localStorage.getItem("myKitchenAppUser");
-
-  let userName = JSON.parse(name);
 
   const requestBreakfast = axios.get(urlBreakfast, {
     headers: { Authorization: "Bearer " + token },
@@ -105,7 +102,7 @@ export default function Dashboard({ currentUser }) {
       <div>
         <h2>Breakfast</h2>
 
-        {breakfast || breakfast.length ? (
+        {/* {breakfast || breakfast.length ? (
           <div className="trending">
             <Splide
               options={{
@@ -130,7 +127,7 @@ export default function Dashboard({ currentUser }) {
               })}
             </Splide>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       {/* <div>
         <h2>Salad</h2>
