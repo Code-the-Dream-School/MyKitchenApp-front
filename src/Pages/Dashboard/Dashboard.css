@@ -17,3 +17,9 @@ a {
   justify-content: space-between;
   align-items: center;
 }
+@media (max-width: 600px) {
+  .searchContainer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
