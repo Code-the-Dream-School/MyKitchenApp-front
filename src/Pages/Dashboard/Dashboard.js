@@ -31,6 +31,24 @@ export default function Dashboard() {
     headers: { Authorization: "Bearer " + token },
   });
 
+  React.useEffect(() => {
+    axios
+      .all([requestBreakfast, requestSalad, requestDrink])
+      .then(
+        axios.spread((...responses) => {
+          const responseBreakfast = responses[0];
+          const responseSalad = responses[1];
+          const responseDrink = responses[2];
+
+          setBreakfast(responseBreakfast.data.results);
+          setSalad(responseSalad.data.results);
+          setDrink(responseDrink.data.results);
+        })
+      )
+
+      .catch((error) => console.log(error));
+  }, []);
+
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -48,11 +66,12 @@ export default function Dashboard() {
       <h1>
         {greeting} {currentUser.name}!
       </h1>
+
       <SearchForm />
       <h1>Discover recipes for the day</h1>
+
       <div>
         <h2>Breakfast</h2>
-
         {breakfast || breakfast.length ? (
           <div className="trending">
             <Splide
