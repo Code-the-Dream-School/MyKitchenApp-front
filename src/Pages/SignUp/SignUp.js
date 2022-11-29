@@ -1,39 +1,39 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function SignUp() {
-  // variable to check if component is rendered for the first time
-  const didComponentMount = useRef(false);
-
+export default function SignUp({ setToggle }) {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [isNameInvalid, setIsNameInvalid] = useState(true);
+  const [invalidNameMessage, setInvalidNameMessage] = useState("");
+  const [isPasswordInvalid, setIsPasswordInvalid] = useState(true);
+  const [invalidPasswordMessage, setInvalidPasswordMessage] = useState("");
+  const [isEmailInvalid, setIsEmailInvalid] = useState(true);
+  const [invalidEmailMessage, setInvalidEmailMessage] = useState("");
+  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] =
+    useState(true);
+  const [invalidConfirmPasswordMessage, setInvalidConfirmPasswordMessage] =
+    useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      password: data.get("password"),
-      confirmPassword: data.get("confirm-password"),
-    });
-
-    setName(data.get("name"));
-    setEmail(data.get("email"));
-    setPassword(data.get("password"));
+    getMyKitchenAppToken();
   };
 
-  const getUserToken = () => {
+  const getMyKitchenAppToken = () => {
     const url = "/api/v1/auth/register";
     const data = {
       name: name,
@@ -47,30 +47,69 @@ export default function SignUp() {
       })
       .then((response) => {
         console.log(response);
-        setToken(response.data.token);
+        localStorage.setItem(
+          "myKitchenAppUser",
+          JSON.stringify(response.data.user)
+        );
+        localStorage.setItem("myKitchenAppToken", response.data.token);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error);
+        setError(true);
+        setErrorMessage(error.response.data.msg);
       });
   };
 
-  useEffect(() => {
-    // if component renders for the first time,
-    // we do not make the axios call
-    if (didComponentMount.current) {
-      getUserToken();
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+    if (event.target.value.length === 0) {
+      setIsNameInvalid(true);
+      setInvalidNameMessage("Please provide a valid name");
+    } else {
+      setIsNameInvalid(false);
+      setInvalidNameMessage("");
     }
-    didComponentMount.current = true;
-  }, [name, email, password]);
+  };
 
-  useEffect(() => {
-    localStorage.setItem("token", token);
-    if (token) {
-      navigate("/dashboard");
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!event.target.value.match(regex)) {
+      setIsEmailInvalid(true);
+      setInvalidEmailMessage("Please provide a valid email");
+    } else {
+      setIsEmailInvalid(false);
+      setInvalidEmailMessage("");
     }
-  }, [token]);
+  };
 
-  console.log("token", token);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    if (event.target.value.length < 8) {
+      setIsPasswordInvalid(true);
+      setInvalidPasswordMessage("Password must be at least 8 characters.");
+    } else {
+      setIsPasswordInvalid(false);
+      setInvalidPasswordMessage("");
+    }
+  };
+
+  const handleConfirmPasswordChange = (event) => {
+    if (event.target.value.length < 8) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage(
+        "Password must be at least 8 characters."
+      );
+    } else if (event.target.value !== password) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage("Passwords do not match");
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -94,6 +133,8 @@ export default function SignUp() {
             name="name"
             autoComplete="name"
             autoFocus
+            helperText={invalidNameMessage}
+            onChange={handleNameChange}
           />
           <TextField
             margin="normal"
@@ -103,6 +144,8 @@ export default function SignUp() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            helperText={invalidEmailMessage}
+            onChange={handleEmailChange}
           />
           <TextField
             margin="normal"
@@ -113,6 +156,8 @@ export default function SignUp() {
             type="password"
             id="password"
             autoComplete="current-password"
+            helperText={invalidPasswordMessage}
+            onChange={handlePasswordChange}
           />
           <TextField
             margin="normal"
@@ -123,8 +168,17 @@ export default function SignUp() {
             type="password"
             id="confirm-password"
             autoComplete="confirm-password"
+            helperText={invalidConfirmPasswordMessage}
+            onChange={handleConfirmPasswordChange}
           />
+          {error && <p className="error-msg">{errorMessage}</p>}
           <Button
+            disabled={
+              isNameInvalid ||
+              isEmailInvalid ||
+              isPasswordInvalid ||
+              isConfirmPasswordInvalid
+            }
             type="submit"
             variant="outlined"
             sx={{
@@ -132,32 +186,26 @@ export default function SignUp() {
               mb: 2,
               mr: 1,
               display: "inline",
-              width: "63%",
+              width: "100%",
               height: "50px",
               backgroundColor: "black",
               color: "white",
               "&:hover": {
                 backgroundColor: "#5a5a5a",
               },
+              "&.Mui-disabled": {
+                background: "white",
+              },
             }}
           >
             Create Account
           </Button>
-          <Link to="/signin" style={{ textDecoration: "none", color: "white" }}>
-            <Button
-              variant="outlined"
-              sx={{
-                mt: 3,
-                mb: 2,
-                ml: 1,
-                display: "inline",
-                width: "32%",
-                height: "50px",
-              }}
-            >
-              Sign In
-            </Button>
-          </Link>
+          <Typography component="p">
+            Already have an account?{" "}
+            <span className="underline" onClick={() => setToggle(true)}>
+              Sign in
+            </span>
+          </Typography>
         </Box>
       </Box>
     </Container>
