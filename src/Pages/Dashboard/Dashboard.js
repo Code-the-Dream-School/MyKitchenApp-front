@@ -14,53 +14,22 @@ export default function Dashboard() {
 
   const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
-  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=6";
-  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=6";
-  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=6";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
 
   const token = localStorage.getItem("myKitchenAppToken");
+  const name = localStorage.getItem("myKitchenAppUser");
 
-  const getBreakfast = () => {
-    axios
-      .get(urlBreakfast, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const breakfastRecipes = response.data.results;
-        setBreakfast(breakfastRecipes);
-      });
-  };
-  const getSalad = () => {
-    axios
-      .get(urlSalad, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const saladRecipes = response.data.results;
-        setSalad(saladRecipes);
-      });
-  };
-  const getDrink = () => {
-    axios
-      .get(urlDrink, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const saladRecipes = response.data.results;
-        setDrink(saladRecipes);
-      });
-  };
-  useEffect(() => {
-    getBreakfast();
-    getSalad();
-    getDrink();
-  }, [token]);
+  const requestBreakfast = axios.get(urlBreakfast, {
+    headers: { Authorization: "Bearer " + token },
+  });
+  const requestSalad = axios.get(urlSalad, {
+    headers: { Authorization: "Bearer " + token },
+  });
+  const requestDrink = axios.get(urlDrink, {
+    headers: { Authorization: "Bearer " + token },
+  });
 
   const date = new Date();
   const currentTime = date.getHours();
@@ -76,13 +45,11 @@ export default function Dashboard() {
   }
   return (
     <>
-      <h1 className="greet">
+      <h1>
         {greeting} {currentUser.name}!
       </h1>
-      <div className="searchContainer">
-        <h1>Recommended recipes</h1>
-        <SearchForm />
-      </div>
+      <SearchForm />
+      <h1>Discover recipes for the day</h1>
       <div>
         <h2>Breakfast</h2>
 
@@ -113,7 +80,7 @@ export default function Dashboard() {
           </div>
         ) : null}
       </div>
-      <div>
+      {/* <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
@@ -167,7 +134,7 @@ export default function Dashboard() {
             })}
           </Splide>
         ) : null}
-      </div>
+      </div> */}
     </>
   );
 }
