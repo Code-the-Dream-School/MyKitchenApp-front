@@ -20,7 +20,6 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-//const pages = ["dashboard", "favorite",];
 const pages = [
   { page: "Dashboard", link: "/dashboard", icon: <GridViewIcon /> },
   { page: "Favorite", link: "/favorite", icon: <FavoriteBorderIcon /> },
@@ -192,6 +191,7 @@ function NavBar({ currentUser }) {
                 md: "flex",
                 justifyContent: "flex-end",
                 marginRight: 50,
+                alignItems: "center",
               },
             }}
           >
@@ -225,7 +225,19 @@ function NavBar({ currentUser }) {
                 </NavLink>
               </Button>
             ))}
+            <NavLink
+              style={{
+                textDecoration: "none",
+                color: "rgb(255, 255, 255)",
+                paddingLeft: "8px",
+              }}
+              to="/"
+            >
+              LOGOUT
+            </NavLink>
+            <SearchForm open={open} onClose={handleClose} />
           </Box>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

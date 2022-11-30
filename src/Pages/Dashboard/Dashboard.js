@@ -9,6 +9,30 @@ import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 
+const StyledButton = styled.button`
+  // background-image: url('/public/food-search-button.png');
+  // background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: black;
+  font-size: 1rem;
+  box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
+
+  &:active {
+    box-shadow: 1px 1px 0 black, 1px 1px 0 black;
+  }
+`;
 export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
@@ -83,30 +107,7 @@ export default function Dashboard({ currentUser }) {
   const handleClose = () => {
     setOpen();
   };
-  const StyledButton = styled.button`
-    // background-image: url('/public/food-search-button.png');
-    // background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5%;
-    text-decoration: none;
-    background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
-    background-position: right center;
-    padding: 20px;
-    text-transform: uppercase;
-    width: 10rem;
-    height: 5rem;
-    cursor: pointer;
-    transform: scale(0.8);
-    color: black;
-    font-size: 1rem;
-    box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
 
-    &:active {
-      box-shadow: 1px 1px 0 black, 1px 1px 0 black;
-    }
-  `;
   return (
     <>
       <h1 className="greet">
