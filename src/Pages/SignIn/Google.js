@@ -54,9 +54,7 @@ class Google extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Sign in with Google!!!!!</div>
-            
+      <div>            
         <div
         id='g_id_onload'
         data-client_id="791096127622-ua9vefrs6j9bnrembfbmsam2sq5e0t7j.apps.googleusercontent.com"
