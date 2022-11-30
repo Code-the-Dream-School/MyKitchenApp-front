@@ -53,6 +53,7 @@ const SearchForm = (props) => {
         ? `/searchresult/${searchInput}/${allIntolerances}`
         : "/";
     navigate(path, { replace: true });
+    handleClose();
   };
 
   return (

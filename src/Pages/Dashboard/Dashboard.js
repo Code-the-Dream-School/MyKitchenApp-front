@@ -102,7 +102,7 @@ export default function Dashboard({ currentUser }) {
       <div>
         <h2>Breakfast</h2>
 
-        {/* {breakfast || breakfast.length ? (
+        {breakfast || breakfast.length ? (
           <div className="trending">
             <Splide
               options={{
@@ -127,7 +127,7 @@ export default function Dashboard({ currentUser }) {
               })}
             </Splide>
           </div>
-        ) : null} */}
+        ) : null}
       </div>
       {/* <div>
         <h2>Salad</h2>
