@@ -23,6 +23,7 @@ const Recipe = () => {
 
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
+
   const token = localStorage.getItem("myKitchenAppToken");
 
   const fetchRecipe = async () => {
