@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
@@ -6,8 +6,8 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
 
 export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
@@ -15,39 +15,54 @@ export default function Dashboard({ currentUser }) {
   const [drink, setDrink] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
-  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
-  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=6";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=6";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=6";
 
   const token = localStorage.getItem("myKitchenAppToken");
 
-  const requestBreakfast = axios.get(urlBreakfast, {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const requestSalad = axios.get(urlSalad, {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const requestDrink = axios.get(urlDrink, {
-    headers: { Authorization: "Bearer " + token },
-  });
-
-  useEffect(() => {
+  const getBreakfast = () => {
     axios
-      .all([requestBreakfast, requestSalad, requestDrink])
-      .then(
-        axios.spread((...responses) => {
-          const responseBreakfast = responses[0];
-          const responseSalad = responses[1];
-          const responseDrink = responses[2];
+      .get(urlBreakfast, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const breakfastRecipes = response.data.results;
+        setBreakfast(breakfastRecipes);
+      });
+  };
+  const getSalad = () => {
+    axios
+      .get(urlSalad, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const saladRecipes = response.data.results;
+        setSalad(saladRecipes);
+      });
+  };
+  const getDrink = () => {
+    axios
+      .get(urlDrink, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const saladRecipes = response.data.results;
+        setDrink(saladRecipes);
+      });
+  };
+  useEffect(() => {
+    getBreakfast();
+    getSalad();
+    getDrink();
+  }, [token]);
 
-          setBreakfast(responseBreakfast.data.results);
-          setSalad(responseSalad.data.results);
-          setDrink(responseDrink.data.results);
-        })
-      )
-
-      .catch((error) => console.log(error));
-  }, []);
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -68,7 +83,30 @@ export default function Dashboard({ currentUser }) {
   const handleClose = () => {
     setOpen();
   };
+  const StyledButton = styled.button`
+    // background-image: url('/public/food-search-button.png');
+    // background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    text-decoration: none;
+    background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+    background-position: right center;
+    padding: 20px;
+    text-transform: uppercase;
+    width: 10rem;
+    height: 5rem;
+    cursor: pointer;
+    transform: scale(0.8);
+    color: black;
+    font-size: 1rem;
+    box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
 
+    &:active {
+      box-shadow: 1px 1px 0 black, 1px 1px 0 black;
+    }
+  `;
   return (
     <>
       <h1 className="greet">
@@ -76,7 +114,7 @@ export default function Dashboard({ currentUser }) {
       </h1>
       <div className="searchContainer">
         <h1>Recommended recipes</h1>
-        <Button
+        <StyledButton
           onClick={handleClickOpen}
           sx={{
             mt: 3,
@@ -95,7 +133,7 @@ export default function Dashboard({ currentUser }) {
         >
           <SearchIcon />
           Search new recipe
-        </Button>
+        </StyledButton>
         <SearchForm open={open} onClose={handleClose} />
       </div>
 
@@ -129,7 +167,7 @@ export default function Dashboard({ currentUser }) {
           </div>
         ) : null}
       </div>
-      {/* <div>
+      <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
@@ -183,7 +221,7 @@ export default function Dashboard({ currentUser }) {
             })}
           </Splide>
         ) : null}
-      </div> */}
+      </div>
     </>
   );
 }

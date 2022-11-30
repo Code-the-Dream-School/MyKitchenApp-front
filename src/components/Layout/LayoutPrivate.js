@@ -11,7 +11,11 @@ const LayoutPrivate = ({ children, isAuthenticated, currentUser }) => {
   return (
     <>
       <NavBar currentUser={currentUser} />
-      <Container>
+      <Container
+        sx={{
+          marginBottom: "200px",
+        }}
+      >
         <Outlet />
         <main>{children}</main>
       </Container>

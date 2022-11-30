@@ -8,6 +8,8 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
+
+import Recipe from "./Pages/Recipe/Recipe";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Filter from "./components/Filter/Filter";
@@ -62,6 +64,7 @@ function App() {
             <Route path="searchresult/:search/:intolerances" element={<SearchResult />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
+            <Route path="recipe/:id" element={<Recipe />} />
           </Route>
         </Routes>
       </ThemeProvider>
