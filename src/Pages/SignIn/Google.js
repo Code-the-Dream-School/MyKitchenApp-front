@@ -30,10 +30,8 @@ class Google extends React.Component {
   customCallback(response) {
     localStorage.setItem("myKitchenAppToken", response.credential)
     const payload = jwt_decode(response.credential)
-    const user = JSON.stringify( {name: payload.name, email: payload.email, type: 'google'})
-    console.log(user, 'user....')
-    localStorage.setItem('myKitchenAppUser', user)
-    console.log(jwt_decode(response.credential), 'jwtDecode.....')
+    const user = JSON.stringify( {name: payload.name, email: payload.email, type: 'google', picture: payload.picture})
+     localStorage.setItem('myKitchenAppUser', user)
     this.props.navigate('/dashboard')
   }
   
