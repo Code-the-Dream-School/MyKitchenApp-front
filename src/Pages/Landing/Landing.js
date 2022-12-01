@@ -29,6 +29,7 @@ export default function Landing({ theme }) {
           [theme.breakpoints.up("md")]: {
             paddingTop: "20vh",
           },
+          paddingTop: "10vh",
         }}
         item
         md={6}
@@ -38,6 +39,8 @@ export default function Landing({ theme }) {
       >
         <Box
           sx={{
+            maxWidth: "800px",
+            margin: "auto",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

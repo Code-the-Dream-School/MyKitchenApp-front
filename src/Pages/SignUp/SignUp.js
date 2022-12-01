@@ -120,7 +120,6 @@ export default function SignUp({ setToggle, theme }) {
       sx={{
         opacity: "0.80",
         backgroundColor: "white",
-        paddingBottom: "80px",
         [theme.breakpoints.up("md")]: {
           paddingTop: "20vh",
         },
@@ -132,6 +131,7 @@ export default function SignUp({ setToggle, theme }) {
           flexDirection: "column",
           margin: "auto",
           width: "80%",
+          maxWidth: "800px",
         }}
       >
         <Typography component="h1" variant="h3" align="center">

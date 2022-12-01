@@ -86,7 +86,7 @@ export default function SignIn({ setToggle, theme }) {
       sx={{
         opacity: "0.80",
         backgroundColor: "white",
-        paddingBottom: "80px",
+        paddingBottom: "160px",
         [theme.breakpoints.up("md")]: {
           paddingTop: "20vh",
         },
@@ -98,6 +98,7 @@ export default function SignIn({ setToggle, theme }) {
           flexDirection: "column",
           margin: "auto",
           width: "80%",
+          maxWidth: "800px",
         }}
       >
         <Typography component="h1" variant="h3" align="center">
