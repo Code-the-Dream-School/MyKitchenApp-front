@@ -10,8 +10,6 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchIcon from '@mui/icons-material/Search';
-import Box from '@mui/material/Box';
-import { Paper } from "@mui/material";
 
 const SearchForm = () => {
   
@@ -75,7 +73,7 @@ const SearchForm = () => {
             variant="filled"
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
-            placeholder="chicken, pasta"
+            placeholder="chicken breast, brown rice"
           />
 
           <div className="checkList">

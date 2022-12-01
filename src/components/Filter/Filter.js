@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, Link } from "react-router-dom";
 import axios from "axios";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import styled from "styled-components";
-import Typography from "@mui/material/Typography";
 
 const Filter = () => {
   const [filterResult, setfilterResult] = useState([]);
+
   const url = "/api/v1/recipes";
   let filter = useParams();
   console.log(filter)
@@ -17,10 +17,10 @@ const Filter = () => {
 
   const cuisineType = async () => {
     console.log(filter.intolerances, "we got here");
-    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`);
+    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`);
     try {
     const data = await axios.get(
-      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`,
+      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return data;
@@ -31,6 +31,7 @@ const Filter = () => {
 
   useEffect(() => {
     if (filter.type) {
+      window.scroll(0, 0);
       console.log("Cuisine", filter.type);
       cuisineType(filter.type)
         .then((response) => {
@@ -50,34 +51,59 @@ const Filter = () => {
           justifyContent: "center",
         }}
       >
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}`}
+        >
           All
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/African`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/African`}
+        >
           African
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/American`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/American`}
+        >
           American
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
+        >
           Chinese
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/European`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/European`}
+        >
           European
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/French`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/French`}
+        >
           French
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
+        >
           Indian
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
+        >
           Italian
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
+        >
           Korean
         </StyledLink>
-        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
+        >
+          Mexican
+        </StyledLink>
+        <StyledLink
+          to={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
+        >
           Thai
         </StyledLink>
       </Grid>
@@ -89,29 +115,18 @@ const Filter = () => {
           alignItems: "center",
         }}
       >
-        {filterResult.length ? (
-          filterResult?.map((item) => {
-            return (
-              <ReusableCard
-                key={item.id}
-                title={item.title}
-                data={item}
-                image={item.image}
-              />
-            );
-          })
-        ) : (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Typography variant="h3">No results for {filter.type} cuisine!</Typography>
-              <Typography variant="h4">Please try another search!</Typography>
-            </div>
-          )}
+        {filterResult.length
+          ? filterResult?.map((item) => {
+              return (
+                <ReusableCard
+                  key={item.id}
+                  title={item.title}
+                  data={item}
+                  image={item.image}
+                />
+              );
+            })
+          : null}
       </Box>
     </Container>
   );
