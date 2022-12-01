@@ -139,26 +139,6 @@ export default function SignIn({ setToggle }) {
           >
             Sign In
           </Button>
-          <Link to="/signup" style={{ textDecoration: "none", color: "white" }}>
-            <Button
-              variant="outlined"
-              sx={{
-                mt: 3,
-                mb: 2,
-                ml: 1,
-                display: "inline",
-                width: "63%",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#5a5a5a",
-                },
-              }}
-            >
-              Create Account
-            </Button>
-          </Link>
           <Google />
           <Typography component="p">
             Don't have an account?{" "}
