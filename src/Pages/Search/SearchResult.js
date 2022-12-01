@@ -50,7 +50,7 @@ const SearchResult = () => {
 
   const count = Math.ceil(searchedRecipe.length / perPage);
   console.log("Total recipes", searchedRecipe.length);
-  console.log("Recipes per page", count);
+  console.log("Total pages", count);
   const pageData = ReusablePagination(searchedRecipe, perPage);
 
   const handleChange = (event, p) => {
