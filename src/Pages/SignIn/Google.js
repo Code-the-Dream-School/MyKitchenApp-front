@@ -1,8 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode'
-// import Button from "@mui/material/Button";
-// import Container from "@mui/material/Container";
+import Container from "@mui/material/Container";
 
 const withRouter = (Component) => {
   const Wrapper = (props) => {
@@ -54,9 +53,7 @@ class Google extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Sign in with Google!!!!!</div>
-            
+      <Container>            
         <div
         id='g_id_onload'
         data-client_id="791096127622-ua9vefrs6j9bnrembfbmsam2sq5e0t7j.apps.googleusercontent.com"
@@ -72,7 +69,7 @@ class Google extends React.Component {
         data-shape="rectangular"
         data-logo_alignment="left">
       </div>
-      </div>
+      </Container>
     )
   }
 }
