@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { HiClock } from "react-icons/hi";
+import { ImLeaf } from "react-icons/im";
+import { GiMuscleUp, GiCow } from "react-icons/gi";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { CiWheat } from "react-icons/ci";
+import { FaCarrot } from "react-icons/fa";
+
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -12,6 +18,7 @@ import { Button } from "@mui/material";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
 import DOMPurify from "dompurify";
+import Loading from "../../components/Loading/Loading";
 
 const Recipe = () => {
   const [data, setData] = useState("");
@@ -20,6 +27,7 @@ const Recipe = () => {
   const [favorite, setFavorite] = useState(true);
   const [isFav, setIsFav] = useState("");
   const [err, setErr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
@@ -34,12 +42,15 @@ const Recipe = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true); // Set loading before sending API request
     fetchRecipe()
       .then((response) => {
         setData(response.data);
         setIngredients(response.data.ingredients);
+
         setInstructions(response.data.instructions);
         setIsFav(response.data.isFavorite);
+        setIsLoading(false); //Hide loading
       })
       .catch((error) => console.log(error));
   }, []);
@@ -89,50 +100,105 @@ const Recipe = () => {
   const sanitizedData = () => ({
     __html: DOMPurify.sanitize(data.summary),
   });
-
+  console.log(data);
   return (
     <>
-      <div className="pageWrapper">
-        <div className="topContainer">
-          <img alt={data.title} src={data.image} />
-          <div className="recipeInfo">
-            <h1>{data.title}</h1>
-            <ul>
-              <li>
-                <ImSpoonKnife className="icon" />
-                {data.servings} servings.
-              </li>
-              <li>
-                <HiClock className="icon" />
-                ready in {data.readyInMinutes} mins.
-              </li>
-            </ul>
-            <div>
-              {isFav ? (
-                <Button
-                  color="error"
-                  type="submit"
-                  size="large"
-                  onClick={remove}
-                >
-                  <FavoriteIcon /> Saved
-                </Button>
-              ) : (
-                <Button color="error" type="submit" size="large" onClick={add}>
-                  <FavoriteBorderIcon /> Save to favorite
-                </Button>
-              )}
-
-              <NutritionModal />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="pageWrapper">
+          <div className="topContainer">
+            <img alt={data.title} src={data.image} />
+            <div className="recipeInfo">
+              <h1>{data.title}</h1>
+              <ul>
+                <li>
+                  <ImSpoonKnife className="icon" />
+                  {data.servings} servings.
+                </li>
+                <li>
+                  <HiClock className="icon" />
+                  ready in {data.readyInMinutes} mins.
+                </li>
+              </ul>
+              <div>
+                {isFav ? (
+                  <Button
+                    color="error"
+                    type="submit"
+                    size="large"
+                    onClick={remove}
+                  >
+                    <FavoriteIcon /> Saved
+                  </Button>
+                ) : (
+                  <Button
+                    color="error"
+                    type="submit"
+                    size="large"
+                    onClick={add}
+                  >
+                    <FavoriteBorderIcon /> Save to favorite
+                  </Button>
+                )}
+                <NutritionModal />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="ingredientsTable"></div>
-        <h2>Ingredients</h2>
-        <div className="nutrition">
+          <ul className="diets">
+            <li className="squareVeg" style={{ background: " #33b5e5" }}>
+              Health {data.healthScore}%
+              <GiMuscleUp />
+            </li>
+            {data.veryPopular ? (
+              <li className="squareVeg" style={{ background: " #ff4444" }}>
+                Popular
+                <BsFillArrowUpCircleFill />
+              </li>
+            ) : null}
+            {data.glutenFree ? (
+              <li className="squareVeg" style={{ background: " #ffbb33" }}>
+                Gluten-free
+                <CiWheat />
+              </li>
+            ) : null}
+            {data.dairyFree ? (
+              <li className="squareVeg" style={{ background: " #ffbb33" }}>
+                Diary-free
+                <GiCow />
+              </li>
+            ) : null}
+            {data.vegetarian ? (
+              <li className="squareVeg" style={{ background: " #99cc00" }}>
+                Vegetarian
+                <FaCarrot />
+              </li>
+            ) : null}
+            {data.vegan ? (
+              <li className="squareVeg" style={{ background: " #99cc00" }}>
+                Vegan
+                <ImLeaf />
+              </li>
+            ) : null}
+          </ul>
+
+          <div className="ingredientsTable"></div>
+          <h2>Ingredients</h2>
+          <div className="nutrition">
+            <ul>
+              {ingredients.map((i) => {
+                return (
+                  <div className="ingredients" key={i}>
+                    <li>{i}</li>
+                  </div>
+                );
+              })}
+            </ul>
+          </div>
+          <h2>Instructions</h2>
           <ul>
-            {ingredients.map((i) => {
+            {instructions.map((i) => {
               return (
                 <div className="ingredients" key={i}>
                   <li>{i}</li>
@@ -140,24 +206,14 @@ const Recipe = () => {
               );
             })}
           </ul>
+          <h2>Summary</h2>
+          <Typography dangerouslySetInnerHTML={sanitizedData()}></Typography>
+          <h2>Source URL</h2>
+          <Link href={data.sourceUrl} target="_blank" underline="none">
+            {data.sourceUrl}
+          </Link>
         </div>
-        <h2>Instructions</h2>
-        <ul>
-          {instructions.map((i) => {
-            return (
-              <div className="ingredients" key={i}>
-                <li>{i}</li>
-              </div>
-            );
-          })}
-        </ul>
-        <h2>Summary</h2>
-        <Typography dangerouslySetInnerHTML={sanitizedData()}></Typography>
-        <h2>Source URL</h2>
-        <Link href={data.sourceUrl} target="_blank" underline="none">
-          {data.sourceUrl}
-        </Link>
-      </div>
+      )}
     </>
   );
 };
