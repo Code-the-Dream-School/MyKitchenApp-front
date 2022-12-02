@@ -54,17 +54,6 @@ function App() {
               path="searchresult/:search/:intolerances"
               element={<SearchResult />}
             />
-<<<<<<< HEAD
-            <Route
-              path="searchresult/:search/:intolerances/:type"
-              element={<Filter />}
-            />
-            <Route
-              path="searchresult/:search/:intolerances"
-              element={<SearchResult />}
-            />
-=======
->>>>>>> b416d971e5c43642a13d51aee80b98ab2be3837b
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
             <Route path="recipe/:id" element={<Recipe />} />
