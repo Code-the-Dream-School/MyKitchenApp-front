@@ -8,6 +8,8 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
+
+import Recipe from "./Pages/Recipe/Recipe";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Filter from "./components/Filter/Filter";
@@ -18,6 +20,24 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("myKitchenAppToken")
   );
+
+  const removeLocalStorageData = (hours) => {
+    const currentTime = new Date().getTime();
+    const lastLoginTime = Number(localStorage.getItem("lastLoginTime"));
+
+    if (lastLoginTime === null) {
+      localStorage.setItem("lastLoginTime", currentTime);
+    } else {
+      if (currentTime - lastLoginTime > hours * 60 * 60 * 1000) {
+        localStorage.removeItem("myKitchenAppUser");
+        localStorage.removeItem("myKitchenAppToken");
+        localStorage.setItem("lastLoginTime", currentTime);
+      }
+    }
+  };
+
+  removeLocalStorageData(24);
+
   const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
   return (
     <>
@@ -40,9 +60,11 @@ function App() {
               path="dashboard"
               element={<Dashboard currentUser={currentUser} />}
             />
-            <Route path="searchresult/:search/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances/:type" element={<Filter />} />
+            <Route path="searchresult/:search/:intolerances" element={<SearchResult />} />
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
+            <Route path="recipe/:id" element={<Recipe />} />
           </Route>
         </Routes>
       </ThemeProvider>

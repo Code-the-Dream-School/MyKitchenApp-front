@@ -8,18 +8,25 @@ export default function RecipeReviewCard(props) {
     <Card
       sx={{
         maxWidth: 345,
-        maxHeight: 350,
+        maxHeight: 380,
         minWidth: 345,
-        minHeight: 350,
+        minHeight: 380,
         margin: "10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
         alignItems: "flex-start",
         borderRadius: "2rem",
+        textAlign: "center",
       }}
     >
-      <CardHeader title={props.title} />
+      <CardHeader
+        sx={{
+          fontSize: "1.2rem",
+          textDecoration: "none",
+        }}
+        title={props.title}
+      />
       <CardMedia
         component="img"
         height="250"

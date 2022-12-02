@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -13,6 +13,7 @@ export default function SignUp({ setToggle, theme }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -97,20 +98,27 @@ export default function SignUp({ setToggle, theme }) {
   };
 
   const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
     if (event.target.value.length < 8) {
       setIsConfirmPasswordInvalid(true);
       setInvalidConfirmPasswordMessage(
         "Password must be at least 8 characters."
       );
-    } else if (event.target.value !== password) {
-      setIsConfirmPasswordInvalid(true);
-      setInvalidConfirmPasswordMessage("Passwords do not match");
     } else {
       setIsConfirmPasswordInvalid(false);
       setInvalidConfirmPasswordMessage("");
     }
   };
 
+  useEffect(() => {
+    if (password !== confirmPassword) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage("Passwords do not match");
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  }, [password, confirmPassword]);
   return (
     <Grid
       component="main"

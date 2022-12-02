@@ -9,11 +9,7 @@ const LayoutPublic = ({ children, theme }) => {
     <>
       <Container
         sx={{
-          [theme.breakpoints.up("xs")]: {
-            padding: 0,
-            height: "100vh",
-            maxWidth: "100%",
-          },
+          marginBottom: "200px",
         }}
       >
         <Outlet />

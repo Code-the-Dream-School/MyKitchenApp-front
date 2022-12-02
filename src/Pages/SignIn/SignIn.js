@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Google from "./Google";
 
 export default function SignIn({ setToggle, theme }) {
   const navigate = useNavigate();
@@ -153,6 +154,7 @@ export default function SignIn({ setToggle, theme }) {
           >
             Sign In
           </Button>
+          <Google />
           <Typography component="p">
             Don't have an account?{" "}
             <span className="underline" onClick={() => setToggle(false)}>

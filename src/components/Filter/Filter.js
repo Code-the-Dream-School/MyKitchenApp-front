@@ -6,32 +6,40 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import styled from "styled-components";
+import Typography from "@mui/material/Typography";
 
 const Filter = () => {
-  const [cuisine, setCuisine] = useState([]);
+  const [filterResult, setfilterResult] = useState([]);
   const url = "/api/v1/recipes";
-
-  let params = useParams();
+  let filter = useParams();
+  console.log(filter)
+  const token = localStorage.getItem("myKitchenAppToken");
 
   const cuisineType = async () => {
-    console.log(params.search, "we got here");
-    console.log(`${url}?includeIngredients=${encodeURIComponent(params.search)}&cuisine=${params.type}`);
-    const data = await axios.get(`${url}?includeIngredients=${encodeURIComponent(params.search)}&cuisine=${params.type}`);
+    console.log(filter.intolerances, "we got here");
+    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`);
+    try {
+    const data = await axios.get(
+      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
     return data;
+    } catch (error) {
+        console.log(error);
+    }
   };
 
   useEffect(() => {
-
-    if (params.type) {      
-        console.log(params.type);
-      cuisineType(params.type)
+    if (filter.type) {
+      console.log("Cuisine", filter.type);
+      cuisineType(filter.type)
         .then((response) => {
-          console.log(response.data.results);
-          setCuisine(response.data.results);
+          console.log("Response: ", response.data.results);
+          setfilterResult(response.data.results);
         })
-        .catch((err) => console.log(err));
+        .catch((error) => console.log(error));
     }
-  }, [params.type]);
+  }, [filter.type]);
 
   return (
     <Container>
@@ -39,26 +47,71 @@ const Filter = () => {
         sx={{
           margin: "2rem 0rem",
           display: "flex",
-          justifyContent: "center",          
+          justifyContent: "center",
         }}
       >
-        <StyledLink to={`/searchresult/${params.search}/African`}>African</StyledLink>
-        <StyledLink to={`/searchresult/${params.search}/American`}>American</StyledLink>
-        <StyledLink to={`/searchresult/${params.search}/Chinese`}>Chinese</StyledLink>
-        <StyledLink to={`/searchresult/${params.search}/European`}>European</StyledLink>
-        <StyledLink to={`/searchresult/${params.search}/Indian`}>Indian</StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}`}>
+          All
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/African`}>
+          African
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/American`}>
+          American
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}>
+          Chinese
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/European`}>
+          European
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/French`}>
+          French
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}>
+          Indian
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}>
+          Italian
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}>
+          Korean
+        </StyledLink>
+        <StyledLink to={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}>
+          Thai
+        </StyledLink>
       </Grid>
-      <Box>
-        {cuisine.map((item) => {
-          return (
-            <ReusableCard
-              key={item.id}
-              title={item.title}
-              data={item}
-              image={item.image}
-            />
-          );
-        })}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
+        {filterResult.length ? (
+          filterResult?.map((item) => {
+            return (
+              <ReusableCard
+                key={item.id}
+                title={item.title}
+                data={item}
+                image={item.image}
+              />
+            );
+          })
+        ) : (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography variant="h3">No results for {filter.type} cuisine!</Typography>
+              <Typography variant="h4">Please try another search!</Typography>
+            </div>
+          )}
       </Box>
     </Container>
   );

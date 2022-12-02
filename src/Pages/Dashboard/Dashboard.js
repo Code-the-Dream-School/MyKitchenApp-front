@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
@@ -6,48 +6,87 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
 
+const StyledButton = styled.button`
+  // background-image: url('/public/food-search-button.png');
+  // background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: black;
+  font-size: 1rem;
+  box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
+
+  &:active {
+    box-shadow: 1px 1px 0 black, 1px 1px 0 black;
+  }
+`;
 export default function Dashboard({ currentUser }) {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [open, setOpen] = useState(false);
 
-  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=9";
-  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=9";
-  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=9";
+  const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=6";
+  const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=6";
+  const urlDrink = "/api/v1/recipes?sort=random&type=drink&number=6";
 
   const token = localStorage.getItem("myKitchenAppToken");
-  const name = localStorage.getItem("myKitchenAppUser");
 
-  let userName = JSON.parse(name);
-
-  const requestBreakfast = axios.get(urlBreakfast, {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const requestSalad = axios.get(urlSalad, {
-    headers: { Authorization: "Bearer " + token },
-  });
-  const requestDrink = axios.get(urlDrink, {
-    headers: { Authorization: "Bearer " + token },
-  });
-
-  React.useEffect(() => {
+  const getBreakfast = () => {
     axios
-      .all([requestBreakfast, requestSalad, requestDrink])
-      .then(
-        axios.spread((...responses) => {
-          const responseBreakfast = responses[0];
-          const responseSalad = responses[1];
-          const responseDrink = responses[2];
+      .get(urlBreakfast, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const breakfastRecipes = response.data.results;
+        setBreakfast(breakfastRecipes);
+      });
+  };
+  const getSalad = () => {
+    axios
+      .get(urlSalad, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const saladRecipes = response.data.results;
+        setSalad(saladRecipes);
+      });
+  };
+  const getDrink = () => {
+    axios
+      .get(urlDrink, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const saladRecipes = response.data.results;
+        setDrink(saladRecipes);
+      });
+  };
+  useEffect(() => {
+    getBreakfast();
+    getSalad();
+    getDrink();
+  }, [token]);
 
-          setBreakfast(responseBreakfast.data.results);
-          setSalad(responseSalad.data.results);
-          setDrink(responseDrink.data.results);
-        })
-      )
-
-      .catch((error) => console.log(error));
-  }, []);
   const date = new Date();
   const currentTime = date.getHours();
 
@@ -60,14 +99,44 @@ export default function Dashboard({ currentUser }) {
   } else {
     greeting = "Good Evening";
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen();
+  };
+
   return (
     <>
-      <h1>
-        {greeting} {userName.name}!
+      <h1 className="greet">
+        {greeting} {currentUser.name}!
       </h1>
-
-      <SearchForm />
-      <h1>Discover recipes for the day</h1>
+      <div className="searchContainer">
+        <h1>Recommended recipes</h1>
+        <StyledButton
+          onClick={handleClickOpen}
+          sx={{
+            mt: 3,
+            mb: 2,
+            mr: 1,
+            fontSize: "1rem",
+            backgroundColor: "black",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#5a5a5a",
+            },
+            "&.Mui-disabled": {
+              background: "white",
+            },
+          }}
+        >
+          <SearchIcon />
+          Search new recipe
+        </StyledButton>
+        <SearchForm open={open} onClose={handleClose} />
+      </div>
 
       <div>
         <h2>Breakfast</h2>
@@ -99,7 +168,7 @@ export default function Dashboard({ currentUser }) {
           </div>
         ) : null}
       </div>
-      {/* <div>
+      <div>
         <h2>Salad</h2>
         {salad || salad.length ? (
           <div className="trending">
@@ -153,7 +222,7 @@ export default function Dashboard({ currentUser }) {
             })}
           </Splide>
         ) : null}
-      </div> */}
+      </div>
     </>
   );
 }
