@@ -6,15 +6,41 @@ import Typography from "@mui/material/Typography";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 
-export default function Landing() {
+export default function Landing({ theme }) {
   const [toggle, setToggle] = useState(true);
   return (
-    <Grid container component="main">
-      <Grid item xs={12} sm={8} md={5} component={Paper} square elevation={0}>
+    <Grid
+      container
+      component="main"
+      sx={{
+        [theme.breakpoints.up("md")]: {
+          height: "110vh",
+        },
+        height: "1200px",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundImage:
+          "url(https://www.photos-elsoar.com/wp-content/images/Frame-of-vegetables-for-salad-780x540.jpg)",
+      }}
+    >
+      <Grid
+        sx={{
+          opacity: "0.80",
+          [theme.breakpoints.up("md")]: {
+            paddingTop: "20vh",
+          },
+          paddingTop: "10vh",
+        }}
+        item
+        md={6}
+        component={Paper}
+        square
+        elevation={0}
+      >
         <Box
           sx={{
-            my: 8,
-            mx: 4,
+            maxWidth: "800px",
+            margin: "auto",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -36,9 +62,9 @@ export default function Landing() {
         </Box>
       </Grid>
       {toggle ? (
-        <SignIn setToggle={setToggle} />
+        <SignIn setToggle={setToggle} theme={theme} />
       ) : (
-        <SignUp setToggle={setToggle} />
+        <SignUp setToggle={setToggle} theme={theme} />
       )}
     </Grid>
   );

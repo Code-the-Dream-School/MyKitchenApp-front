@@ -1,3 +1,4 @@
+import { NavLink, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,8 +12,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import SearchForm from "../../Pages/Search/SearchForm";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -29,11 +28,13 @@ const settings = [
   { page: "Logout", link: "/", icon: <LogoutIcon /> },
 ];
 
-function NavBar({ currentUser }) {
+function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [open, setOpen] = useState(false);
   let navigate = useNavigate();
+
+  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
   const handleLogout = () => {
     localStorage.removeItem("myKitchenAppToken");
