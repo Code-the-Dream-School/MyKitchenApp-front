@@ -39,8 +39,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-          <Route path="/" element={<LayoutPublic />}>
-            <Route index element={<Landing />} />
+          <Route path="/" element={<LayoutPublic theme={theme} />}>
+            <Route index element={<Landing theme={theme} />} />
           </Route>
           <Route element={<LayoutPrivate />}>
             <Route path="profile" element={<Profile />} />
