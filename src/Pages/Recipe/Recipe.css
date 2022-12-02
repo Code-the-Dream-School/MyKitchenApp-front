@@ -40,7 +40,6 @@ li {
   display: flex;
 }
 p {
-  text-indent: 50px;
   line-height: 1.8;
   text-align: justify;
   text-justify: inter-word;

@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import "@splidejs/react-splide/css";
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import SearchForm from "../Search/SearchForm";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import axios from "axios";
+import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
 
+const StyledButton = styled.button`
+  // background-image: url('/public/food-search-button.png');
+  // background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: black;
+  font-size: 1rem;
+  box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
+
+  &:active {
+    box-shadow: 1px 1px 0 black, 1px 1px 0 black;
+  }
+`;
 export default function Dashboard() {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
@@ -75,6 +101,15 @@ export default function Dashboard() {
   } else {
     greeting = "Good Evening";
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen();
+  };
+
   return (
     <>
       <h1 className="greet">
@@ -82,8 +117,29 @@ export default function Dashboard() {
       </h1>
       <div className="searchContainer">
         <h1>Recommended recipes</h1>
-        <SearchForm />
+        <StyledButton
+          onClick={handleClickOpen}
+          sx={{
+            mt: 3,
+            mb: 2,
+            mr: 1,
+            fontSize: "1rem",
+            backgroundColor: "black",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "#5a5a5a",
+            },
+            "&.Mui-disabled": {
+              background: "white",
+            },
+          }}
+        >
+          <SearchIcon />
+          Search new recipe
+        </StyledButton>
+        <SearchForm open={open} onClose={handleClose} />
       </div>
+
       <div>
         <h2>Breakfast</h2>
 

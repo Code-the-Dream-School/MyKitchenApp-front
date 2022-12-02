@@ -1,5 +1,5 @@
-import * as React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,16 +12,26 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import SearchForm from "../../Pages/Search/SearchForm";
+import SearchIcon from "@mui/icons-material/Search";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import GridViewIcon from "@mui/icons-material/GridView";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-const pages = ["dashboard", "favorite"];
+const pages = [
+  { page: "Dashboard", link: "/dashboard", icon: <GridViewIcon /> },
+  { page: "Favorite", link: "/favorite", icon: <FavoriteBorderIcon /> },
+];
 const settings = [
-  { page: "My Profile", link: "/profile" },
-  { page: "Logout", link: "/" },
+  { page: "My Profile", link: "/profile", icon: <PermIdentityIcon /> },
+  { page: "Logout", link: "/", icon: <LogoutIcon /> },
 ];
 
 function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [open, setOpen] = useState(false);
   let navigate = useNavigate();
 
   const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
@@ -44,6 +54,13 @@ function NavBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen();
   };
 
   return (
@@ -76,6 +93,7 @@ function NavBar() {
           >
             MyKitchen
           </Typography>
+
           <Box
             sx={{
               flexGrow: 1,
@@ -92,6 +110,7 @@ function NavBar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -111,20 +130,38 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem onClick={handleCloseNavMenu} key={page.page}>
                   <Typography textAlign="center">
                     <NavLink
                       style={{
+                        display: "flex",
+                        alignItems: "center",
                         textDecoration: "none",
                         color: "rgb(0, 0, 0)",
                       }}
-                      to={`/${page}`}
+                      to={page.page}
                     >
-                      {page}
+                      {page.icon}
+                      {page.page}
                     </NavLink>
                   </Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <NavLink
+                  onClick={handleClickOpen}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    textDecoration: "none",
+                    color: "rgb(0, 0, 0)",
+                  }}
+                >
+                  <SearchIcon />
+                  Search
+                </NavLink>
+                <SearchForm open={open} onClose={handleClose} />
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -155,12 +192,26 @@ function NavBar() {
                 md: "flex",
                 justifyContent: "flex-end",
                 marginRight: 50,
+                alignItems: "center",
               },
             }}
           >
+            <Button
+              onClick={handleClickOpen}
+              sx={{
+                fontSize: "1.2rem",
+                backgroundColor: "black",
+                color: "white",
+              }}
+            >
+              <SearchIcon />
+              Search
+            </Button>
+            <SearchForm open={open} onClose={handleClose} />
+
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
@@ -169,13 +220,25 @@ function NavBar() {
                     textDecoration: "none",
                     color: "rgb(255, 255, 255)",
                   }}
-                  to={`/${page}`}
+                  to={page.link}
                 >
-                  {page}
+                  {page.page}
                 </NavLink>
               </Button>
             ))}
+            <NavLink
+              style={{
+                textDecoration: "none",
+                color: "rgb(255, 255, 255)",
+                paddingLeft: "8px",
+              }}
+              to="/"
+            >
+              LOGOUT
+            </NavLink>
+            <SearchForm open={open} onClose={handleClose} />
           </Box>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -205,10 +268,16 @@ function NavBar() {
                     handleCloseUserMenu();
                     setting.page === "Logout" && handleLogout();
                   }}
+                  style={{
+                    fontSize: "1.2rem",
+                  }}
                 >
+                  {setting.icon}
                   {setting.page !== "Logout" ? (
                     <NavLink
                       style={{
+                        display: "flex",
+                        alignItems: "center",
                         textDecoration: "none",
                         color: "rgb(0, 0, 0)",
                       }}
