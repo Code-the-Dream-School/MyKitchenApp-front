@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
-import axios from "axios";
-import ReusableCard from "../../components/ReusableCard/ReusableCard";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-import SearchForm from "../Search/SearchForm";
 import { Link } from "react-router-dom";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import SearchForm from "../Search/SearchForm";
+import ReusableCard from "../../components/ReusableCard/ReusableCard";
+import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 
@@ -33,11 +33,13 @@ const StyledButton = styled.button`
     box-shadow: 1px 1px 0 black, 1px 1px 0 black;
   }
 `;
-export default function Dashboard({ currentUser }) {
+export default function Dashboard() {
   const [breakfast, setBreakfast] = useState([]);
   const [salad, setSalad] = useState([]);
   const [drink, setDrink] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
   const urlBreakfast = "/api/v1/recipes?sort=random&type=breakfast&number=6";
   const urlSalad = "/api/v1/recipes?sort=random&type=salad&number=6";

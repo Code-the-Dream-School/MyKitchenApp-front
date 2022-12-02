@@ -4,13 +4,16 @@ import Container from "@mui/material/Container";
 import FooterPrivate from "../Footer/FooterPrivate";
 import NavBar from "../Navbar/NavBar";
 
-const LayoutPrivate = ({ children, isAuthenticated, currentUser }) => {
+const LayoutPrivate = ({ children }) => {
+  const isAuthenticated = !!localStorage.getItem("myKitchenAppToken");
+
   if (!isAuthenticated) {
     return <Navigate to={"/"} replace />;
   }
+
   return (
     <>
-      <NavBar currentUser={currentUser} />
+      <NavBar />
       <Container
         sx={{
           marginBottom: "200px",

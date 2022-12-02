@@ -1,9 +1,10 @@
-import React, { useState } from "react";
 import "./App.css";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import LayoutPublic from "./components/Layout/LayoutPublic";
-import Landing from "./Pages/Landing/Landing";
 import LayoutPrivate from "./components/Layout/LayoutPrivate";
+import Filter from "./components/Filter/Filter";
+import Landing from "./Pages/Landing/Landing";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
@@ -13,15 +14,10 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Recipe from "./Pages/Recipe/Recipe";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Filter from "./components/Filter/Filter";
 
 const theme = createTheme();
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    localStorage.getItem("myKitchenAppToken")
-  );
-
   const removeLocalStorageData = (hours) => {
     const currentTime = new Date().getTime();
     const lastLoginTime = Number(localStorage.getItem("lastLoginTime"));
@@ -39,28 +35,17 @@ function App() {
 
   removeLocalStorageData(24);
 
-  const currentUser = JSON.parse(localStorage.getItem("myKitchenAppUser"));
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-          <Route path="/" element={<LayoutPublic />}>
-            <Route index element={<Landing />} />
+          <Route path="/" element={<LayoutPublic theme={theme} />}>
+            <Route index element={<Landing theme={theme} />} />
           </Route>
-          <Route
-            element={
-              <LayoutPrivate
-                isAuthenticated={isAuthenticated}
-                currentUser={currentUser}
-              />
-            }
-          >
+          <Route element={<LayoutPrivate />}>
             <Route path="profile" element={<Profile />} />
-            <Route
-              path="dashboard"
-              element={<Dashboard currentUser={currentUser} />}
-            />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route
               path="searchresult/:search/:intolerances/:type"
               element={<Filter />}
@@ -69,6 +54,17 @@ function App() {
               path="searchresult/:search/:intolerances"
               element={<SearchResult />}
             />
+<<<<<<< HEAD
+            <Route
+              path="searchresult/:search/:intolerances/:type"
+              element={<Filter />}
+            />
+            <Route
+              path="searchresult/:search/:intolerances"
+              element={<SearchResult />}
+            />
+=======
+>>>>>>> b416d971e5c43642a13d51aee80b98ab2be3837b
             <Route path="searchresult/:search" element={<SearchResult />} />
             <Route path="favorite" element={<Favorite />} />
             <Route path="recipe/:id" element={<Recipe />} />
