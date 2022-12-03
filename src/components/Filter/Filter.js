@@ -6,26 +6,44 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import styled from "styled-components";
+import "./Filter.css";
+import All from "../../assets/Images/all.png";
+import African from "../../assets/Images/african.png";
+import American from "../../assets/Images/american.png";
+import Chinese from "../../assets/Images/chinese.png";
+import European from "../../assets/Images/european.png";
+import French from "../../assets/Images/french.png";
+import Indian from "../../assets/Images/indian.png";
+import Italian from "../../assets/Images/italian.png";
+import Korean from "../../assets/Images/korean.png";
+import Mexican from "../../assets/Images/mexican.png";
+import Thai from "../../assets/Images/thai.png";
 
 const Filter = () => {
   const [filterResult, setfilterResult] = useState([]);
 
   const url = "/api/v1/recipes";
   let filter = useParams();
-  console.log(filter)
+  console.log(filter);
   const token = localStorage.getItem("myKitchenAppToken");
 
   const cuisineType = async () => {
     console.log(filter.intolerances, "we got here");
-    console.log(`${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`);
-    try {
-    const data = await axios.get(
-      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`,
-      { headers: { Authorization: `Bearer ${token}` } }
+    console.log(
+      `${url}?includeIngredients=${encodeURIComponent(
+        filter.search
+      )}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`
     );
-    return data;
+    try {
+      const data = await axios.get(
+        `${url}?includeIngredients=${encodeURIComponent(
+          filter.search
+        )}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return data;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -51,62 +69,94 @@ const Filter = () => {
           justifyContent: "center",
         }}
       >
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}`}
-        >
-          All
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/African`}
-        >
-          African
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/American`}
-        >
-          American
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
-        >
-          Chinese
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/European`}
-        >
-          European
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/French`}
-        >
-          French
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
-        >
-          Indian
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
-        >
-          Italian
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
-        >
-          Korean
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
-        >
-          Mexican
-        </StyledLink>
-        <StyledLink
-          to={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
-        >
-          Thai
-        </StyledLink>
+        <div>
+          <a href={`/searchresult/${filter.search}/${filter.intolerances}`}>
+            <StyledImage src={All} alt="All" />
+            <div className="cuisine">All</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
+          >
+            <StyledImage src={African} alt="African" />
+            <div className="cuisine">African</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
+          >
+            <StyledImage src={American} alt="American" />
+            <div className="cuisine">American</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
+          >
+            <StyledImage src={Chinese} alt="Chinese" />
+            <div className="cuisine">Chinese</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
+          >
+            <StyledImage src={European} alt="European" />
+            <div className="cuisine">European</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
+          >
+            <StyledImage src={French} alt="French" />
+            <div className="cuisine">French</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
+          >
+            <StyledImage src={Indian} alt="Indian" />
+            <div className="cuisine">Indian</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
+          >
+            <StyledImage src={Italian} alt="Italian" />
+            <div className="cuisine">Italian</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
+          >
+            <StyledImage src={Korean} alt="Korean" />
+            <div className="cuisine">Korean</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
+          >
+            <StyledImage src={Mexican} alt="Mexican" />
+            <div className="cuisine">Mexican</div>
+          </a>
+        </div>
+        <div>
+          <a
+            href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
+          >
+            <StyledImage src={Thai} alt="Thai" />
+            <div className="cuisine">Thai</div>
+          </a>
+        </div>
       </Grid>
+
       <Box
         sx={{
           display: "flex",
@@ -132,24 +182,23 @@ const Filter = () => {
   );
 };
 
-const StyledLink = styled(NavLink)`
+const StyledImage = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   text-decoration: none;
-  background: linear-gradient(35deg, #848484, #313131);
-  width: 5rem;
-  height: 5rem;
+  background: linear-gradient(35deg, #494949, #313131);
+  width: 7rem;
+  height: 7rem;
   cursor: pointer;
   transform: scale(0.8);
   color: white;
   font-size: 1rem;
 
-  &.active {
-    background: linear-gradient(to right, #e6e926, #e98e26);
-    color: grey;
-  }
+  //   &.active {
+  //     box-shadow: 3px 3px 5px black;
+  //   }
 `;
 
 export default Filter;
