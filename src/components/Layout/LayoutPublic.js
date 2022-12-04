@@ -1,13 +1,16 @@
 import React from "react";
-
 import { Outlet } from "react-router-dom";
 import Container from "@mui/material/Container";
-
 import FooterPublic from "../Footer/FooterPublic";
+
 const LayoutPublic = ({ children }) => {
   return (
     <>
-      <Container>
+      <Container
+        sx={{
+          marginBottom: "200px",
+        }}
+      >
         <Outlet />
         <main>{children}</main>
       </Container>

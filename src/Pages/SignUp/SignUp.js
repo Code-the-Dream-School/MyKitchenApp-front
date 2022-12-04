@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function SignUp({ setToggle }) {
+export default function SignUp({ setToggle, theme }) {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -97,30 +98,51 @@ export default function SignUp({ setToggle }) {
   };
 
   const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
     if (event.target.value.length < 8) {
       setIsConfirmPasswordInvalid(true);
       setInvalidConfirmPasswordMessage(
         "Password must be at least 8 characters."
       );
-    } else if (event.target.value !== password) {
-      setIsConfirmPasswordInvalid(true);
-      setInvalidConfirmPasswordMessage("Passwords do not match");
     } else {
       setIsConfirmPasswordInvalid(false);
       setInvalidConfirmPasswordMessage("");
     }
   };
 
+  useEffect(() => {
+    if (password !== confirmPassword) {
+      setIsConfirmPasswordInvalid(true);
+      setInvalidConfirmPasswordMessage("Passwords do not match");
+    } else {
+      setIsConfirmPasswordInvalid(false);
+      setInvalidConfirmPasswordMessage("");
+    }
+  }, [password, confirmPassword]);
   return (
-    <Container component="main" maxWidth="xs">
+    <Grid
+      component="main"
+      xs={12}
+      md={6}
+      item
+      sx={{
+        opacity: "0.80",
+        backgroundColor: "white",
+        [theme.breakpoints.up("md")]: {
+          paddingTop: "20vh",
+        },
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
+          margin: "auto",
+          width: "80%",
+          maxWidth: "800px",
         }}
       >
-        <Typography component="h1" variant="h3">
+        <Typography component="h1" variant="h3" align="center">
           Welcome!
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -208,6 +230,6 @@ export default function SignUp({ setToggle }) {
           </Typography>
         </Box>
       </Box>
-    </Container>
+    </Grid>
   );
 }

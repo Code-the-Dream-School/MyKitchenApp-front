@@ -1,32 +1,33 @@
 import React from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import styled from "styled-components";
-import SearchIcon from '@mui/icons-material/Search';
 
-const SearchForm = () => {
-  
-  const [open, setOpen] = useState(false);
+const SearchForm = (props) => {
+  const { onClose, open } = props;
   const [searchInput, setSearchInput] = useState("");
   const [checked, setChecked] = useState([]);
   let navigate = useNavigate();
   let location = useLocation();
 
-  const intolerances = ["Dairy", "Egg", "Gluten", "Peanut", "Seafood", "Shellfish", "Soy"];
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const intolerances = [
+    "Dairy",
+    "Egg",
+    "Gluten",
+    "Peanut",
+    "Seafood",
+    "Shellfish",
+    "Soy",
+  ];
 
   const handleClose = () => {
-    setOpen(false);
+    onClose();
   };
 
   const handleCheckbox = (event) => {
@@ -39,24 +40,24 @@ const SearchForm = () => {
     setChecked(checkedIntolerance);
   };
 
-  const allIntolerances = checked.length 
+  const allIntolerances = checked.length
     ? checked.reduce((total, item) => {
         return total + "," + item;
-    })
+      })
     : "";
-    
+
   const handleSearch = (event) => {
     event.preventDefault();
-    let path = location.pathname !== "searchresult" ? `/searchresult/${searchInput}/${allIntolerances}` : "/";
+    let path =
+      location.pathname !== "searchresult"
+        ? `/searchresult/${searchInput}/${allIntolerances}`
+        : "/";
     navigate(path, { replace: true });
+    handleClose();
   };
-  
+
   return (
     <div>
-      <StyledButton onClick={handleClickOpen}>
-        New Recipe Search
-        <SearchIcon />
-      </StyledButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Search</DialogTitle>
         <DialogContent>
@@ -99,34 +100,6 @@ const SearchForm = () => {
       </Dialog>
     </div>
   );
-
 };
-
-const StyledButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5%;
-  text-decoration: none;
-  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
-  background-position: right center;
-  padding: 20px;
-  text-transform: uppercase;
-  width: 10rem;
-  height: 5rem;
-  cursor: pointer;
-  transform: scale(0.8);
-  color: black;
-  font-size: 1rem;
-  box-shadow: 
-    4px 4px 3px #446930,
-    1px 1px 0 #223716;
-
-  &:active{
-    box-shadow: 
-      1px 1px 0 black,
-      1px 1px 0 black;
-  }
-`;
 
 export default SearchForm;

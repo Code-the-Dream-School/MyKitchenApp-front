@@ -3,11 +3,12 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Google from "./Google";
 
-export default function SignIn({ setToggle }) {
+export default function SignIn({ setToggle, theme }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -78,15 +79,30 @@ export default function SignIn({ setToggle }) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Grid
+      component="main"
+      xs={12}
+      md={6}
+      item
+      sx={{
+        opacity: "0.80",
+        backgroundColor: "white",
+        paddingBottom: "160px",
+        [theme.breakpoints.up("md")]: {
+          paddingTop: "20vh",
+        },
+      }}
+    >
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
+          margin: "auto",
+          width: "80%",
+          maxWidth: "800px",
         }}
       >
-        <Typography component="h1" variant="h3">
+        <Typography component="h1" variant="h3" align="center">
           Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -138,6 +154,7 @@ export default function SignIn({ setToggle }) {
           >
             Sign In
           </Button>
+          <Google />
           <Typography component="p">
             Don't have an account?{" "}
             <span className="underline" onClick={() => setToggle(false)}>
@@ -146,6 +163,6 @@ export default function SignIn({ setToggle }) {
           </Typography>
         </Box>
       </Box>
-    </Container>
+    </Grid>
   );
 }
