@@ -10,8 +10,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  // background-image: url('/public/food-search-button.png');
-  // background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
