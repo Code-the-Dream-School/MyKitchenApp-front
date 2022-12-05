@@ -137,6 +137,7 @@ function NavBar() {
                         display: "flex",
                         alignItems: "center",
                         textDecoration: "none",
+                        fontSize: "1rem",
                         color: "rgb(0, 0, 0)",
                       }}
                       to={page.page}
@@ -154,6 +155,7 @@ function NavBar() {
                     display: "flex",
                     alignItems: "center",
                     textDecoration: "none",
+                    fontSize: "1rem",
                     color: "rgb(0, 0, 0)",
                   }}
                 >
@@ -269,7 +271,7 @@ function NavBar() {
                     setting.page === "Logout" && handleLogout();
                   }}
                   style={{
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                   }}
                 >
                   {setting.icon}
@@ -280,6 +282,7 @@ function NavBar() {
                         alignItems: "center",
                         textDecoration: "none",
                         color: "rgb(0, 0, 0)",
+                        fontSize: "1rem",
                       }}
                       to={setting.link}
                     >

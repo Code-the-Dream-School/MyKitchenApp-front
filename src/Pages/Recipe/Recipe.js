@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
 import DOMPurify from "dompurify";
@@ -132,7 +132,11 @@ export default function Recipe() {
           >
             <Grid container spacing={2}>
               <Grid item>
-                <ButtonBase sx={{ width: "100%" }}>
+                <ButtonBase
+                  sx={{
+                    width: "100%",
+                  }}
+                >
                   <Img alt={data.title} src={data.image} />
                 </ButtonBase>
               </Grid>
@@ -143,7 +147,12 @@ export default function Recipe() {
                       gutterBottom
                       variant="subtitle1"
                       component="div"
-                      sx={{ fontSize: "2rem" }}
+                      sx={{
+                        fontSize: "2rem",
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "80%",
+                        },
+                      }}
                     >
                       {data.title}
                     </Typography>
@@ -297,15 +306,12 @@ export default function Recipe() {
                         fontSize: "1.1rem",
                         ["@media (max-width:600px)"]: {
                           maxWidth: "80%",
+                          fontSize: "0.9rem",
                         },
                       }}
                     >
                       {ingredients.map((i) => {
-                        return (
-                          <ul key={i}>
-                            <li>{i}</li>
-                          </ul>
-                        );
+                        return <li key={i}>{i}</li>;
                       })}
                     </Typography>
                     <Typography
@@ -321,17 +327,15 @@ export default function Recipe() {
                       gutterBottom
                       sx={{
                         fontSize: "1.1rem",
+
                         ["@media (max-width:600px)"]: {
-                          maxWidth: "70%",
+                          maxWidth: "90%",
+                          fontSize: "0.9rem",
                         },
                       }}
                     >
                       {instructions.map((i) => {
-                        return (
-                          <ul key={i}>
-                            <li>{i}</li>
-                          </ul>
-                        );
+                        return <li key={i}>{i}</li>;
                       })}
                     </Typography>
                     <Typography
@@ -347,8 +351,11 @@ export default function Recipe() {
                       gutterBottom
                       sx={{
                         fontSize: "1.1rem",
+                        textAlign: "justify",
+                        textJustify: "interWord",
                         ["@media (max-width:600px)"]: {
-                          maxWidth: "70%",
+                          maxWidth: "90%",
+                          fontSize: "0.9rem",
                         },
                       }}
                       dangerouslySetInnerHTML={sanitizedData()}
@@ -367,7 +374,11 @@ export default function Recipe() {
                       underline="none"
                       sx={{
                         ["@media (max-width:600px)"]: {
-                          maxWidth: "70%",
+                          maxWidth: "60%",
+                          fontSize: "0.9rem",
+                          textAlign: "justify",
+                          textJustify: "interWord",
+                          color: "#1976d2",
                         },
                       }}
                     >

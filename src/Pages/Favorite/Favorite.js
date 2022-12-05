@@ -39,7 +39,7 @@ export default function Favorite({ currentUser }) {
           <div className="favorites">
             {favorites.map((recipe) => {
               return (
-                <Link to={"/recipe/" + recipe.recipeId} key={recipe.id}>
+                <Link to={"/recipe/" + recipe.recipeId} key={recipe.recipeId}>
                   <ReusableCard
                     key={recipe.recipeId}
                     title={recipe.title}

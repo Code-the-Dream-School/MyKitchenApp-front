@@ -5,12 +5,11 @@
 }
 
 ul {
-  list-style: none;
   padding-left: 0px;
 }
 li {
   list-style-type: circle;
-  margin-left: 10px;
+  margin: 0 0 10px 10px;
 }
 
 a {
@@ -19,12 +18,14 @@ a {
 
 .diets {
   display: flex;
+  flex-wrap: wrap;
 }
 .squareVeg {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 10px;
   height: 60px;
   width: 85px;
   border-radius: 5%;
@@ -32,4 +33,9 @@ a {
   bottom: 0;
   right: 0;
   opacity: 80%;
+}
+@media (max-width: 600px) {
+  a {
+    font-size: 0.9rem;
+  }
 }
