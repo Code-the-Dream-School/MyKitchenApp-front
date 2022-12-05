@@ -231,8 +231,8 @@ const StyledImage = styled.img`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  width: 7rem;
-  height: 7rem;
+  width: 6rem;
+  height: 6rem;
   cursor: pointer;
   transform: scale(0.8);
 `;

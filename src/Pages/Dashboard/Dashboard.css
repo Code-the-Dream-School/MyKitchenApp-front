@@ -1,4 +1,4 @@
-body {
+#root {
   background-image: url("../../assets/Images/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;

@@ -103,27 +103,11 @@ const SearchResult = () => {
             >
               <Typography variant="h3">No results for {search}!</Typography>
               <Typography variant="h4">Please try another search!</Typography>
-              <StyledButton
-          onClick={handleClickOpen}
-          sx={{
-            mt: 3,
-            mb: 2,
-            mr: 1,
-            fontSize: "1rem",
-            backgroundColor: "black",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "#5a5a5a",
-            },
-            "&.Mui-disabled": {
-              background: "white",
-            },
-          }}
-        >
-          <SearchIcon />
-          Search new recipe
-        </StyledButton>
-        <SearchForm open={open} onClose={handleClose} />
+              <StyledButton onClick={handleClickOpen}>
+                <SearchIcon />
+                Search new recipe
+              </StyledButton>
+              <SearchForm open={open} onClose={handleClose} />
             </div>
           )}
         </Box>
