@@ -19,9 +19,14 @@ export default function NotFound() {
       <img
         src="https://img.freepik.com/premium-photo/crying-cute-baby-tucked-inside-pot-with-chef-s-hat-cooking-utensils-yellow-background_181624-59803.jpg?w=2000"
         alt="crying baby chef"
-        style={{ width: "480px", margin: "12px 0" }}
+        style={{
+          width: "480px",
+          margin: "12px 0",
+        }}
       />
-      <Link to={"/dashboard"}>Back to dashboard</Link>
+      <Link to={"/dashboard"} style={{ textDecoration: "underline" }}>
+        Back to dashboard
+      </Link>
     </Box>
   );
 }
