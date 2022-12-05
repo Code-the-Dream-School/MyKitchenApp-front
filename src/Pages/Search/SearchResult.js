@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import Filter from "../../components/Filter/Filter";
@@ -20,7 +20,7 @@ const SearchResult = () => {
   const params = useParams();
   console.log("Search name", search);
   const token = localStorage.getItem("myKitchenAppToken");
-  const perPage = 6;
+  const perPage = 6; //number of recipes on each page
 
   const recipeResult = async (name) => {
     console.log("Searching for:", name);
@@ -58,7 +58,7 @@ const SearchResult = () => {
   };
 
   return (
-    <Container>
+    <Container className="background">
       <Box>
         <Filter />
         <Box
@@ -72,12 +72,14 @@ const SearchResult = () => {
           {searchedRecipe.length ? (
             pageData.currentData().map((item) => {
               return (
-                <ReusableCard
-                  key={item.id}
-                  title={item.title}
-                  data={item}
-                  image={item.image}
-                />
+                <Link to={"/recipe/" + item.id} key={item.id}>
+                  <ReusableCard
+                    key={item.id}
+                    title={item.title}
+                    data={item}
+                    image={item.image}
+                  />
+                </Link>
               );
             })
           ) : (

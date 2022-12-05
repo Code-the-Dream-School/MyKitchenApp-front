@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -30,20 +30,16 @@ const Filter = () => {
   let filter = useParams();
   console.log(filter);
   const token = localStorage.getItem("myKitchenAppToken");
-  const perPage = 6;
+  const perPage = 6; //number of recipes on each page
 
   const cuisineType = async () => {
     console.log(filter.intolerances, "we got here");
     console.log(
-      `${url}?includeIngredients=${encodeURIComponent(
-        filter.search
-      )}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`
+      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=18`
     );
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(
-          filter.search
-        )}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=9`,
+        `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
@@ -192,12 +188,14 @@ const Filter = () => {
         {filterResult.length
           ? pageData.currentData().map((item) => {
               return (
-                <ReusableCard
-                  key={item.id}
-                  title={item.title}
-                  data={item}
-                  image={item.image}
-                />
+                <Link to={"/recipe/" + item.id} key={item.id}>
+                  <ReusableCard
+                    key={item.id}
+                    title={item.title}
+                    data={item}
+                    image={item.image}
+                  />
+                </Link>
               );
             })
           : null}
