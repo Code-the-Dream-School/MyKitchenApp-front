@@ -130,7 +130,15 @@ export default function Recipe() {
                 theme.palette.mode === "dark" ? "#1A2027" : "#fff",
             }}
           >
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                ["@media (max-width:820px)"]: {
+                  maxWidth: "90%",
+                },
+              }}
+            >
               <Grid item>
                 <ButtonBase
                   sx={{
