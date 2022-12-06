@@ -74,7 +74,7 @@ const SearchForm = (props) => {
             variant="filled"
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
-            placeholder="chicken, pasta"
+            placeholder="chicken breast, brown rice"
           />
 
           <div className="checkList">

@@ -1,3 +1,9 @@
+body {
+  background-image: url("../../assets/Images/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .trending {
   margin-bottom: 100px;
 }
