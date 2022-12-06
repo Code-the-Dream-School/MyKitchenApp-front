@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,8 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const SearchForm = (props) => {
   const { onClose, open } = props;
@@ -74,7 +73,7 @@ const SearchForm = (props) => {
             variant="filled"
             value={searchInput}
             onChange={(event) => setSearchInput(event.target.value)}
-            placeholder="chicken, pasta"
+            placeholder="chicken breast, brown rice"
           />
 
           <div className="checkList">
@@ -95,7 +94,7 @@ const SearchForm = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSearch}>Search</Button>
+          <Button onClick={handleSearch} disabled={!searchInput} >Search</Button>
         </DialogActions>
       </Dialog>
     </div>

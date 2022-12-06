@@ -12,14 +12,14 @@ const LayoutPrivate = ({ children }) => {
   }
 
   return (
-    <>
+    <div id="root">
       <NavBar />
       <Container>
         <Outlet />
         <main>{children}</main>
       </Container>
       <FooterPrivate />
-    </>
+    </div>
   );
 };
 
