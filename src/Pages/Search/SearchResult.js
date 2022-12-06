@@ -10,10 +10,13 @@ import SearchForm from "./SearchForm";
 import ReusablePagination from "../../components/Pagination/ReusablePagination";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
 
 const SearchResult = () => {
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const [page, setPage] = useState(1);
+  const [open, setOpen] = useState(false);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -57,6 +60,14 @@ const SearchResult = () => {
     pageData.jump(p);
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen();
+  };
+
   return (
     <Container className="background">
       <Box>
@@ -92,7 +103,11 @@ const SearchResult = () => {
             >
               <Typography variant="h3">No results for {search}!</Typography>
               <Typography variant="h4">Please try another search!</Typography>
-              <SearchForm />
+              <StyledButton onClick={handleClickOpen}>
+                <SearchIcon />
+                Search new recipe
+              </StyledButton>
+              <SearchForm open={open} onClose={handleClose} />
             </div>
           )}
         </Box>
@@ -120,5 +135,28 @@ const SearchResult = () => {
     </Container>
   );
 };
+
+const StyledButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  text-decoration: none;
+  background: linear-gradient(35deg, #f6d365 0%, #fda085 51%, #f6d365 100%);
+  background-position: right center;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 10rem;
+  height: 5rem;
+  cursor: pointer;
+  transform: scale(0.8);
+  color: black;
+  font-size: 1rem;
+  box-shadow: 4px 4px 3px #446930, 1px 1px 0 #223716;
+
+  &:active {
+    box-shadow: 1px 1px 0 black, 1px 1px 0 black;
+  }
+`;
 
 export default SearchResult;
