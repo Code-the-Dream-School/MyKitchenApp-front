@@ -9,6 +9,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import SearchResult from "./Pages/Search/SearchResult";
 import Favorite from "./Pages/Favorite/Favorite";
 import Profile from "./Pages/Profile/Profile";
+import NotFound from "./Pages/NotFound/NotFound";
 
 import Recipe from "./Pages/Recipe/Recipe";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -57,6 +58,7 @@ function App() {
             <Route path="favorite" element={<Favorite />} />
             <Route path="recipe/:id" element={<Recipe />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
     </>
