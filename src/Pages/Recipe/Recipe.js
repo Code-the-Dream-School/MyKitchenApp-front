@@ -29,14 +29,14 @@ export default function Recipe() {
   const [instructions, setInstructions] = useState([]);
   const [favorite, setFavorite] = useState(true);
   const [isFav, setIsFav] = useState("");
-  const [err, setErr] = useState("");
+  const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
 
   const token = localStorage.getItem("myKitchenAppToken");
-
+  const errorMessage = "A server error occurred. Please try again later. ";
   const fetchRecipe = async () => {
     const recipe = await axios.get(url, {
       headers: { Authorization: "Bearer " + token },
@@ -55,7 +55,7 @@ export default function Recipe() {
         setIsFav(response.data.isFavorite);
         setIsLoading(false); //Hide loading
       })
-      .catch((error) => console.log(error));
+      .catch((e) => setErr(errorMessage));
   }, []);
 
   const add = async () => {
@@ -115,288 +115,294 @@ export default function Recipe() {
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
+      {err ? (
+        <h1 className="greet">{err}</h1>
       ) : (
         <>
-          {" "}
-          <Paper
-            sx={{
-              p: 2,
-              marginTop: "5rem",
-              flexGrow: 1,
-              borderRadius: "2rem",
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-            }}
-          >
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                ["@media (max-width:820px)"]: {
-                  maxWidth: "90%",
-                },
-              }}
-            >
-              <Grid item>
-                <ButtonBase
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              {" "}
+              <Paper
+                sx={{
+                  p: 2,
+                  marginTop: "5rem",
+                  flexGrow: 1,
+                  borderRadius: "2rem",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                }}
+              >
+                <Grid
+                  container
+                  spacing={2}
                   sx={{
-                    width: "100%",
+                    ["@media (max-width:820px)"]: {
+                      maxWidth: "90%",
+                    },
                   }}
                 >
-                  <Img alt={data.title} src={data.image} />
-                </ButtonBase>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
+                  <Grid item>
+                    <ButtonBase
                       sx={{
-                        fontSize: "2rem",
-                        ["@media (max-width:600px)"]: {
-                          maxWidth: "80%",
-                        },
+                        width: "100%",
                       }}
                     >
-                      {data.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      gutterBottom
-                      sx={{ fontSize: "1.1rem" }}
-                    >
-                      <ImSpoonKnife
-                        style={{
-                          margin: "0 1.2rem 0 1.1rem",
-                        }}
-                      />
-                      {data.servings} servings.
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      gutterBottom
-                      sx={{ fontSize: "1.1rem" }}
-                    >
-                      <HiClock
-                        style={{
-                          margin: "0 1.2rem 0 1.1rem",
-                        }}
-                      />
-                      ready in {data.readyInMinutes} mins.
-                    </Typography>
-                    {isFav ? (
-                      <Button
-                        color="error"
-                        type="submit"
-                        size="large"
-                        onClick={remove}
-                      >
-                        <FavoriteIcon
-                          style={{
-                            margin: "0 1.2rem 0 0",
+                      <Img alt={data.title} src={data.image} />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{
+                            fontSize: "2rem",
+                            ["@media (max-width:600px)"]: {
+                              maxWidth: "80%",
+                            },
                           }}
-                        />{" "}
-                        Saved
-                      </Button>
-                    ) : (
-                      <Button
-                        color="error"
-                        type="submit"
-                        size="large"
-                        onClick={add}
-                      >
-                        <FavoriteBorderIcon
-                          style={{
-                            margin: "0 1.2rem 0 0",
-                          }}
-                        />{" "}
-                        Save to favorite
-                      </Button>
-                    )}
-                    <NutritionModal />
-                    <ul className="diets">
-                      <li
-                        className="squareVeg"
-                        style={{ background: " #33b5e5" }}
-                      >
-                        Health {data.healthScore}%
-                        <GiMuscleUp />
-                      </li>
-                      {data.veryPopular ? (
-                        <li
-                          className="squareVeg"
-                          style={{ background: " #ff4444" }}
                         >
-                          Popular
-                          <BsFillArrowUpCircleFill />
-                        </li>
-                      ) : null}
-                      {data.glutenFree ? (
-                        <li
-                          className="squareVeg"
-                          style={{ background: " #ffbb33" }}
+                          {data.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          sx={{ fontSize: "1.1rem" }}
                         >
-                          Gluten-free
-                          <CiWheat />
-                        </li>
-                      ) : null}
-                      {data.dairyFree ? (
-                        <li
-                          className="squareVeg"
-                          style={{ background: " #ffbb33" }}
+                          <ImSpoonKnife
+                            style={{
+                              margin: "0 1.2rem 0 1.1rem",
+                            }}
+                          />
+                          {data.servings} servings.
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          sx={{ fontSize: "1.1rem" }}
                         >
-                          Diary-free
-                          <GiCow />
-                        </li>
-                      ) : null}
-                      {data.vegetarian ? (
-                        <li
-                          className="squareVeg"
-                          style={{ background: " #99cc00" }}
-                        >
-                          Vegetarian
-                          <FaCarrot />
-                        </li>
-                      ) : null}
-                      {data.vegan ? (
-                        <li
-                          className="squareVeg"
-                          style={{ background: " #99cc00" }}
-                        >
-                          Vegan
-                          <ImLeaf />
-                        </li>
-                      ) : null}
-                    </ul>
+                          <HiClock
+                            style={{
+                              margin: "0 1.2rem 0 1.1rem",
+                            }}
+                          />
+                          ready in {data.readyInMinutes} mins.
+                        </Typography>
+                        {isFav ? (
+                          <Button
+                            color="error"
+                            type="submit"
+                            size="large"
+                            onClick={remove}
+                          >
+                            <FavoriteIcon
+                              style={{
+                                margin: "0 1.2rem 0 0",
+                              }}
+                            />{" "}
+                            Saved
+                          </Button>
+                        ) : (
+                          <Button
+                            color="error"
+                            type="submit"
+                            size="large"
+                            onClick={add}
+                          >
+                            <FavoriteBorderIcon
+                              style={{
+                                margin: "0 1.2rem 0 0",
+                              }}
+                            />{" "}
+                            Save to favorite
+                          </Button>
+                        )}
+                        <NutritionModal />
+                        <ul className="diets">
+                          <li
+                            className="squareVeg"
+                            style={{ background: " #33b5e5" }}
+                          >
+                            Health {data.healthScore}%
+                            <GiMuscleUp />
+                          </li>
+                          {data.veryPopular ? (
+                            <li
+                              className="squareVeg"
+                              style={{ background: " #ff4444" }}
+                            >
+                              Popular
+                              <BsFillArrowUpCircleFill />
+                            </li>
+                          ) : null}
+                          {data.glutenFree ? (
+                            <li
+                              className="squareVeg"
+                              style={{ background: " #ffbb33" }}
+                            >
+                              Gluten-free
+                              <CiWheat />
+                            </li>
+                          ) : null}
+                          {data.dairyFree ? (
+                            <li
+                              className="squareVeg"
+                              style={{ background: " #ffbb33" }}
+                            >
+                              Diary-free
+                              <GiCow />
+                            </li>
+                          ) : null}
+                          {data.vegetarian ? (
+                            <li
+                              className="squareVeg"
+                              style={{ background: " #99cc00" }}
+                            >
+                              Vegetarian
+                              <FaCarrot />
+                            </li>
+                          ) : null}
+                          {data.vegan ? (
+                            <li
+                              className="squareVeg"
+                              style={{ background: " #99cc00" }}
+                            >
+                              Vegan
+                              <ImLeaf />
+                            </li>
+                          ) : null}
+                        </ul>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
-          <Paper
-            sx={{
-              p: 2,
-              margin: "5rem 0 7rem 0",
-              flexGrow: 1,
-              borderRadius: "2rem",
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-            }}
-          >
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                ["@media (max-width:600px)"]: {
-                  maxWidth: "90%",
-                },
-              }}
-            >
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      sx={{ fontSize: "1.5rem" }}
-                    >
-                      Ingredients
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      gutterBottom
-                      sx={{
-                        fontSize: "1.1rem",
-                        ["@media (max-width:600px)"]: {
-                          maxWidth: "80%",
-                          fontSize: "0.9rem",
-                        },
-                      }}
-                    >
-                      {ingredients.map((i) => {
-                        return <li key={i}>{i}</li>;
-                      })}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      sx={{ fontSize: "1.5rem" }}
-                    >
-                      Instructions
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      gutterBottom
-                      sx={{
-                        fontSize: "1.1rem",
+              </Paper>
+              <Paper
+                sx={{
+                  p: 2,
+                  margin: "5rem 0 7rem 0",
+                  flexGrow: 1,
+                  borderRadius: "2rem",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                }}
+              >
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{
+                    ["@media (max-width:600px)"]: {
+                      maxWidth: "90%",
+                    },
+                  }}
+                >
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{ fontSize: "1.5rem" }}
+                        >
+                          Ingredients
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          sx={{
+                            fontSize: "1.1rem",
+                            ["@media (max-width:600px)"]: {
+                              maxWidth: "80%",
+                              fontSize: "0.9rem",
+                            },
+                          }}
+                        >
+                          {ingredients.map((i) => {
+                            return <li key={i}>{i}</li>;
+                          })}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{ fontSize: "1.5rem" }}
+                        >
+                          Instructions
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          sx={{
+                            fontSize: "1.1rem",
 
-                        ["@media (max-width:600px)"]: {
-                          maxWidth: "90%",
-                          fontSize: "0.9rem",
-                        },
-                      }}
-                    >
-                      {instructions.map((i) => {
-                        return <li key={i}>{i}</li>;
-                      })}
-                    </Typography>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      sx={{ fontSize: "1.5rem" }}
-                    >
-                      Summary
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      gutterBottom
-                      sx={{
-                        fontSize: "1.1rem",
-                        textAlign: "justify",
-                        textJustify: "interWord",
-                        ["@media (max-width:600px)"]: {
-                          maxWidth: "90%",
-                          fontSize: "0.9rem",
-                        },
-                      }}
-                      dangerouslySetInnerHTML={sanitizedData()}
-                    ></Typography>
-                    <Typography
-                      gutterBottom
-                      variant="subtitle1"
-                      component="div"
-                      sx={{ fontSize: "1.5rem" }}
-                    >
-                      Source URL
-                    </Typography>
-                    <Link
-                      href={data.sourceUrl}
-                      target="_blank"
-                      underline="none"
-                      sx={{
-                        ["@media (max-width:600px)"]: {
-                          maxWidth: "60%",
-                          fontSize: "0.9rem",
-                          textAlign: "justify",
-                          textJustify: "interWord",
-                          color: "#1976d2",
-                        },
-                      }}
-                    >
-                      {data.sourceUrl}
-                    </Link>
+                            ["@media (max-width:600px)"]: {
+                              maxWidth: "90%",
+                              fontSize: "0.9rem",
+                            },
+                          }}
+                        >
+                          {instructions.map((i) => {
+                            return <li key={i}>{i}</li>;
+                          })}
+                        </Typography>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{ fontSize: "1.5rem" }}
+                        >
+                          Summary
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          gutterBottom
+                          sx={{
+                            fontSize: "1.1rem",
+                            textAlign: "justify",
+                            textJustify: "interWord",
+                            ["@media (max-width:600px)"]: {
+                              maxWidth: "90%",
+                              fontSize: "0.9rem",
+                            },
+                          }}
+                          dangerouslySetInnerHTML={sanitizedData()}
+                        ></Typography>
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          sx={{ fontSize: "1.5rem" }}
+                        >
+                          Source URL
+                        </Typography>
+                        <Link
+                          href={data.sourceUrl}
+                          target="_blank"
+                          underline="none"
+                          sx={{
+                            ["@media (max-width:600px)"]: {
+                              maxWidth: "60%",
+                              fontSize: "0.9rem",
+                              textAlign: "justify",
+                              textJustify: "interWord",
+                              color: "#1976d2",
+                            },
+                          }}
+                        >
+                          {data.sourceUrl}
+                        </Link>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
+              </Paper>
+            </>
+          )}
         </>
       )}
     </>
