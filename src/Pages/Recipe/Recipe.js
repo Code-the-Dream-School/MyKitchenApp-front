@@ -4,25 +4,37 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { HiClock } from "react-icons/hi";
+import { ImLeaf } from "react-icons/im";
+import { GiMuscleUp, GiCow } from "react-icons/gi";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { CiWheat } from "react-icons/ci";
+import { FaCarrot } from "react-icons/fa";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import "./Recipe.css";
 import NutritionModal from "../../components/NutritionModal/NutritionModal";
 import DOMPurify from "dompurify";
+import Loading from "../../components/Loading/Loading";
+import { styled } from "@mui/material/styles";
+import ButtonBase from "@mui/material/ButtonBase";
 
-const Recipe = () => {
+export default function Recipe() {
   const [data, setData] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [favorite, setFavorite] = useState(true);
   const [isFav, setIsFav] = useState("");
   const [err, setErr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   let params = useParams();
   const url = `/api/v1/recipes/${params.id}`;
+
   const token = localStorage.getItem("myKitchenAppToken");
 
   const fetchRecipe = async () => {
@@ -33,12 +45,15 @@ const Recipe = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true); // Set loading before sending API request
     fetchRecipe()
       .then((response) => {
         setData(response.data);
         setIngredients(response.data.ingredients);
+
         setInstructions(response.data.instructions);
         setIsFav(response.data.isFavorite);
+        setIsLoading(false); //Hide loading
       })
       .catch((error) => console.log(error));
   }, []);
@@ -89,76 +104,301 @@ const Recipe = () => {
     __html: DOMPurify.sanitize(data.summary),
   });
 
+  const Img = styled("img")({
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    minHeight: "100%",
+    minWidth: "100%",
+  });
+
   return (
     <>
-      <div className="pageWrapper">
-        <div className="topContainer">
-          <img alt={data.title} src={data.image} />
-          <div className="recipeInfo">
-            <h1>{data.title}</h1>
-            <ul>
-              <li>
-                <ImSpoonKnife className="icon" />
-                {data.servings} servings.
-              </li>
-              <li>
-                <HiClock className="icon" />
-                ready in {data.readyInMinutes} mins.
-              </li>
-            </ul>
-            <div>
-              {isFav ? (
-                <Button
-                  color="error"
-                  type="submit"
-                  size="large"
-                  onClick={remove}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {" "}
+          <Paper
+            sx={{
+              p: 2,
+              marginTop: "5rem",
+              flexGrow: 1,
+              borderRadius: "2rem",
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+            }}
+          >
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                ["@media (max-width:820px)"]: {
+                  maxWidth: "90%",
+                },
+              }}
+            >
+              <Grid item>
+                <ButtonBase
+                  sx={{
+                    width: "100%",
+                  }}
                 >
-                  <FavoriteIcon /> Saved
-                </Button>
-              ) : (
-                <Button color="error" type="submit" size="large" onClick={add}>
-                  <FavoriteBorderIcon /> Save to favorite
-                </Button>
-              )}
+                  <Img alt={data.title} src={data.image} />
+                </ButtonBase>
+              </Grid>
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                      sx={{
+                        fontSize: "2rem",
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "80%",
+                        },
+                      }}
+                    >
+                      {data.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{ fontSize: "1.1rem" }}
+                    >
+                      <ImSpoonKnife
+                        style={{
+                          margin: "0 1.2rem 0 1.1rem",
+                        }}
+                      />
+                      {data.servings} servings.
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{ fontSize: "1.1rem" }}
+                    >
+                      <HiClock
+                        style={{
+                          margin: "0 1.2rem 0 1.1rem",
+                        }}
+                      />
+                      ready in {data.readyInMinutes} mins.
+                    </Typography>
+                    {isFav ? (
+                      <Button
+                        color="error"
+                        type="submit"
+                        size="large"
+                        onClick={remove}
+                      >
+                        <FavoriteIcon
+                          style={{
+                            margin: "0 1.2rem 0 0",
+                          }}
+                        />{" "}
+                        Saved
+                      </Button>
+                    ) : (
+                      <Button
+                        color="error"
+                        type="submit"
+                        size="large"
+                        onClick={add}
+                      >
+                        <FavoriteBorderIcon
+                          style={{
+                            margin: "0 1.2rem 0 0",
+                          }}
+                        />{" "}
+                        Save to favorite
+                      </Button>
+                    )}
+                    <NutritionModal />
+                    <ul className="diets">
+                      <li
+                        className="squareVeg"
+                        style={{ background: " #33b5e5" }}
+                      >
+                        Health {data.healthScore}%
+                        <GiMuscleUp />
+                      </li>
+                      {data.veryPopular ? (
+                        <li
+                          className="squareVeg"
+                          style={{ background: " #ff4444" }}
+                        >
+                          Popular
+                          <BsFillArrowUpCircleFill />
+                        </li>
+                      ) : null}
+                      {data.glutenFree ? (
+                        <li
+                          className="squareVeg"
+                          style={{ background: " #ffbb33" }}
+                        >
+                          Gluten-free
+                          <CiWheat />
+                        </li>
+                      ) : null}
+                      {data.dairyFree ? (
+                        <li
+                          className="squareVeg"
+                          style={{ background: " #ffbb33" }}
+                        >
+                          Diary-free
+                          <GiCow />
+                        </li>
+                      ) : null}
+                      {data.vegetarian ? (
+                        <li
+                          className="squareVeg"
+                          style={{ background: " #99cc00" }}
+                        >
+                          Vegetarian
+                          <FaCarrot />
+                        </li>
+                      ) : null}
+                      {data.vegan ? (
+                        <li
+                          className="squareVeg"
+                          style={{ background: " #99cc00" }}
+                        >
+                          Vegan
+                          <ImLeaf />
+                        </li>
+                      ) : null}
+                    </ul>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
+          <Paper
+            sx={{
+              p: 2,
+              margin: "5rem 0 7rem 0",
+              flexGrow: 1,
+              borderRadius: "2rem",
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+            }}
+          >
+            <Grid
+              container
+              spacing={2}
+              sx={{
+                ["@media (max-width:600px)"]: {
+                  maxWidth: "90%",
+                },
+              }}
+            >
+              <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                      sx={{ fontSize: "1.5rem" }}
+                    >
+                      Ingredients
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{
+                        fontSize: "1.1rem",
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "80%",
+                          fontSize: "0.9rem",
+                        },
+                      }}
+                    >
+                      {ingredients.map((i) => {
+                        return <li key={i}>{i}</li>;
+                      })}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                      sx={{ fontSize: "1.5rem" }}
+                    >
+                      Instructions
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{
+                        fontSize: "1.1rem",
 
-              <NutritionModal />
-            </div>
-          </div>
-        </div>
-
-        <div className="ingredientsTable"></div>
-        <h2>Ingredients</h2>
-        <div className="nutrition">
-          <ul>
-            {ingredients.map((i) => {
-              return (
-                <div className="ingredients" key={i}>
-                  <li>{i}</li>
-                </div>
-              );
-            })}
-          </ul>
-        </div>
-        <h2>Instructions</h2>
-        <ul>
-          {instructions.map((i) => {
-            return (
-              <div className="ingredients" key={i}>
-                <li>{i}</li>
-              </div>
-            );
-          })}
-        </ul>
-        <h2>Summary</h2>
-        <Typography dangerouslySetInnerHTML={sanitizedData()}></Typography>
-        <h2>Source URL</h2>
-        <Link href={data.sourceUrl} target="_blank" underline="none">
-          {data.sourceUrl}
-        </Link>
-      </div>
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "90%",
+                          fontSize: "0.9rem",
+                        },
+                      }}
+                    >
+                      {instructions.map((i) => {
+                        return <li key={i}>{i}</li>;
+                      })}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                      sx={{ fontSize: "1.5rem" }}
+                    >
+                      Summary
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{
+                        fontSize: "1.1rem",
+                        textAlign: "justify",
+                        textJustify: "interWord",
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "90%",
+                          fontSize: "0.9rem",
+                        },
+                      }}
+                      dangerouslySetInnerHTML={sanitizedData()}
+                    ></Typography>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      component="div"
+                      sx={{ fontSize: "1.5rem" }}
+                    >
+                      Source URL
+                    </Typography>
+                    <Link
+                      href={data.sourceUrl}
+                      target="_blank"
+                      underline="none"
+                      sx={{
+                        ["@media (max-width:600px)"]: {
+                          maxWidth: "60%",
+                          fontSize: "0.9rem",
+                          textAlign: "justify",
+                          textJustify: "interWord",
+                          color: "#1976d2",
+                        },
+                      }}
+                    >
+                      {data.sourceUrl}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
+        </>
+      )}
     </>
   );
-};
-
-export default Recipe;
+}

@@ -14,11 +14,7 @@ const LayoutPrivate = ({ children }) => {
   return (
     <>
       <NavBar />
-      <Container
-        sx={{
-          marginBottom: "200px",
-        }}
-      >
+      <Container>
         <Outlet />
         <main>{children}</main>
       </Container>

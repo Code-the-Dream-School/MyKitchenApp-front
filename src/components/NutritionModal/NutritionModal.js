@@ -27,6 +27,7 @@ export default function NutritionModal() {
       <Button
         onClick={handleOpen}
         color="success"
+        variant="outlined"
         sx={{
           marginTop: "3rem",
         }}

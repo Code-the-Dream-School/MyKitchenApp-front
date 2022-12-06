@@ -1,0 +1,9 @@
+.favoriteHead {
+  margin-top: 100px;
+}
+
+.favorites {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}

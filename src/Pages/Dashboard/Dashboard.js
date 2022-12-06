@@ -117,23 +117,7 @@ export default function Dashboard() {
       </h1>
       <div className="searchContainer">
         <h1>Recommended recipes</h1>
-        <StyledButton
-          onClick={handleClickOpen}
-          sx={{
-            mt: 3,
-            mb: 2,
-            mr: 1,
-            fontSize: "1rem",
-            backgroundColor: "black",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "#5a5a5a",
-            },
-            "&.Mui-disabled": {
-              background: "white",
-            },
-          }}
-        >
+        <StyledButton open={open} onClick={handleClickOpen}>
           <SearchIcon />
           Search new recipe
         </StyledButton>
@@ -141,89 +125,93 @@ export default function Dashboard() {
       </div>
 
       <div>
-        <h2>Breakfast</h2>
+        <div>
+          <h2>Breakfast</h2>
 
-        {breakfast || breakfast.length ? (
-          <div className="trending">
-            <Splide
-              options={{
-                perPage: 4,
-                gap: "5",
-                drag: true,
-              }}
-            >
-              {breakfast.map((recipe) => {
-                return (
-                  <SplideSlide key={recipe.id}>
-                    <Link to={"/recipe/" + recipe.id} key={recipe.id}>
-                      <ReusableCard
-                        key={recipe.id}
-                        title={recipe.title}
-                        data={recipe}
-                        image={recipe.image}
-                      />
-                    </Link>
-                  </SplideSlide>
-                );
-              })}
-            </Splide>
-          </div>
-        ) : null}
-      </div>
-      <div>
-        <h2>Salad</h2>
-        {salad || salad.length ? (
-          <div className="trending">
-            <Splide
-              options={{
-                perPage: 4,
-                gap: "5",
-              }}
-            >
-              {salad.map((recipe) => {
-                return (
-                  <SplideSlide key={recipe.id}>
-                    <Link to={"/recipe/" + recipe.id} key={recipe.id}>
-                      <ReusableCard
-                        key={recipe.id}
-                        title={recipe.title}
-                        data={recipe}
-                        image={recipe.image}
-                      />
-                    </Link>
-                  </SplideSlide>
-                );
-              })}
-            </Splide>
-          </div>
-        ) : null}
-      </div>
-      <div>
-        <h2>Drink</h2>
-        {drink || drink.length ? (
-          <Splide
-            options={{
-              perPage: 4,
-              gap: "5",
-            }}
-          >
-            {drink.map((recipe) => {
-              return (
-                <SplideSlide key={recipe.id}>
-                  <Link to={"/recipe/" + recipe.id} key={recipe.id}>
-                    <ReusableCard
-                      key={recipe.id}
-                      title={recipe.title}
-                      data={recipe}
-                      image={recipe.image}
-                      underline="none"
-                    />
-                  </Link>
-                </SplideSlide>
-              );
-            })}
-          </Splide>
-        ) : null}
+          {breakfast || breakfast.length ? (
+            <div className="trending">
+              <Splide
+                options={{
+                  perPage: 4,
+                  gap: "5",
+                  drag: true,
+                }}
+              >
+                {breakfast.map((recipe) => {
+                  return (
+                    <SplideSlide key={recipe.id}>
+                      <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                        <ReusableCard
+                          key={recipe.id}
+                          title={recipe.title}
+                          data={recipe}
+                          image={recipe.image}
+                        />
+                      </Link>
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
+            </div>
+          ) : null}
+        </div>
+        <div>
+          <h2>Salad</h2>
+          {salad || salad.length ? (
+            <div className="trending">
+              <Splide
+                options={{
+                  perPage: 4,
+                  gap: "5",
+                }}
+              >
+                {salad.map((recipe) => {
+                  return (
+                    <SplideSlide key={recipe.id}>
+                      <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                        <ReusableCard
+                          key={recipe.id}
+                          title={recipe.title}
+                          data={recipe}
+                          image={recipe.image}
+                        />
+                      </Link>
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
+            </div>
+          ) : null}
+        </div>
+        <div>
+          <h2>Drink</h2>
+          {drink || drink.length ? (
+            <div className="trending">
+              <Splide
+                options={{
+                  perPage: 4,
+                  gap: "5",
+                }}
+              >
+                {drink.map((recipe) => {
+                  return (
+                    <SplideSlide key={recipe.id}>
+                      <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                        <ReusableCard
+                          key={recipe.id}
+                          title={recipe.title}
+                          data={recipe}
+                          image={recipe.image}
+                          underline="none"
+                        />
+                      </Link>
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
+            </div>
+          ) : null}
+        </div>
       </div>
     </>
   );
