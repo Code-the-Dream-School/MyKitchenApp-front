@@ -39,7 +39,6 @@ export default function SignIn({ setToggle, theme }) {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
-        console.log(response);
         localStorage.setItem(
           "myKitchenAppUser",
           JSON.stringify(response.data.user)
@@ -48,7 +47,13 @@ export default function SignIn({ setToggle, theme }) {
         navigate("/dashboard");
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 500) {
+          setError(true);
+          setErrorMessage(
+            `${error.response.statusText}, please try again later!`
+          );
+          return;
+        }
         setError(true);
         setErrorMessage(error.response.data.msg);
       });

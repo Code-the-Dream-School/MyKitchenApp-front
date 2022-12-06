@@ -22,6 +22,9 @@ const Profile = () => {
   const [invalidConfirmPasswordMessage, setInvalidConfirmPasswordMessage] =
     useState("");
 
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const user = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
   const handleEditAccountSubmit = (event) => {
@@ -58,6 +61,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    setError(false);
     if (newPassword !== confirmPassword) {
       setIsConfirmPasswordInvalid(true);
       setInvalidConfirmPasswordMessage("Passwords do not match");
@@ -85,11 +89,16 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setIsEdittingPassword(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 500) {
+          setError(true);
+          setErrorMessage(
+            `${error.response.statusText}, please try again later!`
+          );
+          return;
+        }
       });
   };
 
@@ -201,6 +210,7 @@ const Profile = () => {
               helperText={invalidConfirmPasswordMessage}
               onChange={handleConfirmPasswordChange}
             />
+            {error && <p className="error-msg">{errorMessage}</p>}
             <Button
               disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
               type="submit"
