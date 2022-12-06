@@ -73,6 +73,8 @@ function NavBar() {
               mr: 1,
               marginRight: "20px",
             }}
+            component="a"
+            href="/dashboard"
             alt="logo"
             src="/MyKitchenLogoNoName.jpeg"
           />
