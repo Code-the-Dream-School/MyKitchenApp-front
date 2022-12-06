@@ -103,7 +103,7 @@ const SearchResult = () => {
             >
               <Typography variant="h3">No results for {search}!</Typography>
               <Typography variant="h4">Please try another search!</Typography>
-              <StyledButton onClick={handleClickOpen}>
+              <StyledButton open={open} onClick={handleClickOpen}>
                 <SearchIcon />
                 Search new recipe
               </StyledButton>
