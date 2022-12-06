@@ -12,7 +12,6 @@ const LayoutPublic = ({ children, theme }) => {
             padding: 0,
             maxWidth: "100%",
           },
-          marginBottom: "200px",
         }}
       >
         <Outlet />

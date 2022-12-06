@@ -30,6 +30,7 @@ export default function Landing({ theme }) {
             paddingTop: "20vh",
           },
           paddingTop: "10vh",
+          width: "100%",
         }}
         item
         md={6}
