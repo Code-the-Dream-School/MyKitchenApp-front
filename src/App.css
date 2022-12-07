@@ -1,0 +1,14 @@
+.error-msg {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-transform: capitalize;
+}
+.underline {
+  text-decoration: underline;
+  color: blue;
+}
+.underline:hover {
+  cursor: pointer;
+}

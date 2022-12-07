@@ -1,0 +1,41 @@
+/* single meals styles */
+
+.pageWrapper {
+  padding: 10rem 0;
+}
+
+ul {
+  padding-left: 0px;
+}
+li {
+  list-style-type: circle;
+  margin: 0 0 10px 10px;
+}
+
+a {
+  color: #1976d2;
+}
+
+.diets {
+  display: flex;
+  flex-wrap: wrap;
+}
+.squareVeg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 60px;
+  width: 85px;
+  border-radius: 5%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 80%;
+}
+@media (max-width: 600px) {
+  a {
+    font-size: 0.9rem;
+  }
+}
