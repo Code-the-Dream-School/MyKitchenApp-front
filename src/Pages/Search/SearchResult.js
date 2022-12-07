@@ -17,6 +17,7 @@ const SearchResult = () => {
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -24,6 +25,7 @@ const SearchResult = () => {
   console.log("Search name", search);
   const token = localStorage.getItem("myKitchenAppToken");
   const perPage = 6; //number of recipes on each page
+  const errorMessage = "A server error occurred.  Please try again later";
 
   const recipeResult = async (name) => {
     console.log("Searching for:", name);
@@ -34,7 +36,8 @@ const SearchResult = () => {
       );
       return data;
     } catch (error) {
-      console.log(error);
+      // console.log(`An error occured ${error}`);
+      setError(errorMessage)
     }
   };
 
@@ -43,16 +46,14 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          console.log("Response: ", response);
+          // console.log("Response: ", response);
           setSearchedRecipe(response.data.results);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setError(errorMessage));
     }
   }, [search]);
 
   const count = Math.ceil(searchedRecipe.length / perPage);
-  console.log("Total recipes", searchedRecipe.length);
-  console.log("Total pages", count);
   const pageData = ReusablePagination(searchedRecipe, perPage);
 
   const handleChange = (event, p) => {
@@ -69,70 +70,78 @@ const SearchResult = () => {
   };
 
   return (
-    <Container className="background">
-      <Box>
-        <Filter />
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
-          {searchedRecipe.length ? (
-            pageData.currentData().map((item) => {
-              return (
-                <Link to={"/recipe/" + item.id} key={item.id}>
-                  <ReusableCard
-                    key={item.id}
-                    title={item.title}
-                    data={item}
-                    image={item.image}
-                  />
-                </Link>
-              );
-            })
-          ) : (
-            <div
-              style={{
+    <>
+      {error ? (
+        <StyledError>{error}</StyledError>
+      ) : (
+        <Container className="background">
+          <Box>
+            <Filter />
+            <Box
+              sx={{
                 display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-around",
                 alignItems: "center",
-                flexDirection: "column",
               }}
             >
-              <Typography variant="h3">No results for {search}!</Typography>
-              <Typography variant="h4">Please try another search!</Typography>
-              <StyledButton open={open} onClick={handleClickOpen}>
-                <SearchIcon />
-                Search new recipe
-              </StyledButton>
-              <SearchForm open={open} onClose={handleClose} />
-            </div>
-          )}
-        </Box>
-      </Box>
-      <Box>
-        <Stack spacing={2}>
-          <Pagination
-            count={count}
-            page={page}
-            onChange={handleChange}
-            showFirstButton
-            showLastButton
-            variant="outlined"
-            shape="rounded"
-            sx={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              marginTop: "2rem",
-              marginBottom: "5rem",
-            }}
-          />
-        </Stack>
-      </Box>
-    </Container>
+              {searchedRecipe.length ? (
+                pageData.currentData().map((item) => {
+                  return (
+                    <Link to={"/recipe/" + item.id} key={item.id}>
+                      <ReusableCard
+                        key={item.id}
+                        title={item.title}
+                        data={item}
+                        image={item.image}
+                      />
+                    </Link>
+                  );
+                })
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography variant="h3">No results for {search}!</Typography>
+                  <Typography variant="h4">
+                    Please try another search!
+                  </Typography>
+                  <StyledButton open={open} onClick={handleClickOpen}>
+                    <SearchIcon />
+                    Search new recipe
+                  </StyledButton>
+                  <SearchForm open={open} onClose={handleClose} />
+                </div>
+              )}
+            </Box>
+          </Box>
+          <Box>
+            <Stack spacing={2}>
+              <Pagination
+                count={count}
+                page={page}
+                onChange={handleChange}
+                showFirstButton
+                showLastButton
+                variant="outlined"
+                shape="rounded"
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                  marginBottom: "5rem",
+                }}
+              />
+            </Stack>
+          </Box>
+        </Container>
+      )}
+    </>
   );
 };
 
@@ -158,5 +167,10 @@ const StyledButton = styled.button`
     box-shadow: 1px 1px 0 black, 1px 1px 0 black;
   }
 `;
+
+const StyledError = styled.h1`
+  text-align: center;
+  margin-top: 20rem;
+`
 
 export default SearchResult;

@@ -25,18 +25,16 @@ import Thai from "../../assets/Images/thai.png";
 const Filter = () => {
   const [filterResult, setfilterResult] = useState([]);
   const [page, setPage] = useState(1);
+  const [error, setError] = useState(false);
 
   const url = "/api/v1/recipes";
   let filter = useParams();
   console.log(filter);
   const token = localStorage.getItem("myKitchenAppToken");
   const perPage = 6; //number of recipes on each page
+  const errorMessage = "A server error occurred.  Please try again later";
 
   const cuisineType = async () => {
-    console.log(filter.intolerances, "we got here");
-    console.log(
-      `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=18`
-    );
     try {
       const data = await axios.get(
         `${url}?includeIngredients=${encodeURIComponent(filter.search)}&intolerances=${filter.intolerances}&cuisine=${filter.type}&number=18`,
@@ -44,26 +42,24 @@ const Filter = () => {
       );
       return data;
     } catch (error) {
-      console.log(error);
+        console.log("Error", error.message);
+        setError(errorMessage);
     }
   };
 
   useEffect(() => {
     if (filter.type) {
       window.scroll(0, 0);
-      console.log("Cuisine", filter.type);
       cuisineType(filter.type)
         .then((response) => {
-          console.log("Response: ", response.data.results);
+        //   console.log("Response: ", response.data.results);
           setfilterResult(response.data.results);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => setError(errorMessage));
     }
   }, [filter.type]);
 
   const count = Math.ceil(filterResult.length / perPage);
-  console.log("Total filtered recipes", filterResult.length);
-  console.log("Total pages", count);
   const pageData = ReusablePagination(filterResult, perPage);
 
   const handleChange = (event, p) => {
@@ -72,157 +68,165 @@ const Filter = () => {
   };
 
   return (
-    <Container>
-      <Typography
-        className="showElement"
-        align="center"
-        variant="h2"
-        mt={9}
-        mb={5}
-      >
-        Search results for {filter.search}
-      </Typography>
-      <Grid
-        sx={{
-          margin: "2rem 0rem",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <StyledFilterBtn>
-          <a href={`/searchresult/${filter.search}/${filter.intolerances}`}>
-            <StyledImage src={All} alt="All" />
-            <StyledCuisineName>All</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
+    <>
+      {error ? (
+        <StyledError>{error}</StyledError>
+      ) : (
+        <Container>
+          <Typography
+            className="showElement"
+            align="center"
+            variant="h2"
+            mt={9}
+            mb={5}
           >
-            <StyledImage src={African} alt="African" />
-            <StyledCuisineName>African</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
+            Search results for {filter.search}
+          </Typography>
+          <Grid
+            sx={{
+              margin: "2rem 0rem",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
           >
-            <StyledImage src={American} alt="American" />
-            <StyledCuisineName>American</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
-          >
-            <StyledImage src={Chinese} alt="Chinese" />
-            <StyledCuisineName>Chinese</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
-          >
-            <StyledImage src={European} alt="European" />
-            <StyledCuisineName>European</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
-          >
-            <StyledImage src={French} alt="French" />
-            <StyledCuisineName>French</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
-          >
-            <StyledImage src={Indian} alt="Indian" />
-            <StyledCuisineName>Indian</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
-          >
-            <StyledImage src={Italian} alt="Italian" />
-            <StyledCuisineName>Italian</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
-          >
-            <StyledImage src={Korean} alt="Korean" />
-            <StyledCuisineName>Korean</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
-          >
-            <StyledImage src={Mexican} alt="Mexican" />
-            <StyledCuisineName>Mexican</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-        <StyledFilterBtn>
-          <a
-            href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
-          >
-            <StyledImage src={Thai} alt="Thai" />
-            <StyledCuisineName>Thai</StyledCuisineName>
-          </a>
-        </StyledFilterBtn>
-      </Grid>
+            <StyledFilterBtn>
+              <a href={`/searchresult/${filter.search}/${filter.intolerances}`}>
+                <StyledImage src={All} alt="All" />
+                <StyledCuisineName>All</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
+              >
+                <StyledImage src={African} alt="African" />
+                <StyledCuisineName>African</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
+              >
+                <StyledImage src={American} alt="American" />
+                <StyledCuisineName>American</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
+              >
+                <StyledImage src={Chinese} alt="Chinese" />
+                <StyledCuisineName>Chinese</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
+              >
+                <StyledImage src={European} alt="European" />
+                <StyledCuisineName>European</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
+              >
+                <StyledImage src={French} alt="French" />
+                <StyledCuisineName>French</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
+              >
+                <StyledImage src={Indian} alt="Indian" />
+                <StyledCuisineName>Indian</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
+              >
+                <StyledImage src={Italian} alt="Italian" />
+                <StyledCuisineName>Italian</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
+              >
+                <StyledImage src={Korean} alt="Korean" />
+                <StyledCuisineName>Korean</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
+              >
+                <StyledImage src={Mexican} alt="Mexican" />
+                <StyledCuisineName>Mexican</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+            <StyledFilterBtn>
+              <a
+                href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
+              >
+                <StyledImage src={Thai} alt="Thai" />
+                <StyledCuisineName>Thai</StyledCuisineName>
+              </a>
+            </StyledFilterBtn>
+          </Grid>
 
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        {filterResult.length
-          ? pageData.currentData().map((item) => {
-              return (
-                <Link to={"/recipe/" + item.id} key={item.id}>
-                  <ReusableCard
-                    key={item.id}
-                    title={item.title}
-                    data={item}
-                    image={item.image}
-                  />
-                </Link>
-              );
-            })
-          : null}
-      </Box>
-      {filterResult.length ? (
-        <Box>
-          <Stack spacing={2}>
-            <Pagination
-              count={count}
-              page={page}
-              onChange={handleChange}
-              showFirstButton
-              showLastButton
-              variant="outlined"
-              shape="rounded"
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "5rem",
-              }}
-            />
-          </Stack>
-        </Box>
-      ) : null}
-    </Container>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            {filterResult.length
+              ? pageData.currentData().map((item) => {
+                  return (
+                    <Link to={"/recipe/" + item.id} key={item.id}>
+                      <ReusableCard
+                        key={item.id}
+                        title={item.title}
+                        data={item}
+                        image={item.image}
+                      />
+                    </Link>
+                  );
+                })
+              : null}
+          </Box>
+          {filterResult.length ? (
+            <Box>
+              <Stack spacing={2}>
+                <Pagination
+                  count={count}
+                  page={page}
+                  onChange={handleChange}
+                  showFirstButton
+                  showLastButton
+                  variant="outlined"
+                  shape="rounded"
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    marginTop: "2rem",
+                    marginBottom: "5rem",
+                  }}
+                />
+              </Stack>
+            </Box>
+          ) : null}
+        </Container>
+      )}
+      ;
+    </>
   );
 };
 
@@ -248,5 +252,10 @@ const StyledFilterBtn = styled.div`
     opacity: 0.8;
   }
 `;
+
+const StyledError = styled.h1`
+  text-align: center;
+  margin-top: 20rem;
+`
 
 export default Filter;

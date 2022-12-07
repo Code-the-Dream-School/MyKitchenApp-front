@@ -12,7 +12,7 @@ const LayoutPrivate = ({ children }) => {
   }
 
   return (
-    <div id="root">
+    <div>
       <NavBar />
       <Container>
         <Outlet />
