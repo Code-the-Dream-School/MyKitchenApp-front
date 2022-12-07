@@ -323,7 +323,11 @@ export default function Recipe() {
                           }}
                         >
                           {ingredients.map((i) => {
-                            return <li key={i}>{i}</li>;
+                            return (
+                              <li key={i} className="ingredientsList">
+                                {i}
+                              </li>
+                            );
                           })}
                         </Typography>
                         <Typography
@@ -347,7 +351,11 @@ export default function Recipe() {
                           }}
                         >
                           {instructions.map((i) => {
-                            return <li key={i}>{i}</li>;
+                            return (
+                              <li key={i} className="ingredientsList">
+                                {i}
+                              </li>
+                            );
                           })}
                         </Typography>
                         <Typography
@@ -365,12 +373,14 @@ export default function Recipe() {
                             fontSize: "1.1rem",
                             textAlign: "justify",
                             textJustify: "interWord",
+
                             ["@media (max-width:600px)"]: {
                               maxWidth: "90%",
                               fontSize: "0.9rem",
                             },
                           }}
                           dangerouslySetInnerHTML={sanitizedData()}
+                          className="recipeLink"
                         ></Typography>
                         <Typography
                           gutterBottom
@@ -384,13 +394,13 @@ export default function Recipe() {
                           href={data.sourceUrl}
                           target="_blank"
                           underline="none"
+                          color="#1976d2"
                           sx={{
                             ["@media (max-width:600px)"]: {
                               maxWidth: "60%",
                               fontSize: "0.9rem",
                               textAlign: "justify",
                               textJustify: "interWord",
-                              color: "#1976d2",
                             },
                           }}
                         >

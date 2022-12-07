@@ -4,28 +4,24 @@
   padding: 10rem 0;
 }
 
-ul {
-  padding-left: 0px;
-}
-li {
+.ingredientsList {
   list-style-type: circle;
   margin: 0 0 10px 10px;
 }
-
-a {
+.recipeLink a {
   color: #1976d2;
 }
-
 .diets {
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
 }
 .squareVeg {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 10px;
   height: 60px;
   width: 85px;
   border-radius: 5%;
@@ -35,7 +31,8 @@ a {
   opacity: 80%;
 }
 @media (max-width: 600px) {
-  a {
+  .recipeLink a {
     font-size: 0.9rem;
+    color: #1976d2;
   }
 }
