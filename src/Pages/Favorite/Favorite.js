@@ -87,6 +87,11 @@ export default function Favorite({ currentUser }) {
                   justifyContent: "center",
                   marginTop: "2rem",
                   marginBottom: "5rem",
+                  "& .MuiPaginationItem-root": {
+                    fontSize: "1rem",
+                    fontWeight: "800",
+                    backgroundColor: "aliceblue",
+                  },
                 }}
               />
             </Stack>

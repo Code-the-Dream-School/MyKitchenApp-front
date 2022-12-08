@@ -1,0 +1,76 @@
+.showElement {
+    text-align: center;
+    font-size: 60px;
+    color: rgb(14, 14, 14);
+    text-shadow: 2px 2px 3px rgb(44, 43, 43);
+    padding-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.cuisineImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    cursor: pointer;
+    transform: scale(0.8);
+    box-shadow: 3px 3px 5px black,
+        -1px -1px 1px black,
+        2px 2px 1px black;
+}
+
+.cuisineImg:hover {
+    box-shadow:
+        1px 1px 1px;
+}
+
+.cuisineName {
+    margin: auto;
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px 3px rgb(44, 43, 43);
+}
+
+.filterBtn:hover {
+    opacity: 0.8;
+}
+
+.errorMsg {
+    text-align: center;
+    padding: 70px 0;
+}
+
+
+@media (max-width: 768px) {
+    .showElement {
+        font-size: 40px;
+        padding: 0;
+    }
+
+    .cuisineImg {
+        width: 5rem;
+        height: 5rem;
+        margin: auto;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 425px) {
+    .showElement {
+        font-size: 30px;
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+
+    .cuisineImg {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: auto;
+        justify-content: center;
+    }
+    .cuisineName {
+        font-size: 10px;
+    }
+}
