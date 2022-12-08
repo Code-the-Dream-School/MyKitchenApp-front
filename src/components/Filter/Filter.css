@@ -65,9 +65,12 @@
     }
 
     .cuisineImg {
-        width: 5rem;
-        height: 5rem;
+        width: 2.5rem;
+        height: 2.5rem;
         margin: auto;
         justify-content: center;
+    }
+    .cuisineName {
+        font-size: 10px;
     }
 }
