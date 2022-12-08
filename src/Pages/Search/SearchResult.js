@@ -22,13 +22,11 @@ const SearchResult = () => {
   const url = "/api/v1/recipes";
   const { search } = useParams();
   const params = useParams();
-  console.log("Search name", search);
   const token = localStorage.getItem("myKitchenAppToken");
   const perPage = 6; //number of recipes on each page
   const errorMessage = "A server error occurred.  Please try again later";
 
   const recipeResult = async (name) => {
-    console.log("Searching for:", name);
     try {
       const data = await axios.get(
         `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${params.intolerances}&number=18`,
@@ -46,7 +44,6 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          // console.log("Response: ", response);
           setSearchedRecipe(response.data.results);
         })
         .catch((error) => setError(errorMessage));
@@ -135,6 +132,11 @@ const SearchResult = () => {
                   justifyContent: "center",
                   marginTop: "2rem",
                   marginBottom: "5rem",
+                  "& .MuiPaginationItem-root": 
+                    { fontSize: "1rem",
+                      fontWeight: "800",
+                      backgroundColor: "aliceblue",
+                    },
                 }}
               />
             </Stack>

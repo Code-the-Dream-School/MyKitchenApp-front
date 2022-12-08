@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import styled from "styled-components";
 import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import ReusablePagination from "../Pagination/ReusablePagination";
+import "./Filter.css";
 import All from "../../assets/Images/all.png";
 import African from "../../assets/Images/african.png";
 import American from "../../assets/Images/american.png";
@@ -29,7 +30,6 @@ const Filter = () => {
 
   const url = "/api/v1/recipes";
   let filter = useParams();
-  console.log(filter);
   const token = localStorage.getItem("myKitchenAppToken");
   const perPage = 6; //number of recipes on each page
   const errorMessage = "A server error occurred.  Please try again later";
@@ -70,18 +70,12 @@ const Filter = () => {
   return (
     <>
       {error ? (
-        <StyledError>{error}</StyledError>
+        <h1 className="errorMsg">{error}</h1>
       ) : (
         <Container>
-          <Typography
-            className="showElement"
-            align="center"
-            variant="h2"
-            mt={9}
-            mb={5}
-          >
+          <h2 className="showElement">
             Search results for {filter.search}
-          </Typography>
+          </h2>
           <Grid
             sx={{
               margin: "2rem 0rem",
@@ -90,92 +84,92 @@ const Filter = () => {
               justifyContent: "center",
             }}
           >
-            <StyledFilterBtn>
+            <div className="filterBtn">
               <a href={`/searchresult/${filter.search}/${filter.intolerances}`}>
-                <StyledImage src={All} alt="All" />
-                <StyledCuisineName>All</StyledCuisineName>
+                <img className="cuisineImg" src={All} alt="All" />
+                <div className="cuisineName">All</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
               >
-                <StyledImage src={African} alt="African" />
-                <StyledCuisineName>African</StyledCuisineName>
+                <img className="cuisineImg" src={African} alt="African" />
+                <div className="cuisineName">African</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
               >
-                <StyledImage src={American} alt="American" />
-                <StyledCuisineName>American</StyledCuisineName>
+                <img className="cuisineImg" src={American} alt="American" />
+                <div className="cuisineName">American</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
               >
-                <StyledImage src={Chinese} alt="Chinese" />
-                <StyledCuisineName>Chinese</StyledCuisineName>
+                <img className="cuisineImg" src={Chinese} alt="Chinese" />
+                <div className="cuisineName">Chinese</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
               >
-                <StyledImage src={European} alt="European" />
-                <StyledCuisineName>European</StyledCuisineName>
+                <img className="cuisineImg" src={European} alt="European" />
+                <div className="cuisineName">European</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
               >
-                <StyledImage src={French} alt="French" />
-                <StyledCuisineName>French</StyledCuisineName>
+                <img className="cuisineImg" src={French} alt="French" />
+                <div className="cuisineName">French</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
               >
-                <StyledImage src={Indian} alt="Indian" />
-                <StyledCuisineName>Indian</StyledCuisineName>
+                <img className="cuisineImg" src={Indian} alt="Indian" />
+                <div className="cuisineName">Indian</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
               >
-                <StyledImage src={Italian} alt="Italian" />
-                <StyledCuisineName>Italian</StyledCuisineName>
+                <img className="cuisineImg" src={Italian} alt="Italian" />
+                <div className="cuisineName">Italian</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
               >
-                <StyledImage src={Korean} alt="Korean" />
-                <StyledCuisineName>Korean</StyledCuisineName>
+                <img className="cuisineImg" src={Korean} alt="Korean" />
+                <div className="cuisineName">Korean</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
               >
-                <StyledImage src={Mexican} alt="Mexican" />
-                <StyledCuisineName>Mexican</StyledCuisineName>
+                <img className="cuisineImg" src={Mexican} alt="Mexican" />
+                <div className="cuisineName">Mexican</div>
               </a>
-            </StyledFilterBtn>
-            <StyledFilterBtn>
+            </div>
+            <div className="filterBtn">
               <a
                 href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
               >
-                <StyledImage src={Thai} alt="Thai" />
-                <StyledCuisineName>Thai</StyledCuisineName>
+                <img className="cuisineImg" src={Thai} alt="Thai" />
+                <div className="cuisineName">Thai</div>
               </a>
-            </StyledFilterBtn>
+            </div>
           </Grid>
 
           <Box
@@ -229,33 +223,5 @@ const Filter = () => {
     </>
   );
 };
-
-const StyledImage = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
-  cursor: pointer;
-  transform: scale(0.8);
-`;
-
-const StyledCuisineName = styled.div`
-  margin: auto;
-  text-align: center;
-  color: black;
-`;
-
-const StyledFilterBtn = styled.div`
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const StyledError = styled.h1`
-  text-align: center;
-  margin-top: 20rem;
-`
 
 export default Filter;
