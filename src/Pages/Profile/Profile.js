@@ -5,6 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import "./Profile.css";
 
 const Profile = () => {
   const [isEdittingAccount, setIsEdittingAccount] = useState(false);
@@ -115,7 +116,7 @@ const Profile = () => {
       <AccountCircleIcon
         sx={{ fontSize: 120, color: "grey", alignSelf: "start", flex: 1 }}
       />
-      <Box sx={{ flex: 4 }}>
+      <Box sx={{ flex: 4, marginBottom: "50vh" }}>
         <Typography component="h1" variant="h3">
           Profile
         </Typography>
@@ -127,10 +128,11 @@ const Profile = () => {
             sx={{ mt: 1 }}
           >
             <TextField
+              className="profile-input"
               margin="normal"
               required
               fullWidth
-              sx={{ width: "400px", display: "block" }}
+              sx={{ display: "block" }}
               name="name"
               label="Full Name"
               type="text"
@@ -139,10 +141,11 @@ const Profile = () => {
               autoFocus
             />
             <TextField
+              className="profile-input"
               margin="normal"
               required
               fullWidth
-              sx={{ width: "400px", display: "block" }}
+              sx={{ display: "block" }}
               id="email"
               label="Email Address"
               name="email"
@@ -175,10 +178,11 @@ const Profile = () => {
             sx={{ mt: 1 }}
           >
             <TextField
+              className="profile-input"
               margin="normal"
               required
               fullWidth
-              sx={{ width: "400px", display: "block" }}
+              sx={{ display: "block" }}
               name="password"
               label="Current Password"
               type="password"
@@ -187,10 +191,11 @@ const Profile = () => {
               autoFocus
             />
             <TextField
+              className="profile-input"
               margin="normal"
               required
               fullWidth
-              sx={{ width: "400px", display: "block" }}
+              sx={{ display: "block" }}
               id="new-password"
               label="New Password"
               name="new-password"
@@ -199,10 +204,11 @@ const Profile = () => {
               onChange={handleNewPasswordChange}
             />
             <TextField
+              className="profile-input"
               margin="normal"
               required
               fullWidth
-              sx={{ width: "400px", display: "block" }}
+              sx={{ display: "block" }}
               id="confirm-password"
               label="Confirm New Password"
               name="confirm-password"
@@ -210,7 +216,7 @@ const Profile = () => {
               helperText={invalidConfirmPasswordMessage}
               onChange={handleConfirmPasswordChange}
             />
-            {error && <p className="error-msg">{errorMessage}</p>}
+            {error && <p className="error-msg profile-input">{errorMessage}</p>}
             <Button
               disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
               type="submit"
@@ -235,8 +241,8 @@ const Profile = () => {
           </Box>
         ) : (
           <Box>
-            <Typography sx={{ width: "400px" }}>Name: {user.name}</Typography>
-            <Typography sx={{ width: "400px" }}>Email: {user.email}</Typography>
+            <Typography>Name: {user.name}</Typography>
+            <Typography>Email: {user.email}</Typography>
             <Button
               onClick={() => setIsEdittingAccount(true)}
               variant="outlined"
@@ -245,6 +251,7 @@ const Profile = () => {
                 mb: 2,
                 display: "inline",
                 height: "50px",
+                fontSize: "0.68rem",
                 backgroundColor: "black",
                 color: "white",
                 "&:hover": {
@@ -260,9 +267,10 @@ const Profile = () => {
               sx={{
                 mt: 3,
                 mb: 2,
-                ml: 2,
+                ml: 1,
                 display: "inline",
                 height: "50px",
+                fontSize: "0.68rem",
                 backgroundColor: "black",
                 color: "white",
                 "&:hover": {
