@@ -1,5 +1,4 @@
 import React from "react";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid"
 import Link from "@mui/material/Link";
@@ -15,20 +14,25 @@ const FooterPublic = () => {
           position: "fixed", 
           bottom: 0, 
           left: 0, 
-          right: 0 
+          right: 0,
         }}
       >
-        <Container maxWidth="lg">
-          <Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={12} mt={2}>
+            We express special gratitude to our mentors Vaidehi and John for their invaluable help at every stage of creating this application
+          </Grid>
+          {/* <Grid item xs={12} md={4}>
+          </Grid> */}
+          <Grid item xs={12} md={12}>
             My Kitchen App &#169; {new Date().getFullYear()} 
           </Grid>
-          <Grid>
+          <Grid item xs={12} md={12}>
             Powered by {" "}
             <Link color="inherit" underline="hover" href="https://spoonacular.com/food-api">
               Spoonacular API
             </Link>           
           </Grid>
-        </Container>
+        </Grid>
       </Box>
     </footer>
   );
