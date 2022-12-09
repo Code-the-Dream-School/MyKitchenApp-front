@@ -29,13 +29,15 @@ const SearchResult = () => {
   const recipeResult = async (name) => {
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${params.intolerances}&number=18`,
+        `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${
+          params.intolerances
+        }&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
     } catch (error) {
       // console.log(`An error occured ${error}`);
-      setError(errorMessage)
+      setError(errorMessage);
     }
   };
 
@@ -173,6 +175,6 @@ const StyledButton = styled.button`
 const StyledError = styled.h1`
   text-align: center;
   margin-top: 20rem;
-`
+`;
 
 export default SearchResult;

@@ -221,6 +221,7 @@ function NavBar() {
               >
                 <NavLink
                   style={{
+                    fontSize: "1.2rem",
                     textDecoration: "none",
                     color: "rgb(255, 255, 255)",
                   }}
@@ -232,6 +233,7 @@ function NavBar() {
             ))}
             <NavLink
               style={{
+                fontSize: "1.2rem",
                 textDecoration: "none",
                 color: "rgb(255, 255, 255)",
                 paddingLeft: "8px",
