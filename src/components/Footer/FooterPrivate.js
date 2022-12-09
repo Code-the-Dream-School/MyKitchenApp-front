@@ -25,6 +25,7 @@ const FooterPrivate = () => {
           <Grid item xs={12} md={12}>
             <Link
               href="https://github.com/Code-the-Dream-School/MyKitchenApp-front"
+              target="_blank"
               color="inherit"
               mr={1}
             >
@@ -34,10 +35,11 @@ const FooterPrivate = () => {
           </Grid>
           <Grid item xs={12} md={12}>
             Powered by{" "}
-            <Link
+            <Link              
+              href="https://spoonacular.com/food-api"
+              target="_blank"
               color="inherit"
               underline="hover"
-              href="https://spoonacular.com/food-api"
             >
               Spoonacular API
             </Link>
