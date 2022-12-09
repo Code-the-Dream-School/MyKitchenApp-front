@@ -55,6 +55,9 @@
         margin: auto;
         justify-content: center;
     }
+    .filterContainer {
+        margin-bottom: 9%;
+    }
 }
 
 @media (max-width: 425px) {
@@ -72,5 +75,8 @@
     }
     .cuisineName {
         font-size: 10px;
+    }
+    .filterContainer {
+        margin-bottom: 40%;
     }
 }
