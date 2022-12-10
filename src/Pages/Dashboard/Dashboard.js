@@ -147,7 +147,11 @@ export default function Dashboard() {
                     {breakfast.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}
@@ -175,7 +179,11 @@ export default function Dashboard() {
                     {salad.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}
@@ -203,7 +211,11 @@ export default function Dashboard() {
                     {drink.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}
