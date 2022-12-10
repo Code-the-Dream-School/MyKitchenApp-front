@@ -73,7 +73,7 @@ const SearchResult = () => {
       {error ? (
         <StyledError>{error}</StyledError>
       ) : (
-        <Container className="background">
+        <Container className="filterContainer">
           <Box>
             <Filter />
             <Box
@@ -133,7 +133,7 @@ const SearchResult = () => {
                   width: "100%",
                   justifyContent: "center",
                   marginTop: "2rem",
-                  marginBottom: "5rem",
+                  marginBottom: "15%",
                   "& .MuiPaginationItem-root": 
                     { fontSize: "1rem",
                       fontWeight: "800",

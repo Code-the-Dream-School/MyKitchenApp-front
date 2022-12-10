@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 
 const FooterPublic = () => {
@@ -30,7 +30,7 @@ const FooterPublic = () => {
             Powered by {" "}
             <Link color="inherit" underline="hover" href="https://spoonacular.com/food-api">
               Spoonacular API
-            </Link>           
+            </Link>
           </Grid>
         </Grid>
       </Box>

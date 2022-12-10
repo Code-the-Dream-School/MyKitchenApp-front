@@ -131,7 +131,7 @@ export default function Dashboard() {
             <SearchForm open={open} onClose={handleClose} />
           </div>
 
-          <div>
+          <div className="recipeContainer">
             <div>
               <h2>Breakfast</h2>
 
