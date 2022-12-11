@@ -80,9 +80,9 @@ const Filter = () => {
             <Loading />
           ) : (
             <Container>
-              <h2 className="showElement">
+              <h1 className="showElement">
                 Search results for {filter.search}
-              </h2>
+              </h1>
               <Grid
                 sx={{
                   margin: "2rem 0rem",
@@ -94,6 +94,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={All} alt="All" />
                     <div className="cuisineName">All</div>
@@ -102,6 +103,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={African} alt="African" />
                     <div className="cuisineName">African</div>
@@ -110,6 +112,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={American} alt="American" />
                     <div className="cuisineName">American</div>
@@ -118,6 +121,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Chinese} alt="Chinese" />
                     <div className="cuisineName">Chinese</div>
@@ -126,6 +130,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={European} alt="European" />
                     <div className="cuisineName">European</div>
@@ -134,6 +139,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={French} alt="French" />
                     <div className="cuisineName">French</div>
@@ -142,6 +148,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Indian} alt="Indian" />
                     <div className="cuisineName">Indian</div>
@@ -150,6 +157,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Italian} alt="Italian" />
                     <div className="cuisineName">Italian</div>
@@ -158,6 +166,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Korean} alt="Korean" />
                     <div className="cuisineName">Korean</div>
@@ -166,6 +175,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Mexican} alt="Mexican" />
                     <div className="cuisineName">Mexican</div>
@@ -174,6 +184,7 @@ const Filter = () => {
                 <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
+                    style={{ textDecoration: "none" }}
                   >
                     <img className="cuisineImg" src={Thai} alt="Thai" />
                     <div className="cuisineName">Thai</div>
@@ -225,6 +236,11 @@ const Filter = () => {
                         justifyContent: "center",
                         marginTop: "2rem",
                         marginBottom: "5rem",
+                        "& .MuiPaginationItem-root": {
+                          fontSize: "1rem",
+                          fontWeight: "800",
+                          backgroundColor: "aliceblue",
+                        },
                       }}
                     />
                   </Stack>

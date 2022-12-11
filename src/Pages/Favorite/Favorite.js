@@ -58,6 +58,7 @@ export default function Favorite({ currentUser }) {
                     <Link
                       to={"/recipe/" + recipe.recipeId}
                       key={recipe.recipeId}
+                      style={{textDecoration: "none", }}
                     >
                       <ReusableCard
                         key={recipe.recipeId}

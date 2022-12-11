@@ -75,7 +75,7 @@ const SearchResult = () => {
         <StyledError>{error}</StyledError>
       ) : (
         <>
-          isLoading ? ( <Loading />) : (
+          {isLoading ? ( <Loading />) : (
           <Container className="background">
             <Box>
               <Filter />
@@ -153,7 +153,7 @@ const SearchResult = () => {
               </Stack>
             </Box>
           </Container>
-          )
+          )}
         </>
       )}
     </>
