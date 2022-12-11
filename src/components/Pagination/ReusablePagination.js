@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-const ReusablePagination = (data, itemsPerPage) => {
+const ReusablePagination = (maxPage, itemsPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-    const maxPage = Math.ceil(data.length / itemsPerPage);
+    //const maxPage = Math.ceil(data.length / itemsPerPage);
 
-    const currentData = () => {
-      const from = (currentPage - 1) * itemsPerPage;
-      const to = from + itemsPerPage;
-      return data.slice(from, to);
-    };
+    // const currentData = () => {
+    //   const from = (currentPage - 1) * itemsPerPage;
+    //   const to = from + itemsPerPage;
+    //   return data.slice(from, to);
+    // };
 
     const next = () => {
       setCurrentPage((currentPage) => Math.min(currentPage + 1, maxPage));
@@ -24,7 +24,7 @@ const ReusablePagination = (data, itemsPerPage) => {
       setCurrentPage(() => Math.min(pageNumber, maxPage));
     };
 
-    return { next, previous, jump, currentData, currentPage, maxPage };
+    return { next, previous, jump, currentPage, maxPage };
 
 };
 

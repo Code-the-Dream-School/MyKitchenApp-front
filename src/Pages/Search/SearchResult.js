@@ -18,6 +18,7 @@ const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
+  const [searchedCount, setSearchedCount] = useState(0);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -26,12 +27,17 @@ const SearchResult = () => {
   const perPage = 6; //number of recipes on each page
   const errorMessage = "A server error occurred.  Please try again later";
 
-  const recipeResult = async (name) => {
+  const recipeResult = async (name,page) => {
+    let pageOffset="";
+    if (page) {
+      const skip = (page - 1) * perPage;
+      pageOffset=`&offset=${skip}`
+    }
     try {
       const data = await axios.get(
         `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${
           params.intolerances
-        }&number=18`,
+        }&number=${perPage}${pageOffset}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
@@ -44,16 +50,30 @@ const SearchResult = () => {
   useEffect(() => {
     if (search) {
       window.scroll(0, 0);
-      recipeResult(search)
+      recipeResult(search,1)
         .then((response) => {
           setSearchedRecipe(response.data.results);
+          setSearchedCount(response.data.totalResults);
         })
         .catch((error) => setError(errorMessage));
     }
   }, [search]);
 
-  const count = Math.ceil(searchedRecipe.length / perPage);
-  const pageData = ReusablePagination(searchedRecipe, perPage);
+  
+  useEffect(() => {
+    if (search) {
+      window.scroll(0, 0);
+      recipeResult(search,page)
+        .then((response) => {
+          setSearchedRecipe(response.data.results);
+          setSearchedCount(response.data.totalResults);
+        })
+        .catch((error) => setError(errorMessage));
+    }
+  }, [page]);
+
+  const count = Math.ceil(searchedCount / perPage);
+  const pageData = ReusablePagination(count, perPage);
 
   const handleChange = (event, p) => {
     setPage(p);
@@ -67,6 +87,7 @@ const SearchResult = () => {
   const handleClose = () => {
     setOpen();
   };
+
 
   return (
     <>
@@ -85,7 +106,7 @@ const SearchResult = () => {
               }}
             >
               {searchedRecipe.length ? (
-                pageData.currentData().map((item) => {
+                searchedRecipe.map((item) => {
                   return (
                     <Link to={"/recipe/" + item.id} key={item.id}>
                       <ReusableCard
