@@ -20,7 +20,7 @@ The back-end which includes the front-end as a submodule [link here](https://git
 
 ### Build by [Elena](https://github.com/elenamagay), [Nuriye](https://github.com/nuriyealp), [Xeniya](https://github.com/XeniyaDob), [Dahlak](https://github.com/Dahlak76)
 
-### Mentors John McGarvey, Vaidehi S
+### Mentors [John McGarvey](https://github.com/jrmcgarvey), [Vaidehi S](https://github.com/CodergirlVS)   
 ### Elena --
 
 
