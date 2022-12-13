@@ -18,9 +18,24 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-@media (max-width: 600px) {
+
+.recipeContainer {
+  margin-bottom: 16%;
+}
+
+@media (max-width: 768px) {
   .searchContainer {
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  .recipeContainer {
+    margin-bottom: 28%;
+  }
+}
+
+@media (max-width: 425px) {
+  .recipeContainer {
+    margin-bottom: 58%;
   }
 }

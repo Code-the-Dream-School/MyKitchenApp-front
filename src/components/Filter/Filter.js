@@ -235,7 +235,7 @@ const Filter = () => {
                         width: "100%",
                         justifyContent: "center",
                         marginTop: "2rem",
-                        marginBottom: "5rem",
+                        marginBottom: "12%",
                         "& .MuiPaginationItem-root": {
                           fontSize: "1rem",
                           fontWeight: "800",

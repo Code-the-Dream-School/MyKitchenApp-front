@@ -284,11 +284,14 @@ export default function Recipe() {
               <Paper
                 sx={{
                   p: 2,
-                  margin: "5rem 0 7rem 0",
+                  margin: "5rem 0 10rem 0",
                   flexGrow: 1,
                   borderRadius: "2rem",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  ["@media (max-width:425px)"]: {
+                    marginBottom: "12rem",
+                  },
                 }}
               >
                 <Grid

@@ -142,7 +142,7 @@ const SearchResult = () => {
                     width: "100%",
                     justifyContent: "center",
                     marginTop: "2rem",
-                    marginBottom: "5rem",
+                    marginBottom: "15%",
                     "& .MuiPaginationItem-root": {
                       fontSize: "1rem",
                       fontWeight: "800",
