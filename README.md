@@ -29,16 +29,19 @@ The back-end which includes the front-end as a submodule [link here](https://git
 
 ### Xeniya --
 
-
+Dashboard, Navbar, Single recipe, and Favorite page.      
+ -Used API's GET/POST/DELETE methods, Like/Unlike a recipe function.    
+ -Loader component and Google Visualization Pie Chart.    
+ -Responsiveness of corresponding pages.   
 ### Dahlak -- 
 
-Back-end: server, API, middlewares, routing and DB. (All folders/files)  
+-Back-end: server, API, middlewares, routing and DB. (All folders/files)  
 
-Front-end: Google Auth for third-party sign-in feature. (Google.js, README.md)  
+-Front-end: Google Auth for third-party sign-in feature. (Google.js, README.md)  
 
-#### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
   
 ## Getting Started  
+#### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Clone repo locally    
 Run 'npm install' to install dependencies   
 Run 'npm run start' to compile webpack  
