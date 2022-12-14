@@ -21,6 +21,7 @@ body {
 
 .recipeContainer {
   margin-bottom: 16%;
+  width: 95%;
 }
 
 @media (max-width: 768px) {
@@ -31,11 +32,13 @@ body {
 
   .recipeContainer {
     margin-bottom: 28%;
+    width: 100%;
   }
 }
 
 @media (max-width: 425px) {
   .recipeContainer {
     margin-bottom: 58%;
+    width: 100%;
   }
 }

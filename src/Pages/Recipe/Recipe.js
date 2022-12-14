@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
+import { GiCook } from "react-icons/gi";
 import { HiClock } from "react-icons/hi";
 import { ImLeaf } from "react-icons/im";
 import { GiMuscleUp, GiCow } from "react-icons/gi";
@@ -112,7 +113,7 @@ export default function Recipe() {
     minHeight: "100%",
     minWidth: "100%",
   });
-
+  console.log(data);
   return (
     <>
       {err ? (
@@ -168,6 +169,22 @@ export default function Recipe() {
                         >
                           {data.title}
                         </Typography>
+
+                        {data.cuisines ? (
+                          <Typography
+                            variant="body2"
+                            gutterBottom
+                            sx={{ fontSize: "1.1rem" }}
+                          >
+                            <GiCook
+                              style={{
+                                margin: "0 1.2rem 0 1.1rem",
+                              }}
+                            />
+                            {data.cuisines[1] || data.cuisines[0] || `Any `}{" "}
+                            cuisine.
+                          </Typography>
+                        ) : null}
                         <Typography
                           variant="body2"
                           gutterBottom
