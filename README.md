@@ -1,18 +1,29 @@
 ![alt text](/public/MyKitchenLogo.png)
 
 # My Kitchen
+![Code Size](https://img.shields.io/github/languages/code-size/Code-the-Dream-School/MyKitchenApp-front)
+![Image of HTML badge](https://img.shields.io/badge/HTML-2.0%25-orange) 
+![Image of CSS badge](https://img.shields.io/badge/CSS-3.8%25-purple)
+![Image of JavaScript badge](https://img.shields.io/badge/JavaScript-94.2%25-yellow)    
+
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+
+## Table of Contents
+* [Description](#description)
+* [Getting Started](#getting-started)
+* [.env (backend only)](#env-backend-only)
+* [APIs](#apis)
+* [Deployment](#deployment)
+
+***
 
 ## Description
 
 Do you know what meal your going to prepare today? Just tell us what you have, and we will tell you what to prepare and enjoy!  
 We chose this app as a way to showcase our talents as well as put out a way for users to get recipes, track nutrition and keep track of favorite meals found through our app.
-
-## Languages and main Tech Stack   
-Javascript   
-HTML   
-CSS    
-Node with Express.js   
-React   
 
 There are two repos.    
 The back-end which includes the front-end as a submodule [link here](https://github.com/Code-the-Dream-School/MyKitchenApp-back) and this separate repo here is for the front-end.    
@@ -22,7 +33,11 @@ The back-end which includes the front-end as a submodule [link here](https://git
 
 ### Mentors [John McGarvey](https://github.com/jrmcgarvey), [Vaidehi S](https://github.com/CodergirlVS)   
 ### Elena --
-
+Public and Private Footers, New Recipe search form, Search Result page.   
+ \- Filter, Pagination, Intolerances checkbox,   
+ \- Different screen sizes responsiveness,   
+ \- API GET method,   
+ \- README.md
 
 ### Nuriya --
 
@@ -30,14 +45,14 @@ The back-end which includes the front-end as a submodule [link here](https://git
 ### Xeniya --
 
 Dashboard, Navbar, Single recipe, and Favorite page.      
- -Used API's GET/POST/DELETE methods, Like/Unlike a recipe function.    
- -Loader component and Google Visualization Pie Chart.    
- -Responsiveness of corresponding pages.   
+\- Used API's GET/POST/DELETE methods, Like/Unlike a recipe function.    
+\- Loader component and Google Visualization Pie Chart.    
+\- Responsiveness of corresponding pages.   
 ### Dahlak -- 
 
--Back-end: server, API, middlewares, routing and DB. (All folders/files)  
+\- Back-end: server, API, middlewares, routing and DB. (All folders/files)  
 
--Front-end: Google Auth for third-party sign-in feature. (Google.js, README.md)  
+\- Front-end: Google Auth for third-party sign-in feature. (Google.js, README.md)  
 
   
 ## Getting Started  
@@ -50,14 +65,11 @@ Run 'npm run start' to compile webpack
 MONGO_URI=  (https://account.mongodb.com/)    
 JWT_SECRET=  (https://jwt.io/)   
 JWT_LIFETIME=24h    
-apiKey= [Apply from spoonacular.com](https://spoonacular.com/food-api)    
+API_KEY= [Apply from spoonacular.com](https://spoonacular.com/food-api)    
 #### (Google Auth keys in .env)      
 CLIENT_ID=  (https://cloud.google.com/)    
 CLIENT_SECRET= *same link as client id      
 CALLBACK_URL=http://localhost:3002/auth/google/callback     
-
-### Deployment    
-(https://render.com/)    
 
 ## APIs
 
@@ -140,31 +152,9 @@ Get a randomly generated recipe
 
 - GET `/api/v1/recipes/random`
 
-  Always the same for a given day. Do not put in an option for query.  
-
-
-  # move to presentation slides then delete ***below this line 
-
-  ## Tech Stack
-Front-End: 
-
-  React with Hooks: for the entire front-end       
-  React Router: for routing      
-  React minimal-pie-chart: for the nutrition chart      
-  MUI and Styled-Components: for styling     
-  Jest: for testing     
-  Axios: for HTTP requests    
-  Google Auth: for third-party authentication     
-  JWT-Decode: for decoding JWT tokens     
+  Always the same for a given day. Do not put in an option for query. 
 
 
 
-Back-end:   
-  Node.js with Express.js: framework for the server     
-  MongoDB with Mongoose: as an Object Data Modeling (ODM) library for our DB     
-  Google Auth: for third-party authentication     
-  JWT: for our client-side used for authentication     
-  CORS: for managing cross-origin access     
-  XSS-Clean: to sanitize user input     
-  http-status-codes: for status code responses     
-  Bcryptjs: as a password hashing middleware for local authorization (username/PW) 
+## Deployment 
+The application is available for view [here](https://my-kitchen.onrender.com)
