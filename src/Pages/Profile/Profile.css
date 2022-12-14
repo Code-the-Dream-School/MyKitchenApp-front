@@ -9,4 +9,8 @@
     font-size: 0.7rem !important;
     padding: 3px 9px !important;
   }
+
+  .profile-card {
+    margin-top: 30px !important;
+  }
 }

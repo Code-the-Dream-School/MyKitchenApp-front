@@ -4,6 +4,10 @@ import Box from "@mui/material/Box";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
 import axios from "axios";
 import "./Profile.css";
 
@@ -105,20 +109,22 @@ const Profile = () => {
 
   return (
     <Box
+      className="profile-card"
       sx={{
-        marginTop: 18,
+        marginTop: 15,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-evenly",
       }}
     >
-      <AccountCircleIcon
-        sx={{ fontSize: 120, color: "grey", alignSelf: "start", flex: 1 }}
-      />
       <Box sx={{ flex: 4, marginBottom: "50vh" }}>
-        <Typography component="h1" variant="h3">
-          Profile
+        <Typography
+          component="h1"
+          variant="h3"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          My Profile
         </Typography>
         {isEdittingAccount ? (
           <Box
@@ -243,45 +249,77 @@ const Profile = () => {
           </Box>
         ) : (
           <Box>
-            <Typography variant="h5">Name: {user.name} </Typography>
-            <Typography variant="h5">Email: {user.email}</Typography>
-            <Button
-              className="update-profile"
-              onClick={() => setIsEdittingAccount(true)}
-              variant="outlined"
+            <Card
               sx={{
-                mt: 3,
-                mb: 2,
-                display: "inline",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#5a5a5a",
-                },
+                maxWidth: 500,
+                margin: "auto",
               }}
             >
-              Edit Account
-            </Button>
-            <Button
-              className="update-profile"
-              onClick={() => setIsEdittingPassword(true)}
-              variant="outlined"
-              sx={{
-                mt: 3,
-                mb: 2,
-                ml: 1,
-                display: "inline",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#5a5a5a",
-                },
-              }}
-            >
-              Change Password
-            </Button>
+              <AccountCircleIcon
+                sx={{
+                  fontSize: 120,
+                  color: "grey",
+                  width: "100%",
+                  margin: "auto",
+                }}
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  sx={{ textAlign: "center", fontWeight: "bold" }}
+                >
+                  Name: {user.name}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ textAlign: "center", fontWeight: "bold" }}
+                >
+                  Email: {user.email}
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ justifyContent: "center" }}>
+                <Button
+                  className="update-profile"
+                  onClick={() => setIsEdittingAccount(true)}
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                  }}
+                >
+                  Edit Account
+                </Button>
+                <Button
+                  className="update-profile"
+                  onClick={() => setIsEdittingPassword(true)}
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    ml: 1,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                  }}
+                >
+                  Change Password
+                </Button>
+              </CardActions>
+            </Card>
           </Box>
         )}
       </Box>
