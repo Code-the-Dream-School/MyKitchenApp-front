@@ -58,6 +58,7 @@ export default function Favorite({ currentUser }) {
                     <Link
                       to={"/recipe/" + recipe.recipeId}
                       key={recipe.recipeId}
+                      style={{textDecoration: "none", }}
                     >
                       <ReusableCard
                         key={recipe.recipeId}
@@ -86,11 +87,17 @@ export default function Favorite({ currentUser }) {
                   width: "100%",
                   justifyContent: "center",
                   marginTop: "2rem",
-                  marginBottom: "5rem",
+                  marginBottom: "15%",
                   "& .MuiPaginationItem-root": {
                     fontSize: "1rem",
                     fontWeight: "800",
                     backgroundColor: "aliceblue",
+                  },
+                  ["@media (max-width:768px)"]: {
+                    marginBottom: "23%",
+                  },
+                  ["@media (max-width:425px)"]: {
+                    marginBottom: "62%",
                   },
                 }}
               />

@@ -11,6 +11,7 @@ import ReusablePagination from "../../components/Pagination/ReusablePagination";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import SearchIcon from "@mui/icons-material/Search";
+import Loading from "../../components/Loading/Loading";
 import styled from "styled-components";
 
 const SearchResult = () => {
@@ -18,6 +19,7 @@ const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -36,7 +38,6 @@ const SearchResult = () => {
       );
       return data;
     } catch (error) {
-      // console.log(`An error occured ${error}`);
       setError(errorMessage);
     }
   };
@@ -73,77 +74,87 @@ const SearchResult = () => {
       {error ? (
         <StyledError>{error}</StyledError>
       ) : (
-        <Container className="filterContainer">
-          <Box>
-            <Filter />
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              {searchedRecipe.length ? (
-                pageData.currentData().map((item) => {
-                  return (
-                    <Link to={"/recipe/" + item.id} key={item.id}>
-                      <ReusableCard
-                        key={item.id}
-                        title={item.title}
-                        data={item}
-                        image={item.image}
-                      />
-                    </Link>
-                  );
-                })
-              ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography variant="h3">No results for {search}!</Typography>
-                  <Typography variant="h4">
-                    Please try another search!
-                  </Typography>
-                  <StyledButton open={open} onClick={handleClickOpen}>
-                    <SearchIcon />
-                    Search new recipe
-                  </StyledButton>
-                  <SearchForm open={open} onClose={handleClose} />
-                </div>
-              )}
-            </Box>
-          </Box>
-          <Box>
-            <Stack spacing={2}>
-              <Pagination
-                count={count}
-                page={page}
-                onChange={handleChange}
-                showFirstButton
-                showLastButton
-                variant="outlined"
-                shape="rounded"
+        <>
+          {isLoading ? ( <Loading />) : (
+          <Container className="background">
+            <Box>
+              <Filter />
+              <Box
                 sx={{
                   display: "flex",
-                  width: "100%",
-                  justifyContent: "center",
-                  marginTop: "2rem",
-                  marginBottom: "15%",
-                  "& .MuiPaginationItem-root": 
-                    { fontSize: "1rem",
+                  flexWrap: "wrap",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+              >
+                {searchedRecipe.length ? (
+                  pageData.currentData().map((item) => {
+                    return (
+                      <Link
+                        to={"/recipe/" + item.id}
+                        key={item.id}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <ReusableCard
+                          key={item.id}
+                          title={item.title}
+                          data={item}
+                          image={item.image}
+                        />
+                      </Link>
+                    );
+                  })
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography variant="h3">
+                      No results for {search}!
+                    </Typography>
+                    <Typography variant="h4">
+                      Please try another search!
+                    </Typography>
+                    <StyledButton open={open} onClick={handleClickOpen}>
+                      <SearchIcon />
+                      Search new recipe
+                    </StyledButton>
+                    <SearchForm open={open} onClose={handleClose} />
+                  </div>
+                )}
+              </Box>
+            </Box>
+            <Box>
+              <Stack spacing={2}>
+                <Pagination
+                  count={count}
+                  page={page}
+                  onChange={handleChange}
+                  showFirstButton
+                  showLastButton
+                  variant="outlined"
+                  shape="rounded"
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    marginTop: "2rem",
+                    marginBottom: "15%",
+                    "& .MuiPaginationItem-root": {
+                      fontSize: "1rem",
                       fontWeight: "800",
                       backgroundColor: "aliceblue",
                     },
-                }}
-              />
-            </Stack>
-          </Box>
-        </Container>
+                  }}
+                />
+              </Stack>
+            </Box>
+          </Container>
+          )}
+        </>
       )}
     </>
   );

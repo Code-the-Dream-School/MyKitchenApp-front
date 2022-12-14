@@ -21,8 +21,6 @@ const FooterPublic = () => {
           <Grid item xs={12} md={12} mt={2}>
             We express special gratitude to our mentors Vaidehi and John for their invaluable help at every stage of creating this application
           </Grid>
-          {/* <Grid item xs={12} md={4}>
-          </Grid> */}
           <Grid item xs={12} md={12}>
             My Kitchen App &#169; {new Date().getFullYear()} 
           </Grid>
