@@ -32,6 +32,8 @@ The back-end which includes the front-end as a submodule [link here](https://git
 ### Build by [Elena](https://github.com/elenamagay), [Nuriye](https://github.com/nuriyealp), [Xeniya](https://github.com/XeniyaDob), [Dahlak](https://github.com/Dahlak76)
 
 ### Mentors [John McGarvey](https://github.com/jrmcgarvey), [Vaidehi S](https://github.com/CodergirlVS)   
+<br />
+
 ### Elena --
 Public and Private Footers, New Recipe search form, Search Result page.   
  \- Filter, Pagination, Intolerances checkbox,   
@@ -39,27 +41,32 @@ Public and Private Footers, New Recipe search form, Search Result page.
  \- API GET method,   
  \- README.md
 
-### Nuriya --
-
+### Nuriye --
+Landing page, Sign-in page, Sign-up page, Profile page, Not-Found page.    
+\- Used React with Hooks and Material UI for custom validations on forms.    
+\- Axsios for GET and POST request.    
+\- Browser’s local storage to save temporary data.
 
 ### Xeniya --
-
 Dashboard, Navbar, Single recipe, and Favorite page.      
 \- Used API's GET/POST/DELETE methods, Like/Unlike a recipe function.    
 \- Loader component and Google Visualization Pie Chart.    
 \- Responsiveness of corresponding pages.   
-### Dahlak -- 
 
+### Dahlak -- 
 \- Back-end: server, API, middlewares, routing and DB. (All folders/files)  
 
 \- Front-end: Google Auth for third-party sign-in feature. (Google.js, README.md)  
 
-  
+<br />
+
 ## Getting Started  
 #### This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Clone repo locally    
 Run 'npm install' to install dependencies   
 Run 'npm run start' to compile webpack  
+
+<br />
 
 ## .env (backend only)   
 MONGO_URI=  (https://account.mongodb.com/)    
@@ -70,6 +77,8 @@ API_KEY= [Apply from spoonacular.com](https://spoonacular.com/food-api)
 CLIENT_ID=  (https://cloud.google.com/)    
 CLIENT_SECRET= *same link as client id      
 CALLBACK_URL=http://localhost:3002/auth/google/callback     
+
+<br />
 
 ## APIs
 
@@ -154,7 +163,7 @@ Get a randomly generated recipe
 
   Always the same for a given day. Do not put in an option for query. 
 
-
+<br />
 
 ## Deployment 
 The application is available for view [here](https://my-kitchen.onrender.com)
