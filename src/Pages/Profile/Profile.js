@@ -133,49 +133,60 @@ const Profile = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              className="profile-input"
-              margin="normal"
-              required
-              fullWidth
-              sx={{ display: "block" }}
-              name="name"
-              label="Full Name"
-              type="text"
-              id="name"
-              autoComplete="name"
-              autoFocus
-            />
-            <TextField
-              className="profile-input"
-              margin="normal"
-              required
-              fullWidth
-              sx={{ display: "block" }}
-              id="email"
-              label="Email Address"
-              name="email"
-              type="email"
-              autoComplete="email"
-            />
-            <Button
-              className="update-profile"
-              type="submit"
-              variant="outlined"
+            <Card
               sx={{
-                mt: 3,
-                mb: 2,
-                display: "inline",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#5a5a5a",
-                },
+                maxWidth: 500,
+                margin: "auto",
               }}
             >
-              Save
-            </Button>
+              <CardContent>
+                <TextField
+                  className="profile-input"
+                  margin="normal"
+                  required
+                  fullWidth
+                  sx={{ display: "block" }}
+                  name="name"
+                  label="Full Name"
+                  type="text"
+                  id="name"
+                  autoComplete="name"
+                  autoFocus
+                />
+                <TextField
+                  className="profile-input"
+                  margin="normal"
+                  required
+                  fullWidth
+                  sx={{ display: "block" }}
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                />
+              </CardContent>
+              <CardActions sx={{ justifyContent: "center" }}>
+                <Button
+                  className="update-profile"
+                  type="submit"
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                  }}
+                >
+                  Save
+                </Button>
+              </CardActions>
+            </Card>
           </Box>
         ) : isEdittingPassword ? (
           <Box
@@ -184,68 +195,81 @@ const Profile = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              className="profile-input"
-              margin="normal"
-              required
-              fullWidth
-              sx={{ display: "block" }}
-              name="password"
-              label="Current Password"
-              type="password"
-              id="password"
-              onChange={handlePasswordChange}
-              autoFocus
-            />
-            <TextField
-              className="profile-input"
-              margin="normal"
-              required
-              fullWidth
-              sx={{ display: "block" }}
-              id="new-password"
-              label="New Password"
-              name="new-password"
-              type="password"
-              helperText={invalidNewPasswordMessage}
-              onChange={handleNewPasswordChange}
-            />
-            <TextField
-              className="profile-input"
-              margin="normal"
-              required
-              fullWidth
-              sx={{ display: "block" }}
-              id="confirm-password"
-              label="Confirm New Password"
-              name="confirm-password"
-              type="password"
-              helperText={invalidConfirmPasswordMessage}
-              onChange={handleConfirmPasswordChange}
-            />
-            {error && <p className="error-msg profile-input">{errorMessage}</p>}
-            <Button
-              className="update-profile"
-              disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
-              type="submit"
-              variant="outlined"
+            <Card
               sx={{
-                mt: 3,
-                mb: 2,
-                display: "inline",
-                height: "50px",
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#5a5a5a",
-                },
-                "&.Mui-disabled": {
-                  background: "white",
-                },
+                maxWidth: 500,
+                margin: "auto",
               }}
             >
-              Save
-            </Button>
+              <CardContent>
+                <TextField
+                  className="profile-input"
+                  margin="normal"
+                  required
+                  fullWidth
+                  sx={{ display: "block" }}
+                  name="password"
+                  label="Current Password"
+                  type="password"
+                  id="password"
+                  onChange={handlePasswordChange}
+                  autoFocus
+                />
+                <TextField
+                  className="profile-input"
+                  margin="normal"
+                  required
+                  fullWidth
+                  sx={{ display: "block" }}
+                  id="new-password"
+                  label="New Password"
+                  name="new-password"
+                  type="password"
+                  helperText={invalidNewPasswordMessage}
+                  onChange={handleNewPasswordChange}
+                />
+                <TextField
+                  className="profile-input"
+                  margin="normal"
+                  required
+                  fullWidth
+                  sx={{ display: "block" }}
+                  id="confirm-password"
+                  label="Confirm New Password"
+                  name="confirm-password"
+                  type="password"
+                  helperText={invalidConfirmPasswordMessage}
+                  onChange={handleConfirmPasswordChange}
+                />
+              </CardContent>
+              {error && (
+                <p className="error-msg profile-input">{errorMessage}</p>
+              )}
+              <CardActions sx={{ justifyContent: "center" }}>
+                <Button
+                  className="update-profile"
+                  disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
+                  type="submit"
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                    "&.Mui-disabled": {
+                      background: "white",
+                    },
+                  }}
+                >
+                  Save
+                </Button>
+              </CardActions>
+            </Card>
           </Box>
         ) : (
           <Box>
