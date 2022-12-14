@@ -113,7 +113,7 @@ export default function Recipe() {
     minHeight: "100%",
     minWidth: "100%",
   });
-  console.log(data);
+
   return (
     <>
       {err ? (
