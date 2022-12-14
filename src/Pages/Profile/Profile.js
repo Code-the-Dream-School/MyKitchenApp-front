@@ -106,7 +106,7 @@ const Profile = () => {
   return (
     <Box
       sx={{
-        marginTop: 8,
+        marginTop: 18,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -153,6 +153,7 @@ const Profile = () => {
               autoComplete="email"
             />
             <Button
+              className="update-profile"
               type="submit"
               variant="outlined"
               sx={{
@@ -218,6 +219,7 @@ const Profile = () => {
             />
             {error && <p className="error-msg profile-input">{errorMessage}</p>}
             <Button
+              className="update-profile"
               disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
               type="submit"
               variant="outlined"
@@ -241,9 +243,10 @@ const Profile = () => {
           </Box>
         ) : (
           <Box>
-            <Typography>Name: {user.name}</Typography>
-            <Typography>Email: {user.email}</Typography>
+            <Typography variant="h5">Name: {user.name} </Typography>
+            <Typography variant="h5">Email: {user.email}</Typography>
             <Button
+              className="update-profile"
               onClick={() => setIsEdittingAccount(true)}
               variant="outlined"
               sx={{
@@ -251,7 +254,6 @@ const Profile = () => {
                 mb: 2,
                 display: "inline",
                 height: "50px",
-                fontSize: "0.68rem",
                 backgroundColor: "black",
                 color: "white",
                 "&:hover": {
@@ -262,6 +264,7 @@ const Profile = () => {
               Edit Account
             </Button>
             <Button
+              className="update-profile"
               onClick={() => setIsEdittingPassword(true)}
               variant="outlined"
               sx={{
@@ -270,7 +273,6 @@ const Profile = () => {
                 ml: 1,
                 display: "inline",
                 height: "50px",
-                fontSize: "0.68rem",
                 backgroundColor: "black",
                 color: "white",
                 "&:hover": {
