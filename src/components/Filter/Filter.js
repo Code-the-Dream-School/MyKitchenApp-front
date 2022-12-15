@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -10,27 +10,47 @@ import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import ReusablePagination from "../Pagination/ReusablePagination";
 import Loading from "../Loading/Loading";
 import "./Filter.css";
-// import All from "../../assets/Images/all.png";
-// import African from "../../assets/Images/african.png";
-// import American from "../../assets/Images/american.png";
-// import Chinese from "../../assets/Images/chinese.png";
-// import European from "../../assets/Images/european.png";
-// import French from "../../assets/Images/french.png";
-// import Indian from "../../assets/Images/indian.png";
-// import Italian from "../../assets/Images/italian.png";
-// import Korean from "../../assets/Images/korean.png";
-// import Mexican from "../../assets/Images/mexican.png";
-// import Thai from "../../assets/Images/thai.png";
-import { useNavigate } from "react-router-dom";
 
 const filterData = [
+  {
+    name: "African",
+    img: "/Images/african.png",
+  },
   {
     name: "American",
     img: "/Images/american.png",
   },
   {
-    name: "African",
-    img: "/Images/african.png",
+    name: "Chinese",
+    img: "/Images/chinese.png",
+  },
+  {
+    name: "European",
+    img: "/Images/european.png",
+  },
+  {
+    name: "French",
+    img: "/Images/french.png",
+  },
+  {
+    name: "Indian",
+    img: "/Images/indian.png",
+  },
+  {
+    name: "Italian",
+    img: "/Images/italian.png",
+  },
+  {
+    name: "Korean",
+    img: "/Images/korean.png",
+  },
+  {
+    name: "Mexican",
+    img: "/Images/mexican.png",
+  },
+  {
+    name: "Thai",
+    img: "/Images/thai.png",
   },
 ];
 
@@ -94,7 +114,13 @@ const Filter = () => {
       setSelected(name);
       navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true });
   }
+
+  const handleFilterBtnAll = () => {
+    setSelected("All");
+    navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
+}
   console.log(selected);
+
   return (
     <>
       {error ? (
@@ -116,6 +142,16 @@ const Filter = () => {
                   justifyContent: "center",
                 }}
               >
+                <div
+                  className="filterBtn"
+                  style={{
+                    borderBottom: selected === "All" ? "1px solid" : "",
+                  }}
+                  onClick={handleFilterBtnAll}
+                >
+                  <img className="cuisineImg" src="/Images/all.png" alt="All" />
+                  <div className="cuisineName">All</div>
+                </div>
                 {filterData.map((item) => (
                   <div
                     className="filterBtn"
@@ -125,120 +161,14 @@ const Filter = () => {
                     }}
                     onClick={() => handleFilter(item.name)}
                   >
-                    {/* <a
-
-                      href={`/searchresult/${filter.search}/${filter.intolerances}/${item.name}`}
-                      style={{ textDecoration: "none" }}
-                    > */}
-                      <img
-                        className="cuisineImg"
-                        src={item.img}
-                        alt={item.name}
-                      />
-                      <div className="cuisineName">{item.name}</div>
-                    {/* </a> */}
+                    <img
+                      className="cuisineImg"
+                      src={item.img}
+                      alt={item.name}
+                    />
+                    <div className="cuisineName">{item.name}</div>
                   </div>
                 ))}
-
-                {/* <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={All} alt="All" />
-                    <div className="cuisineName">All</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/African`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={African} alt="African" />
-                    <div className="cuisineName">African</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/American`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={American} alt="American" />
-                    <div className="cuisineName">American</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Chinese`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Chinese} alt="Chinese" />
-                    <div className="cuisineName">Chinese</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/European`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={European} alt="European" />
-                    <div className="cuisineName">European</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/French`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={French} alt="French" />
-                    <div className="cuisineName">French</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Indian`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Indian} alt="Indian" />
-                    <div className="cuisineName">Indian</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Italian`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Italian} alt="Italian" />
-                    <div className="cuisineName">Italian</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Korean`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Korean} alt="Korean" />
-                    <div className="cuisineName">Korean</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Mexican`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Mexican} alt="Mexican" />
-                    <div className="cuisineName">Mexican</div>
-                  </a>
-                </div>
-                <div className="filterBtn">
-                  <a
-                    href={`/searchresult/${filter.search}/${filter.intolerances}/Thai`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img className="cuisineImg" src={Thai} alt="Thai" />
-                    <div className="cuisineName">Thai</div>
-                  </a>
-                </div> */}
               </Grid>
 
               <Box
