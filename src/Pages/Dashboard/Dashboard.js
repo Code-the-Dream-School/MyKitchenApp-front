@@ -139,7 +139,7 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                       drag: true,
                     }}
@@ -172,7 +172,7 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                     }}
                   >
@@ -204,7 +204,7 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                     }}
                   >
