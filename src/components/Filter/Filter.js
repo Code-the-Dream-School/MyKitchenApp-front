@@ -13,6 +13,10 @@ import "./Filter.css";
 
 const filterData = [
   {
+    name: "All",
+    img: "/Images/all.png",
+  },
+  {
     name: "African",
     img: "/Images/african.png",
   },
@@ -111,15 +115,19 @@ const Filter = () => {
   let navigate = useNavigate();
 
   const handleFilter = (name) => {
-      setSelected(name);
-      navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true });
-  }
+    if (name === "All") {
+      navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
+    } else {
+      navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true }
+      );
+    }
+    setSelected(name);
+  };
 
-  const handleFilterBtnAll = () => {
-    setSelected("All");
-    navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
-}
-
+  useEffect(() => {
+    handleFilter();
+  },[])
+  
   return (
     <>
       {error ? (
@@ -141,16 +149,7 @@ const Filter = () => {
                   justifyContent: "center",
                 }}
               >
-                <div
-                  className="filterBtn"
-                  style={{
-                    borderBottom: selected === "All" ? "1px solid" : "",
-                  }}
-                  onClick={handleFilterBtnAll}
-                >
-                  <img className="cuisineImg" src="/Images/all.png" alt="All" />
-                  <div className="cuisineName">All</div>
-                </div>
+
                 {filterData.map((item) => (
                   <div
                     className="filterBtn"
@@ -158,7 +157,9 @@ const Filter = () => {
                     style={{
                       borderBottom: selected === item.name ? "1px solid" : "",
                     }}
-                    onClick={() => handleFilter(item.name)}
+                    onClick={() => {
+                      handleFilter(item.name);
+                    }}
                   >
                     <img
                       className="cuisineImg"
