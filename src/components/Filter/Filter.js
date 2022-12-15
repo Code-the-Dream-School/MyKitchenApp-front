@@ -21,16 +21,16 @@ import "./Filter.css";
 // import Korean from "../../assets/Images/korean.png";
 // import Mexican from "../../assets/Images/mexican.png";
 // import Thai from "../../assets/Images/thai.png";
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const filterData = [
   {
     name: "American",
-    img: "../../Images/american.png",
+    img: "/Images/american.png",
   },
   {
     name: "African",
-    img: "../../Images/african.png",
+    img: "/Images/african.png",
   },
 ];
 
@@ -48,7 +48,7 @@ const Filter = () => {
   const errorMessage = "A server error occurred.  Please try again later";
 
   const cuisineType = async () => {
-    setSelected("")
+  
     setIsLoading(true);
     try {
       const data = await axios.get(
@@ -88,9 +88,11 @@ const Filter = () => {
     pageData.jump(p);
   };
 
+  let navigate = useNavigate();
+
   const handleFilter = (name) => {
       setSelected(name);
-      <Navigate to={`/searchresult/${filter.search}/${filter.intolerances}/${name}`} />;
+      navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true });
   }
   console.log(selected);
   return (
