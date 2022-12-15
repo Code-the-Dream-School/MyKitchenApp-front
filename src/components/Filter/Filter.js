@@ -10,23 +10,36 @@ import ReusableCard from "../../components/ReusableCard/ReusableCard";
 import ReusablePagination from "../Pagination/ReusablePagination";
 import Loading from "../Loading/Loading";
 import "./Filter.css";
-import All from "../../assets/Images/all.png";
-import African from "../../assets/Images/african.png";
-import American from "../../assets/Images/american.png";
-import Chinese from "../../assets/Images/chinese.png";
-import European from "../../assets/Images/european.png";
-import French from "../../assets/Images/french.png";
-import Indian from "../../assets/Images/indian.png";
-import Italian from "../../assets/Images/italian.png";
-import Korean from "../../assets/Images/korean.png";
-import Mexican from "../../assets/Images/mexican.png";
-import Thai from "../../assets/Images/thai.png";
+// import All from "../../assets/Images/all.png";
+// import African from "../../assets/Images/african.png";
+// import American from "../../assets/Images/american.png";
+// import Chinese from "../../assets/Images/chinese.png";
+// import European from "../../assets/Images/european.png";
+// import French from "../../assets/Images/french.png";
+// import Indian from "../../assets/Images/indian.png";
+// import Italian from "../../assets/Images/italian.png";
+// import Korean from "../../assets/Images/korean.png";
+// import Mexican from "../../assets/Images/mexican.png";
+// import Thai from "../../assets/Images/thai.png";
+import { Navigate, Outlet } from "react-router-dom";
+
+const filterData = [
+  {
+    name: "American",
+    img: "../../Images/american.png",
+  },
+  {
+    name: "African",
+    img: "../../Images/african.png",
+  },
+];
 
 const Filter = () => {
   const [filterResult, setfilterResult] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const url = "/api/v1/recipes";
   let filter = useParams();
@@ -35,6 +48,8 @@ const Filter = () => {
   const errorMessage = "A server error occurred.  Please try again later";
 
   const cuisineType = async () => {
+    setSelected("")
+    setIsLoading(true);
     try {
       const data = await axios.get(
         `${url}?includeIngredients=${encodeURIComponent(
@@ -44,6 +59,9 @@ const Filter = () => {
         }&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      if (data) {
+        setIsLoading(false);
+      }
       return data;
     } catch (error) {
       console.log("Error", error.message);
@@ -70,6 +88,11 @@ const Filter = () => {
     pageData.jump(p);
   };
 
+  const handleFilter = (name) => {
+      setSelected(name);
+      <Navigate to={`/searchresult/${filter.search}/${filter.intolerances}/${name}`} />;
+  }
+  console.log(selected);
   return (
     <>
       {error ? (
@@ -91,7 +114,31 @@ const Filter = () => {
                   justifyContent: "center",
                 }}
               >
-                <div className="filterBtn">
+                {filterData.map((item) => (
+                  <div
+                    className="filterBtn"
+                    key={item.name}
+                    style={{
+                      borderBottom: selected === item.name ? "1px solid" : "",
+                    }}
+                    onClick={() => handleFilter(item.name)}
+                  >
+                    {/* <a
+
+                      href={`/searchresult/${filter.search}/${filter.intolerances}/${item.name}`}
+                      style={{ textDecoration: "none" }}
+                    > */}
+                      <img
+                        className="cuisineImg"
+                        src={item.img}
+                        alt={item.name}
+                      />
+                      <div className="cuisineName">{item.name}</div>
+                    {/* </a> */}
+                  </div>
+                ))}
+
+                {/* <div className="filterBtn">
                   <a
                     href={`/searchresult/${filter.search}/${filter.intolerances}`}
                     style={{ textDecoration: "none" }}
@@ -189,7 +236,7 @@ const Filter = () => {
                     <img className="cuisineImg" src={Thai} alt="Thai" />
                     <div className="cuisineName">Thai</div>
                   </a>
-                </div>
+                </div> */}
               </Grid>
 
               <Box
