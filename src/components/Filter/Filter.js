@@ -119,7 +119,6 @@ const Filter = () => {
     setSelected("All");
     navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
 }
-  console.log(selected);
 
   return (
     <>
