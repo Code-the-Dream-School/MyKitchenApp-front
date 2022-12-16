@@ -108,10 +108,6 @@ export default function Dashboard() {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen();
-  };
-
   return (
     <>
       {err ? (
@@ -128,7 +124,7 @@ export default function Dashboard() {
               <SearchIcon />
               Search new recipe
             </StyledButton>
-            <SearchForm open={open} onClose={handleClose} />
+            <SearchForm open={open} setOpen={setOpen} />
           </div>
 
           <div className="recipeContainer">
