@@ -185,6 +185,28 @@ const Profile = () => {
                 >
                   Save
                 </Button>
+                <Button
+                  className="update-profile"
+                  type="submit"
+                  variant="outlined"
+                  onClick={() => setIsEdittingAccount(false)}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                    "&.Mui-disabled": {
+                      background: "white",
+                    },
+                  }}
+                >
+                  Cancel
+                </Button>
               </CardActions>
             </Card>
           </Box>
@@ -267,6 +289,28 @@ const Profile = () => {
                   }}
                 >
                   Save
+                </Button>
+                <Button
+                  className="update-profile"
+                  type="submit"
+                  variant="outlined"
+                  onClick={() => setIsEdittingPassword(false)}
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                    "&.Mui-disabled": {
+                      background: "white",
+                    },
+                  }}
+                >
+                  Cancel
                 </Button>
               </CardActions>
             </Card>
