@@ -59,9 +59,9 @@ function NavBar() {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen();
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <AppBar sx={{ bgcolor: "rgb(0, 0, 0)" }} position="static">
@@ -164,7 +164,7 @@ function NavBar() {
                   <SearchIcon />
                   Search
                 </NavLink>
-                <SearchForm open={open} onClose={handleClose} />
+                <SearchForm open={open} setOpen={setOpen} />
               </MenuItem>
             </Menu>
           </Box>
@@ -211,7 +211,7 @@ function NavBar() {
               <SearchIcon />
               Search
             </Button>
-            <SearchForm open={open} onClose={handleClose} />
+            <SearchForm open={open}setOpen={setOpen} />
 
             {pages.map((page) => (
               <Button
@@ -242,7 +242,7 @@ function NavBar() {
             >
               LOGOUT
             </NavLink>
-            <SearchForm open={open} onClose={handleClose} />
+            <SearchForm open={open} setOpen={setOpen} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

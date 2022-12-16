@@ -15,11 +15,13 @@ import Loading from "../../components/Loading/Loading";
 import styled from "styled-components";
 
 const SearchResult = () => {
-  const [searchedRecipe, setSearchedRecipe] = useState([]);
+  // const [searchedRecipe, setSearchedRecipe] = useState([]);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [filterResult, setfilterResult] = useState([]);
+
+  // const [isLoading, setIsLoading] = useState(false);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -28,10 +30,10 @@ const SearchResult = () => {
   const perPage = 6; //number of recipes on each page
   const errorMessage = "A server error occurred.  Please try again later";
 
-  const recipeResult = async (name) => {
+  const recipeResult = async (searchTerm) => {
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(name)}&intolerances=${
+        `${url}?includeIngredients=${encodeURIComponent(searchTerm)}&intolerances=${
           params.intolerances
         }&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -47,14 +49,18 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          setSearchedRecipe(response.data.results);
+          console.log(response.data.results);
+          // setSearchedRecipe(response.data.results);
+          setfilterResult(response.data.results)
         })
         .catch((error) => setError(errorMessage));
     }
   }, [search]);
+  // console.log("Results", searchedRecipe);
+  console.log(filterResult)
 
-  const count = Math.ceil(searchedRecipe.length / perPage);
-  const pageData = ReusablePagination(searchedRecipe, perPage);
+  const count = Math.ceil(filterResult.length / perPage);
+  const pageData = ReusablePagination(filterResult, perPage);
 
   const handleChange = (event, p) => {
     setPage(p);
@@ -65,9 +71,9 @@ const SearchResult = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen();
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <>
@@ -75,58 +81,64 @@ const SearchResult = () => {
         <StyledError>{error}</StyledError>
       ) : (
         <>
-          {isLoading ? ( <Loading />) : (
+          {/* {isLoading ? ( <Loading />) : ( */}
           <Container className="background">
-            <Box>
-              <Filter />
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
-                {searchedRecipe.length ? (
-                  pageData.currentData().map((item) => {
-                    return (
-                      <Link
-                        to={"/recipe/" + item.id}
+            {/* <Box> */}
+            <Filter
+              // filterResult={filterResult}
+              setfilterResult={setfilterResult}
+              search={search}
+              params={params}
+              // searchedRecipe={searchedRecipe}
+            />
+
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              {filterResult.length ? (
+                pageData.currentData().map((item) => {
+                  return (
+                    <Link
+                      to={"/recipe/" + item.id}
+                      key={item.id}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ReusableCard
                         key={item.id}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <ReusableCard
-                          key={item.id}
-                          title={item.title}
-                          data={item}
-                          image={item.image}
-                        />
-                      </Link>
-                    );
-                  })
-                ) : (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Typography variant="h3">
-                      No results for {search}!
-                    </Typography>
-                    <Typography variant="h4">
-                      Please try another search!
-                    </Typography>
-                    <StyledButton open={open} onClick={handleClickOpen}>
-                      <SearchIcon />
-                      Search new recipe
-                    </StyledButton>
-                    <SearchForm open={open} onClose={handleClose} />
-                  </div>
-                )}
-              </Box>
+                        title={item.title}
+                        data={item}
+                        image={item.image}
+                      />
+                    </Link>
+                  );
+                })
+              ) : (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Typography variant="h3">No results for {search}!</Typography>
+                  <Typography variant="h4">
+                    Please try another search!
+                  </Typography>
+                  <StyledButton open={open} onClick={handleClickOpen}>
+                    <SearchIcon />
+                    Search new recipe
+                  </StyledButton>
+                  <SearchForm open={open} setOpen={setOpen} />
+                </div>
+              )}
             </Box>
+            {/* </Box> */}
+
             <Box>
               <Stack spacing={2}>
                 <Pagination
@@ -153,7 +165,7 @@ const SearchResult = () => {
               </Stack>
             </Box>
           </Container>
-          )}
+          {/* )} */}
         </>
       )}
     </>

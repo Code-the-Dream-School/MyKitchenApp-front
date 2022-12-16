@@ -58,75 +58,78 @@ const filterData = [
   },
 ];
 
-const Filter = () => {
-  const [filterResult, setfilterResult] = useState([]);
-  const [page, setPage] = useState(1);
+const Filter = ({setfilterResult, search, params}) => {
+  //const [filterResult, setfilterResult] = useState([]);
+  // const [page, setPage] = useState(1);
   const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [selected, setSelected] = useState("");
 
   const url = "/api/v1/recipes";
   let filter = useParams();
   const token = localStorage.getItem("myKitchenAppToken");
-  const perPage = 6; //number of recipes on each page
+  //const perPage = 6; //number of recipes on each page
   const errorMessage = "A server error occurred.  Please try again later";
 
-  const cuisineType = async () => {
-  
-    setIsLoading(true);
+  useEffect(() => {
+const cuisineType = async () => {
     try {
       const data = await axios.get(
         `${url}?includeIngredients=${encodeURIComponent(
-          filter.search
-        )}&intolerances=${filter.intolerances}&cuisine=${
-          filter.type
+          search
+        )}&intolerances=${params.intolerances}&cuisine=${
+          selected
         }&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (data) {
-        setIsLoading(false);
+        setfilterResult(data.data.results)
+        //setIsLoading(false);
       }
-      return data;
+      //return data;
     } catch (error) {
       console.log("Error", error.message);
       setError(errorMessage);
     }
   };
 
-  useEffect(() => {
-    if (filter.type) {
-      window.scroll(0, 0);
-      cuisineType(filter.type)
-        .then((response) => {
-          setfilterResult(response.data.results);
-        })
-        .catch((error) => setError(errorMessage));
-    }
-  }, [filter.type]);
+  cuisineType()
+  }, [selected])
+  
 
-  const count = Math.ceil(filterResult.length / perPage);
-  const pageData = ReusablePagination(filterResult, perPage);
+  // useEffect(() => {
+  //   if (filter.type) {
+  //     window.scroll(0, 0);
+  //     cuisineType(filter.type)
+  //       .then((response) => {
+  //         setfilterResult(response.data.results);
+  //       })
+  //       .catch((error) => setError(errorMessage));
+  //   }
+  // }, [filter.type]);
 
-  const handleChange = (event, p) => {
-    setPage(p);
-    pageData.jump(p);
-  };
+  // const count = Math.ceil(filterResult.length / perPage);
+  // const pageData = ReusablePagination(filterResult, perPage);
 
-  let navigate = useNavigate();
+  // const handleChange = (event, p) => {
+  //   setPage(p);
+  //   pageData.jump(p);
+  // };
+
+  //let navigate = useNavigate();
 
   const handleFilter = (name) => {
-    if (name === "All") {
-      navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
-    } else {
-      navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true }
-      );
-    }
+    // if (name === "All") {
+    //   navigate(`/searchresult/${filter.search}/${filter.intolerances}`, { replace: true });
+    // } else {
+    //   navigate(`/searchresult/${filter.search}/${filter.intolerances}/${name}`, { replace: true }
+    //   );
+    // }
     setSelected(name);
   };
 
-  useEffect(() => {
-    handleFilter();
-  },[])
+  // useEffect(() => {
+  //   handleFilter();
+  // },[])
   
   return (
     <>
@@ -134,12 +137,12 @@ const Filter = () => {
         <h1 className="errorMsg">{error}</h1>
       ) : (
         <>
-          {isLoading ? (
+          {/* {isLoading ? (
             <Loading />
-          ) : (
+          ) : ( */}
             <Container>
               <h1 className="showElement">
-                Search results for {filter.search}
+                Search results for {selected}
               </h1>
               <Grid
                 sx={{
@@ -171,7 +174,7 @@ const Filter = () => {
                 ))}
               </Grid>
 
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexWrap: "wrap",
@@ -197,8 +200,8 @@ const Filter = () => {
                       );
                     })
                   : null}
-              </Box>
-              {filterResult.length ? (
+              </Box> */}
+              {/* {filterResult.length ? (
                 <Box>
                   <Stack spacing={2}>
                     <Pagination
@@ -224,9 +227,9 @@ const Filter = () => {
                     />
                   </Stack>
                 </Box>
-              ) : null}
+              ) : null} */}
             </Container>
-          )}
+          {/* )} */}
         </>
       )}
     </>
