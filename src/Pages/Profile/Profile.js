@@ -125,88 +125,6 @@ const Profile = () => {
         >
           My Profile
         </Typography>
-        {/* {isEdittingAccount ? (
-          <Box
-            component="form"
-            onSubmit={handleEditAccountSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Card
-              sx={{
-                maxWidth: 500,
-                margin: "auto",
-              }}
-            >
-              <CardContent>
-                <TextField
-                  className="profile-input"
-                  margin="normal"
-                  required
-                  fullWidth
-                  sx={{ display: "block" }}
-                  name="name"
-                  label="Full Name"
-                  type="text"
-                  id="name"
-                  autoComplete="name"
-                  autoFocus
-                />
-                <TextField
-                  className="profile-input"
-                  margin="normal"
-                  required
-                  fullWidth
-                  sx={{ display: "block" }}
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                />
-              </CardContent>
-              <CardActions sx={{ justifyContent: "center" }}>
-                <Button
-                  className="update-profile"
-                  type="submit"
-                  // disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
-                  variant="outlined"
-                  sx={{
-                    mt: 3,
-                    mb: 2,
-                    display: "inline",
-                    height: "50px",
-                    backgroundColor: "black",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#5a5a5a",
-                    },
-                  }}
-                >
-                  Save
-                </Button>
-                <Button
-                  className="update-profile"
-                  variant="outlined"
-                  sx={{
-                    mt: 3,
-                    mb: 2,
-                    display: "inline",
-                    height: "50px",
-                    backgroundColor: "black",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#5a5a5a",
-                    },
-                  }}
-                  onClick={() => setIsEdittingAccount(false)}
-                >
-                  Cancel
-                </Button>
-              </CardActions>
-            </Card>
-          </Box>
-        ) :  */}
         
         {isEdittingPassword ? (
           <Box
@@ -346,24 +264,6 @@ const Profile = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center" }}>
-                {/* <Button
-                  className="update-profile"
-                  onClick={() => setIsEdittingAccount(true)}
-                  variant="outlined"
-                  sx={{
-                    mt: 3,
-                    mb: 2,
-                    display: "inline",
-                    height: "50px",
-                    backgroundColor: "black",
-                    color: "white",
-                    "&:hover": {
-                      backgroundColor: "#5a5a5a",
-                    },
-                  }}
-                >
-                  Edit Account
-                </Button> */}
                 <Button
                   className="update-profile"
                   onClick={() => setIsEdittingPassword(true)}

@@ -108,10 +108,6 @@ export default function Dashboard() {
     setOpen(true);
   };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
   return (
     <>
       {err ? (

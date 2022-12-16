@@ -59,10 +59,6 @@ function NavBar() {
     setOpen(true);
   };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
   return (
     <AppBar sx={{ bgcolor: "rgb(0, 0, 0)" }} position="static">
       <Container maxWidth="xl">

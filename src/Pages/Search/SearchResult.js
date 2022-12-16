@@ -11,17 +11,13 @@ import ReusablePagination from "../../components/Pagination/ReusablePagination";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import SearchIcon from "@mui/icons-material/Search";
-import Loading from "../../components/Loading/Loading";
 import styled from "styled-components";
 
 const SearchResult = () => {
-  // const [searchedRecipe, setSearchedRecipe] = useState([]);
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
   const [filterResult, setfilterResult] = useState([]);
-
-  // const [isLoading, setIsLoading] = useState(false);
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -49,15 +45,11 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          console.log(response.data.results);
-          // setSearchedRecipe(response.data.results);
           setfilterResult(response.data.results)
         })
         .catch((error) => setError(errorMessage));
     }
   }, [search]);
-  // console.log("Results", searchedRecipe);
-  console.log(filterResult)
 
   const count = Math.ceil(filterResult.length / perPage);
   const pageData = ReusablePagination(filterResult, perPage);
@@ -71,25 +63,17 @@ const SearchResult = () => {
     setOpen(true);
   };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
   return (
     <>
       {error ? (
         <StyledError>{error}</StyledError>
       ) : (
         <>
-          {/* {isLoading ? ( <Loading />) : ( */}
           <Container className="background">
-            {/* <Box> */}
             <Filter
-              // filterResult={filterResult}
               setfilterResult={setfilterResult}
               search={search}
               params={params}
-              // searchedRecipe={searchedRecipe}
             />
 
             <Box
@@ -137,7 +121,6 @@ const SearchResult = () => {
                 </div>
               )}
             </Box>
-            {/* </Box> */}
 
             <Box>
               <Stack spacing={2}>
@@ -165,7 +148,6 @@ const SearchResult = () => {
               </Stack>
             </Box>
           </Container>
-          {/* )} */}
         </>
       )}
     </>
