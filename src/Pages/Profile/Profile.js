@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import axios from "axios";
 import "./Profile.css";
 
@@ -126,7 +125,7 @@ const Profile = () => {
         >
           My Profile
         </Typography>
-        {isEdittingAccount ? (
+        {/* {isEdittingAccount ? (
           <Box
             component="form"
             onSubmit={handleEditAccountSubmit}
@@ -170,6 +169,7 @@ const Profile = () => {
                 <Button
                   className="update-profile"
                   type="submit"
+                  // disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
                   variant="outlined"
                   sx={{
                     mt: 3,
@@ -185,10 +185,30 @@ const Profile = () => {
                 >
                   Save
                 </Button>
+                <Button
+                  className="update-profile"
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                  }}
+                  onClick={() => setIsEdittingAccount(false)}
+                >
+                  Cancel
+                </Button>
               </CardActions>
             </Card>
           </Box>
-        ) : isEdittingPassword ? (
+        ) :  */}
+        
+        {isEdittingPassword ? (
           <Box
             component="form"
             onSubmit={handleEditPasswordSubmit}
@@ -248,6 +268,27 @@ const Profile = () => {
               <CardActions sx={{ justifyContent: "center" }}>
                 <Button
                   className="update-profile"
+                  variant="outlined"
+                  sx={{
+                    mt: 3,
+                    mb: 2,
+                    display: "inline",
+                    height: "50px",
+                    backgroundColor: "black",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "#5a5a5a",
+                    },
+                    "&.Mui-disabled": {
+                      background: "white",
+                    },
+                  }}
+                  onClick={() => setIsEdittingPassword(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="update-profile"
                   disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
                   type="submit"
                   variant="outlined"
@@ -305,7 +346,7 @@ const Profile = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center" }}>
-                <Button
+                {/* <Button
                   className="update-profile"
                   onClick={() => setIsEdittingAccount(true)}
                   variant="outlined"
@@ -322,7 +363,7 @@ const Profile = () => {
                   }}
                 >
                   Edit Account
-                </Button>
+                </Button> */}
                 <Button
                   className="update-profile"
                   onClick={() => setIsEdittingPassword(true)}
