@@ -16,6 +16,7 @@
 * [Getting Started](#getting-started)
 * [.env (backend only)](#env-backend-only)
 * [APIs](#apis)
+* [Walkthrough Video](#walkthrough-video)
 * [Deployment](#deployment)
 
 ***
@@ -162,6 +163,12 @@ Get a randomly generated recipe
 - GET `/api/v1/recipes/random`
 
   Always the same for a given day. Do not put in an option for query. 
+
+<br />
+
+## Walkthrough Video
+
+![My Kitchen](https://user-images.githubusercontent.com/74130107/208176025-7d57dbed-75d7-4fe6-99b7-5eadf1661a07.gif)
 
 <br />
 
