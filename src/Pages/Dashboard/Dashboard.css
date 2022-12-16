@@ -1,5 +1,5 @@
 body {
-  background-image: url("../../assets/Images/background.jpg");
+  background-image: url("/public/Images/background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -7,25 +7,38 @@ body {
 .trending {
   margin-bottom: 100px;
 }
-h1 {
-  margin: 4rem 0;
-}
+
 .greet {
-  margin-top: 4rem;
+  margin: 4rem 0;
   text-align: center;
 }
-a {
-  font-size: 1.2rem;
-  text-decoration: none;
-}
+
 .searchContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-@media (max-width: 600px) {
+
+.recipeContainer {
+  margin-bottom: 16%;
+  width: 95%;
+}
+
+@media (max-width: 768px) {
   .searchContainer {
     display: flex;
     flex-direction: column-reverse;
+  }
+
+  .recipeContainer {
+    margin-bottom: 28%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .recipeContainer {
+    margin-bottom: 58%;
+    width: 100%;
   }
 }

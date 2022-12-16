@@ -8,8 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const SearchForm = (props) => {
-  const { onClose, open } = props;
+const SearchForm = ({ setOpen, open }) => {
   const [searchInput, setSearchInput] = useState("");
   const [checked, setChecked] = useState([]);
   let navigate = useNavigate();
@@ -26,7 +25,7 @@ const SearchForm = (props) => {
   ];
 
   const handleClose = () => {
-    onClose();
+   setOpen(false)
   };
 
   const handleCheckbox = (event) => {

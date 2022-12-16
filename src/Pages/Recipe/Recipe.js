@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
+import { GiCook } from "react-icons/gi";
 import { HiClock } from "react-icons/hi";
 import { ImLeaf } from "react-icons/im";
 import { GiMuscleUp, GiCow } from "react-icons/gi";
@@ -168,6 +169,22 @@ export default function Recipe() {
                         >
                           {data.title}
                         </Typography>
+
+                        {data.cuisines ? (
+                          <Typography
+                            variant="body2"
+                            gutterBottom
+                            sx={{ fontSize: "1.1rem" }}
+                          >
+                            <GiCook
+                              style={{
+                                margin: "0 1.2rem 0 1.1rem",
+                              }}
+                            />
+                            {data.cuisines[1] || data.cuisines[0] || `Any `}{" "}
+                            cuisine.
+                          </Typography>
+                        ) : null}
                         <Typography
                           variant="body2"
                           gutterBottom
@@ -284,11 +301,14 @@ export default function Recipe() {
               <Paper
                 sx={{
                   p: 2,
-                  margin: "5rem 0 7rem 0",
+                  margin: "5rem 0 10rem 0",
                   flexGrow: 1,
                   borderRadius: "2rem",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  ["@media (max-width:425px)"]: {
+                    marginBottom: "12rem",
+                  },
                 }}
               >
                 <Grid
@@ -323,7 +343,11 @@ export default function Recipe() {
                           }}
                         >
                           {ingredients.map((i) => {
-                            return <li key={i}>{i}</li>;
+                            return (
+                              <li key={i} className="ingredientsList">
+                                {i}
+                              </li>
+                            );
                           })}
                         </Typography>
                         <Typography
@@ -347,7 +371,11 @@ export default function Recipe() {
                           }}
                         >
                           {instructions.map((i) => {
-                            return <li key={i}>{i}</li>;
+                            return (
+                              <li key={i} className="ingredientsList">
+                                {i}
+                              </li>
+                            );
                           })}
                         </Typography>
                         <Typography
@@ -365,12 +393,14 @@ export default function Recipe() {
                             fontSize: "1.1rem",
                             textAlign: "justify",
                             textJustify: "interWord",
+
                             ["@media (max-width:600px)"]: {
                               maxWidth: "90%",
                               fontSize: "0.9rem",
                             },
                           }}
                           dangerouslySetInnerHTML={sanitizedData()}
+                          className="recipeLink"
                         ></Typography>
                         <Typography
                           gutterBottom
@@ -384,13 +414,13 @@ export default function Recipe() {
                           href={data.sourceUrl}
                           target="_blank"
                           underline="none"
+                          color="#1976d2"
                           sx={{
                             ["@media (max-width:600px)"]: {
                               maxWidth: "60%",
                               fontSize: "0.9rem",
                               textAlign: "justify",
                               textJustify: "interWord",
-                              color: "#1976d2",
                             },
                           }}
                         >

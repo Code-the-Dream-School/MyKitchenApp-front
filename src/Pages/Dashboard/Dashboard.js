@@ -108,10 +108,6 @@ export default function Dashboard() {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen();
-  };
-
   return (
     <>
       {err ? (
@@ -128,10 +124,10 @@ export default function Dashboard() {
               <SearchIcon />
               Search new recipe
             </StyledButton>
-            <SearchForm open={open} onClose={handleClose} />
+            <SearchForm open={open} setOpen={setOpen} />
           </div>
 
-          <div>
+          <div className="recipeContainer">
             <div>
               <h2>Breakfast</h2>
 
@@ -139,7 +135,7 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                       drag: true,
                     }}
@@ -147,7 +143,11 @@ export default function Dashboard() {
                     {breakfast.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}
@@ -168,14 +168,18 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                     }}
                   >
                     {salad.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}
@@ -196,14 +200,18 @@ export default function Dashboard() {
                 <div className="trending">
                   <Splide
                     options={{
-                      perPage: 4,
+                      perPage: 3,
                       gap: "5",
                     }}
                   >
                     {drink.map((recipe) => {
                       return (
                         <SplideSlide key={recipe.id}>
-                          <Link to={"/recipe/" + recipe.id} key={recipe.id}>
+                          <Link
+                            to={"/recipe/" + recipe.id}
+                            key={recipe.id}
+                            style={{ textDecoration: "none" }}
+                          >
                             <ReusableCard
                               key={recipe.id}
                               title={recipe.title}

@@ -1,0 +1,16 @@
+@media screen and (min-width: 600px) {
+  .profile-input {
+    width: 400px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .update-profile {
+    font-size: 0.7rem !important;
+    padding: 3px 9px !important;
+  }
+
+  .profile-card {
+    margin-top: 30px !important;
+  }
+}
