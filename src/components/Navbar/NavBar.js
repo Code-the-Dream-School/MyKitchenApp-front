@@ -74,6 +74,8 @@ function NavBar() {
             alt="logo"
             src="/MyKitchenLogoNoName.jpeg"
           />
+          
+       {/* Mobile left dropdown Menu */}   
           <Typography
             variant="h6"
             noWrap
@@ -165,6 +167,7 @@ function NavBar() {
             </Menu>
           </Box>
 
+{/* desktop navbar links */}
           <Typography
             variant="h5"
             noWrap
@@ -207,7 +210,7 @@ function NavBar() {
               <SearchIcon />
               Search
             </Button>
-            <SearchForm open={open}setOpen={setOpen} />
+            <SearchForm open={open} setOpen={setOpen} />
 
             {pages.map((page) => (
               <Button
@@ -234,13 +237,14 @@ function NavBar() {
                 color: "rgb(255, 255, 255)",
                 paddingLeft: "8px",
               }}
-              to="/"
+              onClick={handleLogout}
             >
               LOGOUT
             </NavLink>
             <SearchForm open={open} setOpen={setOpen} />
           </Box>
 
+          {/* User initial drop down */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
