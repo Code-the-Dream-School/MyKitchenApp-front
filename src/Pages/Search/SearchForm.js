@@ -47,7 +47,6 @@ const SearchForm = ({ setOpen, open }) => {
   const handleSearch = (event) => {
     event.preventDefault();
     const trimedSearchInput = searchInput.trim();
-    console.log(trimedSearchInput)
     let path =
       location.pathname !== "searchresult"
         ? `/searchresult/${trimedSearchInput}/${allIntolerances}`
