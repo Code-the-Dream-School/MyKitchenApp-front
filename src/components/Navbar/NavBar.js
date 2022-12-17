@@ -74,8 +74,8 @@ function NavBar() {
             alt="logo"
             src="/MyKitchenLogoNoName.jpeg"
           />
-          
-       {/* Mobile left dropdown Menu */}   
+
+          {/* Mobile left dropdown Menu */}
           <Typography
             variant="h6"
             noWrap
@@ -167,7 +167,7 @@ function NavBar() {
             </Menu>
           </Box>
 
-{/* desktop navbar links */}
+          {/* desktop navbar links */}
           <Typography
             variant="h5"
             noWrap
@@ -230,7 +230,7 @@ function NavBar() {
                 </NavLink>
               </Button>
             ))}
-            <NavLink
+            <Button
               style={{
                 fontSize: "1.2rem",
                 textDecoration: "none",
@@ -240,7 +240,7 @@ function NavBar() {
               onClick={handleLogout}
             >
               LOGOUT
-            </NavLink>
+            </Button>
             <SearchForm open={open} setOpen={setOpen} />
           </Box>
 
