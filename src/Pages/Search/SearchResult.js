@@ -17,7 +17,8 @@ const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
-  const [filterResult, setfilterResult] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [selectedFilterTerm, setSelectedFilterTerm] = useState("");
 
   const url = "/api/v1/recipes";
   const { search } = useParams();
@@ -45,14 +46,15 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          setfilterResult(response.data.results)
+          setFilteredResults(response.data.results)
+          setSelectedFilterTerm("")
         })
         .catch((error) => setError(errorMessage));
     }
   }, [search]);
 
-  const count = Math.ceil(filterResult.length / perPage);
-  const pageData = ReusablePagination(filterResult, perPage);
+  const count = Math.ceil(filteredResults.length / perPage);
+  const pageData = ReusablePagination(filteredResults, perPage);
 
   const handleChange = (event, p) => {
     setPage(p);
@@ -71,9 +73,11 @@ const SearchResult = () => {
         <>
           <Container className="background">
             <Filter
-              setfilterResult={setfilterResult}
+              setFilteredResults={setFilteredResults}
               search={search}
               params={params}
+              selectedFilterTerm={selectedFilterTerm}
+              setSelectedFilterTerm={setSelectedFilterTerm}
             />
 
             <Box
@@ -84,7 +88,7 @@ const SearchResult = () => {
                 alignItems: "center",
               }}
             >
-              {filterResult.length ? (
+              {filteredResults.length ? (
                 pageData.currentData().map((item) => {
                   return (
                     <Link
@@ -142,6 +146,12 @@ const SearchResult = () => {
                       fontSize: "1rem",
                       fontWeight: "800",
                       backgroundColor: "aliceblue",
+                    },
+                    ["@media (max-width: 768px)"]: { // eslint-disable-line no-useless-computed-key
+                      marginBottom: "30%",
+                    },
+                    ["@media (max-width: 425px)"]: { // eslint-disable-line no-useless-computed-key
+                      marginBottom: "60%",
                     },
                   }}
                 />

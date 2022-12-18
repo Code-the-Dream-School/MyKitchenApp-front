@@ -51,9 +51,8 @@ const filterData = [
   },
 ];
 
-const Filter = ({setfilterResult, search, params}) => {
+const Filter = ({ setFilteredResults, search, params, selectedFilterTerm,  setSelectedFilterTerm }) => {
   const [error, setError] = useState(false);
-  const [selected, setSelected] = useState("");
 
   const url = "/api/v1/recipes";
   const token = localStorage.getItem("myKitchenAppToken");
@@ -65,11 +64,11 @@ const Filter = ({setfilterResult, search, params}) => {
         const data = await axios.get(
           `${url}?includeIngredients=${encodeURIComponent(
             search
-          )}&intolerances=${params.intolerances}&cuisine=${selected}&number=18`,
+          )}&intolerances=${params.intolerances}&cuisine=${selectedFilterTerm}&number=18`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (data) {
-          setfilterResult(data.data.results);
+          setFilteredResults(data.data.results);
         }
       } catch (error) {
         console.log("Error", error.message);
@@ -77,52 +76,45 @@ const Filter = ({setfilterResult, search, params}) => {
       }
     };
     cuisineType();
-  }, [selected]);
-  
+  }, [selectedFilterTerm]);
+
   const handleFilter = (name) => {
-    setSelected(name);
+    setSelectedFilterTerm(name);
   };
-  
+
   return (
     <>
       {error ? (
         <h1 className="errorMsg">{error}</h1>
       ) : (
         <>
-            <Container>
-              <h1 className="showElement">
-                Search results for {selected}
-              </h1>
-              <Grid
-                sx={{
-                  margin: "2rem 0rem",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
-              >
-                {filterData.map((item) => (
-                  <div
-                    className="filterBtn"
-                    key={item.name}
-                    style={{
-                      borderBottom: selected === item.name ? "1px solid" : "",
-                    }}
-                    onClick={() => {
-                      handleFilter(item.name);
-                    }}
-                  >
-                    <img
-                      className="cuisineImg"
-                      src={item.img}
-                      alt={item.name}
-                    />
-                    <div className="cuisineName">{item.name}</div>
-                  </div>
-                ))}
-              </Grid>
-              
-            </Container>
+          <Container>
+            <h1 className="showElement">Search results for {selectedFilterTerm}</h1>
+            <Grid
+              sx={{
+                margin: "2rem 0rem",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              {filterData.map((item) => (
+                <div
+                  className="filterBtn"
+                  key={item.name}
+                  style={{
+                    borderBottom: selectedFilterTerm === item.name ? "1px solid" : "",
+                  }}
+                  onClick={() => {
+                    handleFilter(item.name);
+                  }}
+                >
+                  <img className="cuisineImg" src={item.img} alt={item.name} />
+                  <div className="cuisineName">{item.name}</div>
+                </div>
+              ))}
+            </Grid>
+          </Container>
         </>
       )}
     </>
