@@ -54,9 +54,12 @@ function App() {
               path="searchresult/:search/:intolerances"
               element={<SearchResult />}
             />
-            <Route path="searchresult/:search" element={<SearchResult />} />
-            <Route path="favorite" element={<Favorite />} />
-            <Route path="recipe/:id" element={<Recipe />} />
+            <Route
+              path="searchresult/:search"
+              element={<SearchResult theme={theme} />}
+            />
+            <Route path="favorite" element={<Favorite theme={theme} />} />
+            <Route path="recipe/:id" element={<Recipe theme={theme} />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

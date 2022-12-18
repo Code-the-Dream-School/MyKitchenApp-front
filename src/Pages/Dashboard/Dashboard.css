@@ -24,19 +24,19 @@ body {
   width: 95%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .searchContainer {
     display: flex;
     flex-direction: column-reverse;
   }
 
   .recipeContainer {
-    margin-bottom: 28%;
+    margin-bottom: 35%;
     width: 100%;
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 600px) {
   .recipeContainer {
     margin-bottom: 58%;
     width: 100%;

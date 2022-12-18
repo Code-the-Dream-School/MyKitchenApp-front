@@ -93,13 +93,15 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        setIsEdittingPassword(false);
+        if (response.status === 200) {
+          setIsEdittingPassword(false);
+        }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
+        if (error.response.status === 500 || 401) {
           setError(true);
           setErrorMessage(
-            `${error.response.statusText}, please try again later!`
+            `${error.response.statusText}, please try again later with correct password!`
           );
           return;
         }
@@ -125,7 +127,7 @@ const Profile = () => {
         >
           My Profile
         </Typography>
-        
+
         {isEdittingPassword ? (
           <Box
             component="form"
