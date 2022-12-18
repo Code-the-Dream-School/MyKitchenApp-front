@@ -147,6 +147,12 @@ const SearchResult = () => {
                       fontWeight: "800",
                       backgroundColor: "aliceblue",
                     },
+                    ["@media (max-width: 768px)"]: { // eslint-disable-line no-useless-computed-key
+                      marginBottom: "30%",
+                    },
+                    ["@media (max-width: 425px)"]: { // eslint-disable-line no-useless-computed-key
+                      marginBottom: "60%",
+                    },
                   }}
                 />
               </Stack>
