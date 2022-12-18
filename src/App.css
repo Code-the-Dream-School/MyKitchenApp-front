@@ -1,5 +1,6 @@
 .error-msg {
   background-color: red;
+  margin: 16px;
   color: white;
   padding: 5px;
   text-align: center;

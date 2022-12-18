@@ -311,6 +311,7 @@ export default function Recipe({ theme }) {
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
                   [theme.breakpoints.down("sm")]: {
                     marginBottom: "12rem",
+                    fontSize: "0.8rem",
                   },
                 }}
               >
@@ -332,7 +333,7 @@ export default function Recipe({ theme }) {
                           sx={{
                             fontSize: "1.1rem",
                             [theme.breakpoints.down("sm")]: {
-                              fontSize: "0.9rem",
+                              paddingRight: "40px",
                             },
                           }}
                         >
@@ -359,7 +360,7 @@ export default function Recipe({ theme }) {
                             fontSize: "1.1rem",
 
                             [theme.breakpoints.down("sm")]: {
-                              fontSize: "0.9rem",
+                              paddingRight: "40px",
                             },
                           }}
                         >
@@ -388,7 +389,7 @@ export default function Recipe({ theme }) {
                             textJustify: "interWord",
 
                             [theme.breakpoints.down("sm")]: {
-                              fontSize: "0.9rem",
+                              paddingRight: "40px",
                             },
                           }}
                           dangerouslySetInnerHTML={sanitizedData()}
@@ -410,8 +411,7 @@ export default function Recipe({ theme }) {
                           sx={{
                             [theme.breakpoints.down("sm")]: {
                               fontSize: "0.9rem",
-                              textAlign: "justify",
-                              textJustify: "interWord",
+                              paddingRight: "40px",
                             },
                           }}
                         >

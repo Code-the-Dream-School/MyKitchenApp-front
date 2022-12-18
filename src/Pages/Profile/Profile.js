@@ -98,10 +98,11 @@ const Profile = () => {
         }
       })
       .catch((error) => {
-        if (error.response.status === 500 || 401) {
+        if (error.response.status) {
           setError(true);
           setErrorMessage(
-            `${error.response.statusText}, please try again later with correct password!`
+            `${error.response.statusText}. 
+            Please try again later with correct password!`
           );
           return;
         }
@@ -141,7 +142,13 @@ const Profile = () => {
                 margin: "auto",
               }}
             >
-              <CardContent>
+              <CardContent
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <TextField
                   className="profile-input"
                   margin="normal"
@@ -181,10 +188,11 @@ const Profile = () => {
                   helperText={invalidConfirmPasswordMessage}
                   onChange={handleConfirmPasswordChange}
                 />
+                {error && (
+                  <p className="error-msg profile-input">{errorMessage}</p>
+                )}
               </CardContent>
-              {error && (
-                <p className="error-msg profile-input">{errorMessage}</p>
-              )}
+
               <CardActions sx={{ justifyContent: "center" }}>
                 <Button
                   className="update-profile"
