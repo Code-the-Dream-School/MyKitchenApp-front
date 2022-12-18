@@ -93,11 +93,11 @@ export default function Favorite({ currentUser, theme }) {
                     fontWeight: "800",
                     backgroundColor: "aliceblue",
                   },
-                  [theme.breakpoints.up("md")]: {
-                    marginBottom: "10rem",
+                  [theme.breakpoints.down("md")]: {
+                    marginBottom: "15rem",
                   },
-                  [theme.breakpoints.up("sm")]: {
-                    marginBottom: "10rem",
+                  [theme.breakpoints.down("sm")]: {
+                    marginBottom: "15rem",
                   },
                 }}
               />
