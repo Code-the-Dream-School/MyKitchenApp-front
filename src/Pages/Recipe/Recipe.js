@@ -24,7 +24,7 @@ import Loading from "../../components/Loading/Loading";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 
-export default function Recipe() {
+export default function Recipe({ theme }) {
   const [data, setData] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
@@ -127,21 +127,27 @@ export default function Recipe() {
               {" "}
               <Paper
                 sx={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
                   p: 2,
                   marginTop: "5rem",
                   flexGrow: 1,
                   borderRadius: "2rem",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  // [theme.breakpoints.down("md")]: {},
+                  //[theme.breakpoints.down("sm")]: {},
                 }}
               >
                 <Grid
                   container
                   spacing={2}
                   sx={{
-                    ["@media (max-width:820px)"]: {
-                      maxWidth: "90%",
+                    [theme.breakpoints.down("md")]: {
+                      flexDirection: "column",
+                      flexWrap: "nowrap",
                     },
+                    //[theme.breakpoints.down("sm")]: {},
                   }}
                 >
                   <Grid item>
@@ -162,9 +168,6 @@ export default function Recipe() {
                           component="div"
                           sx={{
                             fontSize: "2rem",
-                            ["@media (max-width:600px)"]: {
-                              maxWidth: "80%",
-                            },
                           }}
                         >
                           {data.title}
@@ -306,20 +309,13 @@ export default function Recipe() {
                   borderRadius: "2rem",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-                  ["@media (max-width:425px)"]: {
+                  [theme.breakpoints.down("sm")]: {
                     marginBottom: "12rem",
+                    fontSize: "0.8rem",
                   },
                 }}
               >
-                <Grid
-                  container
-                  spacing={2}
-                  sx={{
-                    ["@media (max-width:600px)"]: {
-                      maxWidth: "90%",
-                    },
-                  }}
-                >
+                <Grid container spacing={2}>
                   <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={2}>
                       <Grid item xs>
@@ -336,9 +332,8 @@ export default function Recipe() {
                           gutterBottom
                           sx={{
                             fontSize: "1.1rem",
-                            ["@media (max-width:600px)"]: {
-                              maxWidth: "80%",
-                              fontSize: "0.9rem",
+                            [theme.breakpoints.down("sm")]: {
+                              paddingRight: "40px",
                             },
                           }}
                         >
@@ -364,9 +359,8 @@ export default function Recipe() {
                           sx={{
                             fontSize: "1.1rem",
 
-                            ["@media (max-width:600px)"]: {
-                              maxWidth: "90%",
-                              fontSize: "0.9rem",
+                            [theme.breakpoints.down("sm")]: {
+                              paddingRight: "40px",
                             },
                           }}
                         >
@@ -394,9 +388,8 @@ export default function Recipe() {
                             textAlign: "justify",
                             textJustify: "interWord",
 
-                            ["@media (max-width:600px)"]: {
-                              maxWidth: "90%",
-                              fontSize: "0.9rem",
+                            [theme.breakpoints.down("sm")]: {
+                              paddingRight: "40px",
                             },
                           }}
                           dangerouslySetInnerHTML={sanitizedData()}
@@ -416,11 +409,9 @@ export default function Recipe() {
                           underline="none"
                           color="#1976d2"
                           sx={{
-                            ["@media (max-width:600px)"]: {
-                              maxWidth: "60%",
+                            [theme.breakpoints.down("sm")]: {
                               fontSize: "0.9rem",
-                              textAlign: "justify",
-                              textJustify: "interWord",
+                              paddingRight: "40px",
                             },
                           }}
                         >

@@ -46,9 +46,10 @@ const SearchForm = ({ setOpen, open }) => {
 
   const handleSearch = (event) => {
     event.preventDefault();
+    const trimedSearchInput = searchInput.trim();
     let path =
       location.pathname !== "searchresult"
-        ? `/searchresult/${searchInput}/${allIntolerances}`
+        ? `/searchresult/${trimedSearchInput}/${allIntolerances}`
         : "/";
     navigate(path, { replace: true });
     handleClose();

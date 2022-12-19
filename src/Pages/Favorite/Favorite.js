@@ -8,7 +8,7 @@ import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-export default function Favorite({ currentUser }) {
+export default function Favorite({ currentUser, theme }) {
   const [favorites, setFavorites] = useState([]);
   const [err, setErr] = useState(null);
   const [page, setPage] = useState(1);
@@ -50,28 +50,28 @@ export default function Favorite({ currentUser }) {
           <div>
             <h1 className="favoriteHead">Favorite recipes</h1>
           </div>
-          <div>
-            {favorites || favorites.length ? (
-              <div className="favorites">
-                {pageData.currentData().map((recipe) => {
-                  return (
-                    <Link
-                      to={"/recipe/" + recipe.recipeId}
+
+          {favorites || favorites.length ? (
+            <div className="favorites">
+              {pageData.currentData().map((recipe) => {
+                return (
+                  <Link
+                    to={"/recipe/" + recipe.recipeId}
+                    key={recipe.recipeId}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <ReusableCard
                       key={recipe.recipeId}
-                      style={{textDecoration: "none", }}
-                    >
-                      <ReusableCard
-                        key={recipe.recipeId}
-                        title={recipe.title}
-                        data={recipe}
-                        image={recipe.image}
-                      />
-                    </Link>
-                  );
-                })}
-              </div>
-            ) : null}
-          </div>
+                      title={recipe.title}
+                      data={recipe}
+                      image={recipe.image}
+                    />
+                  </Link>
+                );
+              })}
+            </div>
+          ) : null}
+
           <Box>
             <Stack spacing={2}>
               <Pagination
@@ -93,11 +93,11 @@ export default function Favorite({ currentUser }) {
                     fontWeight: "800",
                     backgroundColor: "aliceblue",
                   },
-                  ["@media (max-width:768px)"]: {
-                    marginBottom: "23%",
+                  [theme.breakpoints.down("md")]: {
+                    marginBottom: "15rem",
                   },
-                  ["@media (max-width:425px)"]: {
-                    marginBottom: "62%",
+                  [theme.breakpoints.down("sm")]: {
+                    marginBottom: "15rem",
                   },
                 }}
               />

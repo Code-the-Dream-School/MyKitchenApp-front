@@ -29,6 +29,8 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [passwordChangedMessage, setPasswordChangedMessage] = useState("");
+
   const user = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
   const handleEditAccountSubmit = (event) => {
@@ -75,6 +77,15 @@ const Profile = () => {
     }
   }, [newPassword, confirmPassword]);
 
+  const handleCancelPasswordChange = () => {
+    setIsEdittingPassword(false);
+    setPassword("");
+    setNewPassword("");
+    setIsNewPasswordInvalid(true);
+    setConfirmPassword("");
+    setIsConfirmPasswordInvalid(true);
+  };
+
   const handleEditPasswordSubmit = (event) => {
     event.preventDefault();
     const url = "/api/v1/auth/changePassword";
@@ -93,13 +104,23 @@ const Profile = () => {
         },
       })
       .then((response) => {
-        setIsEdittingPassword(false);
+        if (response.status === 200) {
+          setIsEdittingPassword(false);
+          setPassword("");
+          setNewPassword("");
+          setIsNewPasswordInvalid(true);
+          setConfirmPassword("");
+          setIsConfirmPasswordInvalid(true);
+          setPasswordChangedMessage("Password changed successfully!");
+          setTimeout(() => setPasswordChangedMessage(""), 5000);
+        }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
+        if (error.response.status) {
           setError(true);
           setErrorMessage(
-            `${error.response.statusText}, please try again later!`
+            `${error.response.statusText}. 
+            Please try again later with correct password!`
           );
           return;
         }
@@ -125,7 +146,7 @@ const Profile = () => {
         >
           My Profile
         </Typography>
-        
+
         {isEdittingPassword ? (
           <Box
             component="form"
@@ -139,7 +160,13 @@ const Profile = () => {
                 margin: "auto",
               }}
             >
-              <CardContent>
+              <CardContent
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <TextField
                   className="profile-input"
                   margin="normal"
@@ -179,10 +206,11 @@ const Profile = () => {
                   helperText={invalidConfirmPasswordMessage}
                   onChange={handleConfirmPasswordChange}
                 />
+                {error && (
+                  <p className="error-msg profile-input">{errorMessage}</p>
+                )}
               </CardContent>
-              {error && (
-                <p className="error-msg profile-input">{errorMessage}</p>
-              )}
+
               <CardActions sx={{ justifyContent: "center" }}>
                 <Button
                   className="update-profile"
@@ -201,13 +229,17 @@ const Profile = () => {
                       background: "white",
                     },
                   }}
-                  onClick={() => setIsEdittingPassword(false)}
+                  onClick={handleCancelPasswordChange}
                 >
                   Cancel
                 </Button>
                 <Button
                   className="update-profile"
-                  disabled={isNewPasswordInvalid || isConfirmPasswordInvalid}
+                  disabled={
+                    !password ||
+                    isNewPasswordInvalid ||
+                    isConfirmPasswordInvalid
+                  }
                   type="submit"
                   variant="outlined"
                   sx={{
@@ -284,6 +316,11 @@ const Profile = () => {
                   Change Password
                 </Button>
               </CardActions>
+              {passwordChangedMessage && (
+                <p style={{ textTransform: "uppercase", textAlign: "center" }}>
+                  {passwordChangedMessage}
+                </p>
+              )}
             </Card>
           </Box>
         )}
