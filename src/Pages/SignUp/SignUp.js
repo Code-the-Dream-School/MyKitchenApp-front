@@ -136,6 +136,7 @@ export default function SignUp({ setToggle, theme }) {
         [theme.breakpoints.up("md")]: {
           paddingTop: "20vh",
         },
+        
       }}
     >
       <Box
@@ -145,6 +146,12 @@ export default function SignUp({ setToggle, theme }) {
           margin: "auto",
           width: "80%",
           maxWidth: "800px",
+          [theme.breakpoints.down("md")]: {
+            marginBottom: "10rem",
+          },
+          [theme.breakpoints.down("sm")]: {
+            marginBottom: "10rem",
+          },
         }}
       >
         <Typography component="h1" variant="h3" align="center">
