@@ -1,9 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Container from "@mui/material/Container";
 import FooterPublic from "../Footer/FooterPublic";
 
 const LayoutPublic = ({ children, theme }) => {
+  const isAuthenticated = localStorage.getItem("myKitchenAppToken");
+
+  if (isAuthenticated) {
+    return <Navigate to={"/dashboard"} replace />;
+  }
+  
   return (
     <>
       <Container
