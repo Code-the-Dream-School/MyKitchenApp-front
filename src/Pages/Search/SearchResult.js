@@ -13,7 +13,7 @@ import Stack from "@mui/material/Stack";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 
-const SearchResult = () => {
+const SearchResult = ({ theme }) => {
   const [page, setPage] = useState(1);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -30,9 +30,9 @@ const SearchResult = () => {
   const recipeResult = async (searchTerm) => {
     try {
       const data = await axios.get(
-        `${url}?includeIngredients=${encodeURIComponent(searchTerm)}&intolerances=${
-          params.intolerances
-        }&number=18`,
+        `${url}?includeIngredients=${encodeURIComponent(
+          searchTerm
+        )}&intolerances=${params.intolerances}&number=18`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       return data;
@@ -46,8 +46,8 @@ const SearchResult = () => {
       window.scroll(0, 0);
       recipeResult(search)
         .then((response) => {
-          setFilteredResults(response.data.results)
-          setSelectedFilterTerm("")
+          setFilteredResults(response.data.results);
+          setSelectedFilterTerm("");
         })
         .catch((error) => setError(errorMessage));
     }
@@ -71,25 +71,24 @@ const SearchResult = () => {
         <StyledError>{error}</StyledError>
       ) : (
         <>
-          <Container className="background">
-            <Filter
-              setFilteredResults={setFilteredResults}
-              search={search}
-              params={params}
-              selectedFilterTerm={selectedFilterTerm}
-              setSelectedFilterTerm={setSelectedFilterTerm}
-            />
+          <Filter
+            setFilteredResults={setFilteredResults}
+            search={search}
+            params={params}
+            selectedFilterTerm={selectedFilterTerm}
+            setSelectedFilterTerm={setSelectedFilterTerm}
+          />
 
-            <Box
-              sx={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              {filteredResults.length ? (
-                pageData.currentData().map((item) => {
+          <Box>
+            {filteredResults.length ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                {pageData.currentData().map((item) => {
                   return (
                     <Link
                       to={"/recipe/" + item.id}
@@ -104,60 +103,58 @@ const SearchResult = () => {
                       />
                     </Link>
                   );
-                })
-              ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography variant="h3">No results for {search}!</Typography>
-                  <Typography variant="h4">
-                    Please try another search!
-                  </Typography>
-                  <StyledButton open={open} onClick={handleClickOpen}>
-                    <SearchIcon />
-                    Search new recipe
-                  </StyledButton>
-                  <SearchForm open={open} setOpen={setOpen} />
-                </div>
-              )}
-            </Box>
+                })}
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography variant="h3">No results for {search}!</Typography>
+                <Typography variant="h4">Please try another search!</Typography>
+                <StyledButton open={open} onClick={handleClickOpen}>
+                  <SearchIcon />
+                  Search new recipe
+                </StyledButton>
+                <SearchForm open={open} setOpen={setOpen} />
+              </div>
+            )}
+          </Box>
 
-            <Box>
-              <Stack spacing={2}>
-                <Pagination
-                  count={count}
-                  page={page}
-                  onChange={handleChange}
-                  showFirstButton
-                  showLastButton
-                  variant="outlined"
-                  shape="rounded"
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "center",
-                    marginTop: "2rem",
-                    marginBottom: "15%",
-                    "& .MuiPaginationItem-root": {
-                      fontSize: "1rem",
-                      fontWeight: "800",
-                      backgroundColor: "aliceblue",
-                    },
-                    ["@media (max-width: 768px)"]: { // eslint-disable-line no-useless-computed-key
-                      marginBottom: "30%",
-                    },
-                    ["@media (max-width: 425px)"]: { // eslint-disable-line no-useless-computed-key
-                      marginBottom: "60%",
-                    },
-                  }}
-                />
-              </Stack>
-            </Box>
-          </Container>
+          <Box>
+            <Stack spacing={2}>
+              <Pagination
+                count={count}
+                page={page}
+                onChange={handleChange}
+                showFirstButton
+                showLastButton
+                variant="outlined"
+                shape="rounded"
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  marginTop: "2rem",
+                  marginBottom: "15%",
+                  "& .MuiPaginationItem-root": {
+                    fontSize: "1rem",
+                    fontWeight: "800",
+                    backgroundColor: "aliceblue",
+                  },
+                  [theme.breakpoints.down("md")]: {
+                    marginBottom: "15rem",
+                  },
+                  [theme.breakpoints.down("sm")]: {
+                    marginBottom: "15rem",
+                  },
+                }}
+              />
+            </Stack>
+          </Box>
         </>
       )}
     </>

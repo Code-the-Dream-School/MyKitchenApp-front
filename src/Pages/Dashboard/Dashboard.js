@@ -138,6 +138,15 @@ export default function Dashboard() {
                       perPage: 3,
                       gap: "5",
                       drag: true,
+
+                      breakpoints: {
+                        900: {
+                          perPage: 2,
+                        },
+                        600: {
+                          perPage: 1,
+                        },
+                      },
                     }}
                   >
                     {breakfast.map((recipe) => {
@@ -170,6 +179,14 @@ export default function Dashboard() {
                     options={{
                       perPage: 3,
                       gap: "5",
+                      breakpoints: {
+                        900: {
+                          perPage: 2,
+                        },
+                        600: {
+                          perPage: 1,
+                        },
+                      },
                     }}
                   >
                     {salad.map((recipe) => {
@@ -202,6 +219,14 @@ export default function Dashboard() {
                     options={{
                       perPage: 3,
                       gap: "5",
+                      breakpoints: {
+                        900: {
+                          perPage: 2,
+                        },
+                        600: {
+                          perPage: 1,
+                        },
+                      },
                     }}
                   >
                     {drink.map((recipe) => {
