@@ -52,7 +52,7 @@ function App() {
             />
             <Route
               path="searchresult/:search/:intolerances"
-              element={<SearchResult />}
+              element={<SearchResult theme={theme} />}
             />
             <Route
               path="searchresult/:search"
