@@ -8,6 +8,7 @@ import SignUp from "../SignUp/SignUp";
 
 export default function Landing({ theme }) {
   const [toggle, setToggle] = useState(true);
+
   return (
     <Grid
       container
@@ -17,10 +18,6 @@ export default function Landing({ theme }) {
           height: "110vh",
         },
         height: "1200px",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundImage:
-          "url(https://www.photos-elsoar.com/wp-content/images/Frame-of-vegetables-for-salad-780x540.jpg)",
       }}
     >
       <Grid

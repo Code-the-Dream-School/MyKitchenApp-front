@@ -29,8 +29,6 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [passwordChangedMessage, setPasswordChangedMessage] = useState("");
-
   const user = JSON.parse(localStorage.getItem("myKitchenAppUser"));
 
   const handleEditAccountSubmit = (event) => {
@@ -111,8 +109,7 @@ const Profile = () => {
           setIsNewPasswordInvalid(true);
           setConfirmPassword("");
           setIsConfirmPasswordInvalid(true);
-          setPasswordChangedMessage("Password changed successfully!");
-          setTimeout(() => setPasswordChangedMessage(""), 5000);
+          alert("Password changed successfully!");
         }
       })
       .catch((error) => {
@@ -316,11 +313,6 @@ const Profile = () => {
                   Change Password
                 </Button>
               </CardActions>
-              {passwordChangedMessage && (
-                <p style={{ textTransform: "uppercase", textAlign: "center" }}>
-                  {passwordChangedMessage}
-                </p>
-              )}
             </Card>
           </Box>
         )}
