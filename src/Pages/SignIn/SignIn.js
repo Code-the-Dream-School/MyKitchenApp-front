@@ -92,7 +92,6 @@ export default function SignIn({ setToggle, theme }) {
       sx={{
         opacity: "0.80",
         backgroundColor: "white",
-        paddingBottom: "160px",
         [theme.breakpoints.up("md")]: {
           paddingTop: "20vh",
         },
@@ -103,7 +102,7 @@ export default function SignIn({ setToggle, theme }) {
           display: "flex",
           flexDirection: "column",
           margin: "auto",
-          width: "80%",
+          width: "70%",
           maxWidth: "800px",
         }}
       >
